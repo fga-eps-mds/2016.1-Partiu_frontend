@@ -18,7 +18,7 @@
       url:"/home",
       views: {
         "menuContent": {
-            templateUrl: "views/home.html",
+            templateUrl: "views/home-logout.html",
         }
       }
     })
