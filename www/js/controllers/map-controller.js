@@ -1,66 +1,94 @@
 var app = angular.module('starter');
 
-app.controller('MapCtrl', function($scope, $ionicLoading, $compile) {
-  var myLatlng = new google.maps.LatLng(-15.989091, -48.045011);
-  var divElement = document.getElementById("map");
-  var marker;
+app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
+  var mapDiv = document.getElementById("map");
+  var image = 'img/cars/sobrenatural.png';
+  var marker = [];
+  var line;
+  var users = [
+    {lat: -15.989091, lng: -48.045011},
+    {lat: -15.802255, lng: -47.939872}
+  ];
+  var InfoHtml =  '<div id="content">'+
+                    '<h3 class="infoHtml">Partiu!</h3>'+
+                    '<div id="bodyContent">'+
+                      '<p>Casa</p>'+
+                    '</div>' +
+                  '</div>';
 
-  var icon = function(map, position) {
-    marker = new google.maps.Marker({
-      position: position,
-      animation: google.maps.Animation.BOUNCE,
-      // icon:'ionic.png'
-      title: 'UnB',
-      draggable: true,
-    });
-    marker.setMap(map);
+  $scope.teste = "mapCtrl";
+  $scope.img = image;
+  $scope.users = users;
+
+  //Cria o marcador do mapa
+  var createIcon = function(map, position) {
+      marker = new google.maps.Marker({
+        position: position,
+        animation: google.maps.Animation.DROP,
+        icon: $scope.img,
+        title: 'UnB',
+        draggable: false,
+      });
+      marker.setMap(map);
+      marker.addListener('click', toggleBounce);
   };
 
+  //Faz o marcadore pular ao ser clicado
+  var toggleBounce = function() {
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  };
+
+  //Deleta um marcador
+  var deleteIcon = function() {
+    marker.setMap(null);
+  };
+
+  //Cria uma janela de informação ao clicar no marcador
   var infoWindow = function(map) {
     var infowindow = new google.maps.InfoWindow({
-      content:"Partiu!"
+      content:InfoHtml,
+      maxWidth: 200
     });
     google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map,marker);
+      infowindow.open(map, marker);
     });
   };
+
+
 
   var detectDevice = function() {
     var useragent = navigator.userAgent;
-    var mapdiv = document.getElementById("map");
 
     if (useragent.indexOf('iPhone') != -1 ||
         useragent.indexOf('Android') != -1 ) {
-      mapdiv.style.width = '100%';
-      mapdiv.style.height = '100%';
+      mapDiv.style.width = '100%';
+      mapDiv.style.height = '100%';
     } else {
-      mapdiv.style.width = '600px';
-      mapdiv.style.height = '800px';
+      mapDiv.style.width = '600px';
+      mapDiv.style.height = '800px';
     }
+  };
+
+  var getTraficInformation = function(map) {
+    var trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
   }
 
-
-  var initialize = function() {
-
-    var mapOptions = {
-      center: myLatlng,
-      zoom: 16,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-    var map = new google.maps.Map(divElement, mapOptions);
-
-    icon(map, myLatlng);
-
-    infoWindow(map);
-
-    $scope.map = map;
+  var getPublicTransportation = function(map) {
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
   }
-  google.maps.event.addDomListener(window, 'load', initialize);
 
   $scope.centerOnMe = function() {
     if(!$scope.map) {
       return;
     }
+
+    deleteIcon();
 
     $scope.loading = $ionicLoading.show({
       content: 'Procurando posição atual...',
@@ -68,15 +96,38 @@ app.controller('MapCtrl', function($scope, $ionicLoading, $compile) {
     });
 
     navigator.geolocation.getCurrentPosition(function(pos) {
-      $scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+      $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
+      $scope.map.setCenter($scope.position);
       $scope.loading.hide();
-      console.log(myLatlng);
-      myLatlng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
-      console.log(myLatlng);
-      icon(map, myLatlng);
+      createIcon($scope.map, $scope.position);
+      infoWindow($scope.map);
     }, function(error) {
       alert('A posição atual não foi encontrada: ' + error.message);
     });
   };
+
+
+  var initialize = function() {
+
+    // detectDevice();
+
+    var mapOptions = {
+      center: users[0],
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(mapDiv, mapOptions);
+
+    createIcon(map, users[0]);
+
+    infoWindow(map);
+
+    getTraficInformation(map);
+
+
+    $scope.map = map;
+  };
+
+  google.maps.event.addDomListener(window, 'load', initialize);
 
 });

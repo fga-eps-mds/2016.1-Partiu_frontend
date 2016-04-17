@@ -31,14 +31,14 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBGknmuLFXy-yBSHS1uaEIoIYLDX5Yc_Yo&language=pt-br"></script>
 
   </head>
-  <body ng-controller="MapCtrl">
-    <!-- <ion-nav-view> -->
-      <ion-content>
-        <div id="map" data-tap-disabled="true"></div>
-      </ion-content>
-      <ion-footer-bar class="bar-dark">
-        <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
-      </ion-footer-bar>
-    <!-- </ion-nav-view> -->
+  <body ng-controller="mapCtrl">
+    <!-- <ion-nav-view></ion-nav-view> -->
+    <ion-content>
+      <div id="map" data-tap-disabled="true">test</div>
+    </ion-content>
+    <ion-footer-bar class="bar-dark">
+      <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
+      <!-- <p>{{teste}}</p> -->
+    </ion-footer-bar>
   </body>
 </html>
