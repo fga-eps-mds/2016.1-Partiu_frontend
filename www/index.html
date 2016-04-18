@@ -7,7 +7,7 @@
 
     <!-- CSS -->
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="css/map.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -28,13 +28,19 @@
 
     <!-- GEOLOCATION GOOGLE MAPS -->
     <script src="js/controllers/map-controller.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyBGknmuLFXy-yBSHS1uaEIoIYLDX5Yc_Yo&language=pt-br"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGknmuLFXy-yBSHS1uaEIoIYLDX5Yc_Yo&language=pt-br&libraries=places"></script>
 
   </head>
   <body ng-controller="mapCtrl">
     <!-- <ion-nav-view></ion-nav-view> -->
     <ion-content>
-      <div id="map" data-tap-disabled="true">test</div>
+      <!-- <div class="row"> -->
+        <input id="origin-input" class="controls" type="text"
+            placeholder="Enter an origin location">
+        <input id="destination-input" class="controls" type="text"
+            placeholder="Enter a destination location">
+        <div id="map" data-tap-disabled="true"></div>
+      <!-- </div> -->
     </ion-content>
     <ion-footer-bar class="bar-dark">
       <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>

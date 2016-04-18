@@ -1,10 +1,17 @@
 var app = angular.module('starter');
 
 app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
-  var mapDiv = document.getElementById("map");
-  var image = 'img/cars/sobrenatural.png';
   var marker = [];
   var line;
+  var image = 'img/cars/sobrenatural.png';
+  var origin_place_id = null;
+  var destination_place_id = null;
+  var travel_mode = google.maps.TravelMode.DRIVING;
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var mapDiv = document.getElementById("map");
+  var origin_input = document.getElementById('origin-input');
+  var destination_input = document.getElementById('destination-input');
   var users = [
     {lat: -15.989091, lng: -48.045011},
     {lat: -15.802255, lng: -47.939872}
@@ -16,7 +23,8 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
                     '</div>' +
                   '</div>';
 
-  $scope.teste = "mapCtrl";
+  console.log(mapDiv);
+  $scope.teste = "Testando...";
   $scope.img = image;
   $scope.users = users;
 
@@ -59,8 +67,8 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
   };
 
 
-
-  var detectDevice = function() {
+  /* Detecta o tipo de dispositivo, movel ou desktop */
+  var detectDevice = function(mapDiv) {
     var useragent = navigator.userAgent;
 
     if (useragent.indexOf('iPhone') != -1 ||
@@ -73,16 +81,13 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     }
   };
 
+  /* Pega as informações de trafego das vias */
   var getTraficInformation = function(map) {
     var trafficLayer = new google.maps.TrafficLayer();
     trafficLayer.setMap(map);
   }
 
-  var getPublicTransportation = function(map) {
-    var transitLayer = new google.maps.TransitLayer();
-    transitLayer.setMap(map);
-  }
-
+  /* Localiza o usuário */
   $scope.centerOnMe = function() {
     if(!$scope.map) {
       return;
@@ -106,17 +111,91 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   };
 
+  /* Organizar o formulario dentro do mapa */
+  var organizeInputs = function(map, origin_input, destination_input) {
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
+  }
+
+  /* Expandir a vista para caber no mapa  caso necessario */
+  var expandViewportToFitPlace = function(map, place) {
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+    }
+  }
+
+  /* Calcula a rota entre a origem e o destino */
+  var route = function(origin_place_id, destination_place_id, travel_mode,
+  directionsService, directionsDisplay) {
+    if (!origin_place_id || !destination_place_id) {
+      return;
+    }
+    directionsService.route({
+      origin: {'placeId': origin_place_id},
+      destination: {'placeId': destination_place_id},
+      travelMode: travel_mode
+    }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+
+  /* Autocompleta o formulario de origin e destino */
+  var autocomplete_route = function(map, origin_input, destination_input, origin_place_id, destination_place_id,
+  travel_mode, directionsService, directionsDisplay) {
+    /* ORIGEM AUTOCOMPLETE */
+    var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
+    origin_autocomplete.bindTo('bounds', map);
+
+    origin_autocomplete.addListener('place_changed', function() {
+      var place = origin_autocomplete.getPlace();
+      if (!place.geometry) {
+        window.alert("Autocomplete's returned place contains no geometry");
+        return;
+      }
+      expandViewportToFitPlace(map, place);
+
+      origin_place_id = place.place_id;
+      route(origin_place_id, destination_place_id, travel_mode,
+            directionsService, directionsDisplay);
+    });
+    /* DESTINATION AUTOCOMPLETE */
+    var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
+    destination_autocomplete.bindTo('bounds', map);
+
+    destination_autocomplete.addListener('place_changed', function() {
+      var place = destination_autocomplete.getPlace();
+      if (!place.geometry) {
+        window.alert("Autocomplete's returned place contains no geometry");
+        return;
+      }
+      expandViewportToFitPlace(map, place);
+
+      destination_place_id = place.place_id;
+      route(origin_place_id, destination_place_id, travel_mode,
+            directionsService, directionsDisplay);
+    });
+  }
+
 
   var initialize = function() {
 
-    // detectDevice();
+    // detectDevice(mapDiv);
 
     var mapOptions = {
       center: users[0],
       zoom: 16,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeControl: false,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
     var map = new google.maps.Map(mapDiv, mapOptions);
+    directionsDisplay.setMap(map);
 
     createIcon(map, users[0]);
 
@@ -124,6 +203,10 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
 
     getTraficInformation(map);
 
+    organizeInputs(map, origin_input, destination_input);
+
+    autocomplete_route(map, origin_input, destination_input, origin_place_id, destination_place_id,
+    travel_mode, directionsService, directionsDisplay);
 
     $scope.map = map;
   };
