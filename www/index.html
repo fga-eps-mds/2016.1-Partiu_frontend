@@ -18,6 +18,7 @@
 
     <!-- CONTROLLERS -->
     <script src="js/controllers/app-controller.js"></script>
+    <script src="js/controllers/map-controller.js"></script>
 
     <!-- ROUTES -->
     <script src="js/routes/app-routes.js"></script>
@@ -25,26 +26,21 @@
     <!-- SERVICES -->
 
     <!-- DIRECTIVES -->
+    <script src="js/directives/map-directive.js"></script>
 
     <!-- GEOLOCATION GOOGLE MAPS -->
-    <script src="js/controllers/map-controller.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGknmuLFXy-yBSHS1uaEIoIYLDX5Yc_Yo&language=pt-br&libraries=places"></script>
 
   </head>
   <body ng-controller="mapCtrl">
-    <!-- <ion-nav-view></ion-nav-view> -->
-    <ion-content>
-      <!-- <div class="row"> -->
-        <input id="origin-input" class="controls" type="text"
-            placeholder="Enter an origin location">
-        <input id="destination-input" class="controls" type="text"
-            placeholder="Enter a destination location">
-        <div id="map" data-tap-disabled="true"></div>
-      <!-- </div> -->
-    </ion-content>
-    <ion-footer-bar class="bar-dark">
+    <ion-nav-view></ion-nav-view>
+    <!--<ion-content>
+      <input id="origin-input" class="controls" type="text" placeholder="Origem">
+      <input id="destination-input" class="controls" type="text" placeholder="Destino">
+      <div id="map" data-tap-disabled="true"></div>
+    </ion-content> -->
+    <!--<ion-footer-bar class="bar-dark">
       <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate">Find Me</a>
-      <!-- <p>{{teste}}</p> -->
-    </ion-footer-bar>
+    </ion-footer-bar> -->
   </body>
 </html>
