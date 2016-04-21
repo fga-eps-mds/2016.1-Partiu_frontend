@@ -8,9 +8,9 @@ app.directive("appMap", function () {
         template: "<div></div>",
         scope: {
             center: "=",        // Ponto central no mapa (latitude: 10, longitude: 10).
-            origin: "=",        // Marcador da origem (lat: 10, lon: 10, name: "origem").
             destiny: "=",       // Array de marcadores ([{ lat: 10, lon: 10, name: "destino" }]).
             img: "=",           // Icones para os marcadores
+            map: "=",           // Objeto do mapa
             width: "@",         // Largura do mapa em pixels
             height: "@",        // Altura do mapa em pixels
             zoom: "@",          // level do zoom (1 é sem zoom, e 25 é muito ampliado).
@@ -28,8 +28,8 @@ app.directive("appMap", function () {
             var travel_mode = google.maps.TravelMode.DRIVING;
             var directionsService = new google.maps.DirectionsService;
             var directionsDisplay = new google.maps.DirectionsRenderer;
-            var map;
             var currentMarkers;
+            var result;
             var originMarker;
             var InfoHtml =  '<div id="content">'+
                               '<h3 class="infoHtml">Partiu!</h3>'+
@@ -53,12 +53,12 @@ app.directive("appMap", function () {
 
             // atualizar zoom e o centro sem recriar o mapa
             scope.$watch("zoom", function () {
-                if (map && scope.zoom)
-                    map.setZoom(scope.zoom * 1);
+                if (scope.map && scope.zoom)
+                    scope.map.setZoom(scope.zoom * 1);
             });
             scope.$watch("center", function () {
-                if (map && scope.center)
-                    map.setCenter(getLocation(scope.center));
+                if (scope.map && scope.center)
+                    scope.map.setCenter(getLocation(scope.center));
             });
 
             // Atualizar os contraladores do mapa
@@ -70,7 +70,7 @@ app.directive("appMap", function () {
 
                 // Pegar as opções do mapa
                 var options = {
-                    center: scope.origin, //Mudar para geolocation
+                    center: scope.center, //Mudar para geolocation
                     zoom: 16,
                     mapTypeId: "roadmap"
                 };
@@ -82,23 +82,23 @@ app.directive("appMap", function () {
                 if (scope.scaleControl) options.scaleControl = scope.scaleControl;
 
                 // Criar o mapa
-                map = new google.maps.Map(element[0], options);
+                scope.map = new google.maps.Map(element[0], options);
 
                 // Atualizar marcadores
                 updateMarkers();
 
                 // Pegar informações de trafego
-                getTraficInformation(map);
+                getTraficInformation(scope.map);
 
                 // Colocar os inputs dentro do mapa.
-                organizeInputs(map, origin_input, destination_input);
+                organizeInputs(scope.map, origin_input, destination_input);
 
                 // Autocompleta as localizações e calcula a rota
-                autocomplete_route(map, origin_input, destination_input, origin_place_id, destination_place_id,
+                autocomplete_route(scope.map, origin_input, destination_input, origin_place_id, destination_place_id,
                 travel_mode, directionsService, directionsDisplay);
 
                 // Ouvir mudanças na propriedade center e atualizar o scope
-                google.mapTypeIds.event.addListener(map, 'center_changed', function () {
+                google.mapTypeIds.event.addListener(scope.map, 'center_changed', function () {
 
                     // Se o toCenter tiver rodando, pare ela e rode novamente.
                     if (toCenter) clearTimeout(toCenter);
@@ -106,11 +106,11 @@ app.directive("appMap", function () {
                         if (scope.center) {
 
                             // Checar se o centro foi realmente modificado
-                            if (map.center.lat() != scope.center.lat ||
-                                map.center.lng() != scope.center.lon) {
+                            if (scope.map.center.lat() != scope.center.lat ||
+                                scope.map.center.lng() != scope.center.lon) {
 
                                 // Atualizar o scope e aplicar mudanças
-                                scope.center = { lat: map.center.lat(), lon: map.center.lng() };
+                                scope.center = { lat: scope.map.center.lat(), lon: scope.map.center.lng() };
                                 if (!scope.$$phase) scope.$apply("center");
                             }
                         }
@@ -120,7 +120,7 @@ app.directive("appMap", function () {
 
             // Atualização dos marcadores do mapa para corresponder a coleção de marcadores do escopo
             var updateMarkers = function() {
-                if (map && scope.destiny) {
+                if (scope.map && scope.destiny) {
 
                     // Limpar os marcadores antigos
                     if (currentMarkers != null) {
@@ -128,7 +128,6 @@ app.directive("appMap", function () {
                             currentMarkers[i] = marker.setMap(null);
                         }
                     }
-
                     createOriginMarker();
                     createDestinyMarker();
                 }
@@ -143,15 +142,14 @@ app.directive("appMap", function () {
 
             //Cria os marcadores de origem e destino no mapa
             var createOriginMarker = function() {
-                var marker = scope.origin;
-                if (angular.isString(marker)) marker = scope.$eval(scope.origin);
+                var marker = scope.center;
+                if (angular.isString(marker)) marker = scope.$eval(scope.center);
                 var location = new google.maps.LatLng(marker.lat, marker.lon);
                 originMarker = new google.maps.Marker({
                   position: location,
                   animation: google.maps.Animation.DROP,
-                  map: map,
+                  map: scope.map,
                   icon: scope.img[0].image,
-                  title: marker.name,
                   draggable: false,
                 });
                 originMarker.addListener('click', toggleBounce);
@@ -174,9 +172,8 @@ app.directive("appMap", function () {
               var location = new google.maps.LatLng(marker.lat, marker.lon);
               var DestinyMarker = new google.maps.Marker({
                 position: location,
-                map: map,
+                map: scope.map,
                 // icon: scope.img[1].image,
-                title: marker.name,
                 draggable: false,
               });
             };
@@ -189,7 +186,7 @@ app.directive("appMap", function () {
               for (var i = 0; i < markers.length; i++) {
                   var marker = markers[i];
                   var location = new google.maps.LatLng(marker.lat, marker.lon);
-                  var destinyMarker = new google.maps.Marker({ position: location, map: map, title: marker.name });
+                  var destinyMarker = new google.maps.Marker({ position: location, map: scope.map});
                   currentMarkers.push(destinyMarker);
               }
             };
@@ -206,7 +203,7 @@ app.directive("appMap", function () {
                 maxWidth: 200
               });
               google.maps.event.addListener(marker, 'click', function() {
-                infowindow.open(map, marker);
+                infowindow.open(scope.map, marker);
               });
             };
 
@@ -243,6 +240,7 @@ app.directive("appMap", function () {
                 destination: {'placeId': destination_place_id},
                 travelMode: travel_mode
               }, function(response, status) {
+                result = response;
                 if (status === google.maps.DirectionsStatus.OK) {
                   directionsDisplay.setDirections(response);
                 } else {
@@ -267,6 +265,7 @@ app.directive("appMap", function () {
                 expandViewportToFitPlace(map, place);
 
                 origin_place_id = place.place_id;
+                scope.origin = origin_place_id;
                 route(origin_place_id, destination_place_id, travel_mode,
                       directionsService, directionsDisplay);
               });
@@ -283,6 +282,7 @@ app.directive("appMap", function () {
                 expandViewportToFitPlace(map, place);
 
                 destination_place_id = place.place_id;
+                scope.destiny = destination_place_id;
                 route(origin_place_id, destination_place_id, travel_mode,
                       directionsService, directionsDisplay);
               });
@@ -290,8 +290,6 @@ app.directive("appMap", function () {
         }
     };
 });
-
-
 
 /*
 
