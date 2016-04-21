@@ -38,3 +38,9 @@
   font-size: 13px;
   font-weight: 300;
 }
+
+#mapa {
+  height:400px;
+  margin:12px;
+  box-shadow:0 3px 25px black;
+}

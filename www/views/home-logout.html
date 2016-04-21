@@ -1,10 +1,15 @@
 <ion-view view-title="{{partiu}}">
   <ion-content>
-    <app-map style="height:400px;margin:12px;box-shadow:0 3px 25px black;"
-        center="loc"
-        destiny="destiny"
-        origin="origin"
-        img="img"
-    ></app-map>
+      <input id="origin-input" class="controls" type="text" placeholder="Origem">
+      <input id="destination-input" class="controls" type="text" placeholder="Destino">
+      <app-map id="mapa"
+          center="geolocalizacao"
+          destiny="destiny"
+          origin="geolocalizacao"
+          img="img"
+      ></app-map>
   </ion-content>
+  <ion-footer-bar class="bar-dark">
+    <a ng-click="gotoCurrentLocation()" class="button button-icon icon ion-navigate">Find Me</a>
+  </ion-footer-bar>
 </ion-view>

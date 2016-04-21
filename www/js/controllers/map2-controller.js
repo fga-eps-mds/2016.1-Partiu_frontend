@@ -24,11 +24,6 @@ app.controller('mapCtrl2', function($scope, $ionicLoading, $compile) {
                     '</div>' +
                   '</div>';
 
-  console.log(mapDiv);
-  console.log(findMe);
-  $scope.teste = "Testando...";
-  $scope.img = image;
-  $scope.users = users;
 
   //Cria o marcador do mapa
   var createIcon = function(map, position) {
@@ -95,8 +90,6 @@ app.controller('mapCtrl2', function($scope, $ionicLoading, $compile) {
     }
 
     deleteIcon();
-    findMe = true;
-    console.log(findMe);
 
     $scope.loading = $ionicLoading.show({
       content: 'Procurando posição atual...',

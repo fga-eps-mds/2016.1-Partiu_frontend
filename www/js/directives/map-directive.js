@@ -21,6 +21,13 @@ app.directive("appMap", function () {
         },
         link: function(scope, element, attrs) {
             var toResize, toCenter;
+            var origin_input = document.getElementById('origin-input');
+            var destination_input = document.getElementById('destination-input');
+            var origin_place_id = null;
+            var destination_place_id = null;
+            var travel_mode = google.maps.TravelMode.DRIVING;
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
             var map;
             var currentMarkers;
             var originMarker;
@@ -63,8 +70,8 @@ app.directive("appMap", function () {
 
                 // Pegar as opções do mapa
                 var options = {
-                    center: new google.maps.LatLng(-15.989091, -48.045011),
-                    zoom: 9,
+                    center: scope.origin, //Mudar para geolocation
+                    zoom: 16,
                     mapTypeId: "roadmap"
                 };
                 if (scope.center) options.center = getLocation(scope.center);
@@ -82,6 +89,13 @@ app.directive("appMap", function () {
 
                 // Pegar informações de trafego
                 getTraficInformation(map);
+
+                // Colocar os inputs dentro do mapa.
+                organizeInputs(map, origin_input, destination_input);
+
+                // Autocompleta as localizações e calcula a rota
+                autocomplete_route(map, origin_input, destination_input, origin_place_id, destination_place_id,
+                travel_mode, directionsService, directionsDisplay);
 
                 // Ouvir mudanças na propriedade center e atualizar o scope
                 google.mapTypeIds.event.addListener(map, 'center_changed', function () {
@@ -161,7 +175,7 @@ app.directive("appMap", function () {
               var DestinyMarker = new google.maps.Marker({
                 position: location,
                 map: map,
-                // icon: $scope.imgDestiny,
+                // icon: scope.img[1].image,
                 title: marker.name,
                 draggable: false,
               });
@@ -201,9 +215,83 @@ app.directive("appMap", function () {
               var trafficLayer = new google.maps.TrafficLayer();
               trafficLayer.setMap(map);
             }
+
+            /* Organizar o formulario dentro do mapa */
+            var organizeInputs = function(map, origin_input, destination_input) {
+              map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
+              map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
+            }
+
+            /* Expandir a vista para caber no mapa caso necessario */
+            var expandViewportToFitPlace = function(map, place) {
+              if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+              } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);
+              }
+            }
+
+            /* Calcula a rota entre a origem e o destino */
+            var route = function(origin_place_id, destination_place_id, travel_mode,
+            directionsService, directionsDisplay) {
+              if (!origin_place_id || !destination_place_id) {
+                return;
+              }
+              directionsService.route({
+                origin: {'placeId': origin_place_id},
+                destination: {'placeId': destination_place_id},
+                travelMode: travel_mode
+              }, function(response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                  directionsDisplay.setDirections(response);
+                } else {
+                  window.alert('Requisição de rota falhou devido a: ' + status);
+                }
+              });
+            }
+
+            /* Autocompleta o formulario de origin e destino */
+            var autocomplete_route = function(map, origin_input, destination_input, origin_place_id, destination_place_id,
+            travel_mode, directionsService, directionsDisplay) {
+              /* ORIGEM AUTOCOMPLETE */
+              var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
+              origin_autocomplete.bindTo('bounds', map);
+
+              origin_autocomplete.addListener('place_changed', function() {
+                var place = origin_autocomplete.getPlace();
+                if (!place.geometry) {
+                  window.alert("A funcionalidade de Autocompletar retornou um lugar que não há geometria");
+                  return;
+                }
+                expandViewportToFitPlace(map, place);
+
+                origin_place_id = place.place_id;
+                route(origin_place_id, destination_place_id, travel_mode,
+                      directionsService, directionsDisplay);
+              });
+              /* DESTINATION AUTOCOMPLETE */
+              var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
+              destination_autocomplete.bindTo('bounds', map);
+
+              destination_autocomplete.addListener('place_changed', function() {
+                var place = destination_autocomplete.getPlace();
+                if (!place.geometry) {
+                  window.alert("A funcionalidade de Autocompletar retornou um lugar que não há geometria");
+                  return;
+                }
+                expandViewportToFitPlace(map, place);
+
+                destination_place_id = place.place_id;
+                route(origin_place_id, destination_place_id, travel_mode,
+                      directionsService, directionsDisplay);
+              });
+            }
         }
     };
 });
+
+
 
 /*
 
@@ -225,7 +313,7 @@ app.directive("appMap", function () {
       //Codigo
     </meu-botao-perigo>
 
-	- link é a função nos dá acesso ao elemento do DOM no qual ela foi adicionada na marcação HTML
+	- link é a função que nos dá acesso ao elemento do DOM no qual ela foi adicionada na marcação HTML
 	inclusive ao escopo privado da diretiva. É nela que manipulamos DOM quando necessário.
 
 	- controller permite passarmos uma função que permite termos acesso aos injetáveis do Angular,
@@ -243,6 +331,17 @@ app.directive("appMap", function () {
     O $apply irá forçar um $digest, por isso vai dar erro se ele já tiver rodando.
 
     $apply é usado para executar uma expressão em angular a partir do lado de fora da estrutura angular.
-    (Por exemplo a partir do navegador eventos DOM, setTimeout, XHR ou bibliotecas de terceiros)
+    (Por exemplo a partir do navegador eventos DOM, setTimeout, XHR ou bibliotecas de terceiros).
+
+  - através do google.maps.DirectionsService, basta nós passarmos um objeto google.maps.DirectionsRequest,
+  o qual irá conter o ponto de origem e o ponto de destino, e o meio de transporte.
+
+    Ele irá nos retornar um objeto google.maps.DirectionsResult, o qual contém as informações da rota,
+    e o google.maps.DirectionsStatus, que por sua vez define o estado final da nossa requisição, ou seja,
+    ele pode indicar sucesso (DirectionsStatus.OK), sem resultados (DirectionsStatus.ZERO_RESULTS),
+    erro (DirectionsStatus.INVALID_REQUEST ou DirectionsStatus.REQUEST_DENIED), etc.
+
+  - Já o google.maps.DirectionsRenderer, basicamente, fica responsável por renderizar o resultado fornecido
+  pelo google.maps.DirectionsService.
 
 */
