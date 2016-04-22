@@ -10,7 +10,6 @@ app.directive("appMap", function () {
             center: "=",        // Ponto central no mapa (latitude: 10, longitude: 10).
             destiny: "=",       // Array de marcadores ([{ lat: 10, lon: 10, name: "destino" }]).
             img: "=",           // Icones para os marcadores
-            map: "=",           // Objeto do mapa
             width: "@",         // Largura do mapa em pixels
             height: "@",        // Altura do mapa em pixels
             zoom: "@",          // level do zoom (1 é sem zoom, e 25 é muito ampliado).
@@ -19,24 +18,191 @@ app.directive("appMap", function () {
             zoomControl: "@",   // Se deve mostrar um controle de zoom no mapa.
             scaleControl: "@"   // Se deve mostrar controle de escala no mapa.
         },
+        controller: function($scope) {
+          var origin_input = document.getElementById('origin-input');
+          var destination_input = document.getElementById('destination-input');
+          var origin_place_id = null;
+          var destination_place_id = null;
+          var travel_mode = google.maps.TravelMode.DRIVING;
+          var directionsService = new google.maps.DirectionsService;
+          var directionsDisplay = new google.maps.DirectionsRenderer;
+          var result;
+          var originMarker;
+          var InfoHtml =  '<div id="content">'+
+                            '<h3 class="infoHtml">Partiu!</h3>'+
+                            '<div id="bodyContent">'+
+                              '<p>Casa</p>'+
+                            '</div>' +
+                          '</div>';
+
+          $scope.gotoCurrentLocation = function () {
+              if ("geolocation" in navigator) {
+                  navigator.geolocation.getCurrentPosition(function(position) {
+                      var c = position.coords;
+                      $scope.gotoLocation(c.latitude, c.longitude);
+                  });
+                  return true;
+              }
+              return false;
+          };
+
+          $scope.gotoLocation = function (lat, lon) {
+              if ($scope.geolocalizacao.lat != lat || $scope.geolocalizacao.lon != lon) {
+                  $scope.geolocalizacao = {lat: lat, lon: lon};
+                  if (!$scope.$$phase) $scope.$apply("geolocalizacao");
+              }
+          };
+
+          //Cria os marcadores de origem e destino no mapa
+          $scope.createOriginMarker = function() {
+              var marker = $scope.center;
+              if (angular.isString(marker)) marker = scope.$eval(scope.center);
+              var location = new google.maps.LatLng(marker.lat, marker.lon);
+              originMarker = new google.maps.Marker({
+                position: location,
+                animation: google.maps.Animation.DROP,
+                map: $scope.map,
+                icon: $scope.img[0].image,
+                draggable: false,
+              });
+              originMarker.addListener('click', toggleBounce);
+              $scope.infoWindowOrigin(originMarker);
+          };
+
+          //Faz o marcadore de origem pular ao ser clicado
+          var toggleBounce = function() {
+            if (originMarker.getAnimation() !== null) {
+              originMarker.setAnimation(null);
+            } else {
+              originMarker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+          };
+
+          // Cria o marcador de destino
+          $scope.createDestinyMarker = function() {
+            var marker = $scope.destiny;
+            if (angular.isString(marker)) marker = scope.$eval(scope.destiny);
+            var location = new google.maps.LatLng(marker.lat, marker.lon);
+            var DestinyMarker = new google.maps.Marker({
+              position: location,
+              map: $scope.map,
+              // icon: scope.img[1].image,
+              draggable: false,
+            });
+          };
+
+          // Criar um array de marcadores caso for necessario
+          $scope.createArrayMarkers = function() {
+            currentMarkers = [];
+            var markers = scope.destiny;
+            if (angular.isString(markers)) markers = scope.$eval(scope.destiny);
+            for (var i = 0; i < markers.length; i++) {
+                var marker = markers[i];
+                var location = new google.maps.LatLng(marker.lat, marker.lon);
+                var destinyMarker = new google.maps.Marker({ position: location, map: scope.map});
+                currentMarkers.push(destinyMarker);
+            }
+          };
+
+          //Deleta um marcador
+          $scope.deleteIcon = function() {
+            marker.setMap(null);
+          };
+
+          //Cria uma janela de informação ao clicar no marcador
+          $scope.infoWindowOrigin = function(marker) {
+            var infowindow = new google.maps.InfoWindow({
+              content:InfoHtml,
+              maxWidth: 200
+            });
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.open(scope.map, marker);
+            });
+          };
+
+          /* Pega as informações de trafego das vias */
+          $scope.getTraficInformation = function(map) {
+            var trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
+          }
+
+          /* Organizar o formulario dentro do mapa */
+          $scope.organizeInputs = function(map) {
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
+          }
+
+          /* Expandir a vista para caber no mapa caso necessario */
+          var expandViewportToFitPlace = function(map, place) {
+            if (place.geometry.viewport) {
+              map.fitBounds(place.geometry.viewport);
+            } else {
+              map.setCenter(place.geometry.location);
+              map.setZoom(17);
+            }
+          }
+
+          /* Calcula a rota entre a origem e o destino */
+          var route = function(origin_place_id, destination_place_id, travel_mode,
+          directionsService, directionsDisplay) {
+            if (!origin_place_id || !destination_place_id) {
+              return;
+            }
+            directionsService.route({
+              origin: {'placeId': origin_place_id},
+              destination: {'placeId': destination_place_id},
+              travelMode: travel_mode
+            }, function(response, status) {
+              result = response;
+              if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+              } else {
+                window.alert('Requisição de rota falhou devido a: ' + status);
+              }
+            });
+          }
+
+          /* Autocompleta o formulario de origin e destino */
+          $scope.autocomplete_route = function(map) {
+            /* ORIGEM AUTOCOMPLETE */
+            var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
+            origin_autocomplete.bindTo('bounds', map);
+
+            origin_autocomplete.addListener('place_changed', function() {
+              var place = origin_autocomplete.getPlace();
+              if (!place.geometry) {
+                window.alert("A funcionalidade de Autocompletar retornou um lugar que não há geometria");
+                return;
+              }
+              expandViewportToFitPlace(map, place);
+
+              origin_place_id = place.place_id;
+              route(origin_place_id, destination_place_id, travel_mode,
+                    directionsService, directionsDisplay);
+            });
+            /* DESTINATION AUTOCOMPLETE */
+            var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
+            destination_autocomplete.bindTo('bounds', map);
+
+            destination_autocomplete.addListener('place_changed', function() {
+              var place = destination_autocomplete.getPlace();
+              if (!place.geometry) {
+                window.alert("A funcionalidade de Autocompletar retornou um lugar que não há geometria");
+                return;
+              }
+              expandViewportToFitPlace(map, place);
+
+              destination_place_id = place.place_id;
+              route(origin_place_id, destination_place_id, travel_mode,
+                    directionsService, directionsDisplay);
+            });
+          }
+
+
+        },
         link: function(scope, element, attrs) {
             var toResize, toCenter;
-            var origin_input = document.getElementById('origin-input');
-            var destination_input = document.getElementById('destination-input');
-            var origin_place_id = null;
-            var destination_place_id = null;
-            var travel_mode = google.maps.TravelMode.DRIVING;
-            var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer;
             var currentMarkers;
-            var result;
-            var originMarker;
-            var InfoHtml =  '<div id="content">'+
-                              '<h3 class="infoHtml">Partiu!</h3>'+
-                              '<div id="bodyContent">'+
-                                '<p>Casa</p>'+
-                              '</div>' +
-                            '</div>';
 
 
             // Ouvir todas a mudanças nas variáveis de escopo e atualizar o controle assim que
@@ -88,14 +254,13 @@ app.directive("appMap", function () {
                 updateMarkers();
 
                 // Pegar informações de trafego
-                getTraficInformation(scope.map);
+                scope.getTraficInformation(scope.map);
 
                 // Colocar os inputs dentro do mapa.
-                organizeInputs(scope.map, origin_input, destination_input);
+                scope.organizeInputs(scope.map);
 
                 // Autocompleta as localizações e calcula a rota
-                autocomplete_route(scope.map, origin_input, destination_input, origin_place_id, destination_place_id,
-                travel_mode, directionsService, directionsDisplay);
+                scope.autocomplete_route(scope.map);
 
                 // Ouvir mudanças na propriedade center e atualizar o scope
                 google.mapTypeIds.event.addListener(scope.map, 'center_changed', function () {
@@ -128,8 +293,8 @@ app.directive("appMap", function () {
                             currentMarkers[i] = marker.setMap(null);
                         }
                     }
-                    createOriginMarker();
-                    createDestinyMarker();
+                    scope.createOriginMarker();
+                    scope.createDestinyMarker();
                 }
             }
 
@@ -140,7 +305,7 @@ app.directive("appMap", function () {
                 return new google.maps.LatLng(location.lat, location.lon);
             }
 
-            //Cria os marcadores de origem e destino no mapa
+            /*//Cria os marcadores de origem e destino no mapa
             var createOriginMarker = function() {
                 var marker = scope.center;
                 if (angular.isString(marker)) marker = scope.$eval(scope.center);
@@ -207,19 +372,19 @@ app.directive("appMap", function () {
               });
             };
 
-            /* Pega as informações de trafego das vias */
+            // Pega as informações de trafego das vias
             var getTraficInformation = function(map) {
               var trafficLayer = new google.maps.TrafficLayer();
               trafficLayer.setMap(map);
             }
 
-            /* Organizar o formulario dentro do mapa */
+            // Organizar o formulario dentro do mapa
             var organizeInputs = function(map, origin_input, destination_input) {
               map.controls[google.maps.ControlPosition.TOP_LEFT].push(origin_input);
               map.controls[google.maps.ControlPosition.TOP_LEFT].push(destination_input);
             }
 
-            /* Expandir a vista para caber no mapa caso necessario */
+            // Expandir a vista para caber no mapa caso necessario
             var expandViewportToFitPlace = function(map, place) {
               if (place.geometry.viewport) {
                 map.fitBounds(place.geometry.viewport);
@@ -229,7 +394,7 @@ app.directive("appMap", function () {
               }
             }
 
-            /* Calcula a rota entre a origem e o destino */
+            // Calcula a rota entre a origem e o destino
             var route = function(origin_place_id, destination_place_id, travel_mode,
             directionsService, directionsDisplay) {
               if (!origin_place_id || !destination_place_id) {
@@ -249,10 +414,10 @@ app.directive("appMap", function () {
               });
             }
 
-            /* Autocompleta o formulario de origin e destino */
+            // Autocompleta o formulario de origin e destino
             var autocomplete_route = function(map, origin_input, destination_input, origin_place_id, destination_place_id,
             travel_mode, directionsService, directionsDisplay) {
-              /* ORIGEM AUTOCOMPLETE */
+              // ORIGEM AUTOCOMPLETE
               var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
               origin_autocomplete.bindTo('bounds', map);
 
@@ -269,7 +434,7 @@ app.directive("appMap", function () {
                 route(origin_place_id, destination_place_id, travel_mode,
                       directionsService, directionsDisplay);
               });
-              /* DESTINATION AUTOCOMPLETE */
+              // DESTINATION AUTOCOMPLETE
               var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
               destination_autocomplete.bindTo('bounds', map);
 
@@ -286,7 +451,7 @@ app.directive("appMap", function () {
                 route(origin_place_id, destination_place_id, travel_mode,
                       directionsService, directionsDisplay);
               });
-            }
+            }*/
         }
     };
 });
