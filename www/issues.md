@@ -10,6 +10,7 @@
   - Através da geolocalização => padrão
 * Usuário só irá ter a opção de inserir/editar destino através do input
 * Arrumar os icones da origem e destino (origem = carro, Destino = ???)
+* Fazer responsividade do mapa.
 
 ## Opcionais
 
