@@ -30,6 +30,14 @@
             templateUrl: "views/perfil.html",
         }
       }
+    })
+    .state("menu.ride", {
+      url:"/ride",
+      views: {
+        "menuContent": {
+            templateUrl: "views/ride.html",
+        }
+      }
     });
 
   });
