@@ -1,3 +1,8 @@
 <ion-view view-title="{{partiu}}">
-      
+      <ion-content>
+          <input id="origin-input" class="controls" type="text" placeholder="Origem">
+          <input id="destination-input" class="controls" type="text" placeholder="Destino">
+          <app-map id="mapa"></app-map>
+          <button ng-click="centerOnMe()" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+      </ion-content>
 </ion-view>
