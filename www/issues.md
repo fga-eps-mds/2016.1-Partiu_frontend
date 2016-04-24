@@ -2,15 +2,13 @@
 
 ## Prioridades
 
-* Apagar icone da origem e deixa só o carro
+* modificar rota (multiplas rotas)
+* Arrumar o HTML da variavel infoHtml -> Partiu (destino)
+* Ao acabar de digitar a origin e destino já jogar pro span
+* A animação toogle e infoWindow tem que durar somente 3 segundos e não pode ser clicado
+* Inserir uma janela informativa no destino
+* Armazenar o km do rota
 
 ## Opcionais
 
-* A animação toogle tem que durar somente 3 segundos e não pode ser clicado
-* Inserir uma janela informativa no destino
-* modificar rota
-* Arrumar o HTML da variavel infoHtml -> Partiu (destino)
-* Tradutor
-
-## Dicas
-* tentar fazer o gecode colocar a geolocalização certinha para calcular a rota
+* Apagar icone da origem e deixa só o carro

@@ -8,13 +8,15 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
   var directionsDisplay = new google.maps.DirectionsRenderer;
   var origin_input = document.getElementById('origin-input');
   var destination_input = document.getElementById('destination-input');
+  var origin_span = document.getElementById('origin');
+  var destiny_span = document.getElementById('destiny');
   var find_me = document.getElementById('findMe');
   var geocoder = new google.maps.Geocoder;
   var marker;
   var map;
   var geolocation = {lat: -15.793327, lng: -47.882489};
-  $scope.origin;
-  $scope.destiny;
+  $scope.origin
+  $scope.destiny
   $scope.img = [
     {sobrenatural: 'img/cars/sobrenatural.png'},
     {fusca: 'img/cars/fusca.png'}
@@ -55,8 +57,10 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
       var coordinates = {lat: event.latLng.lat(), lng: event.latLng.lng()};
       geocoder.geocode({'location': coordinates}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-          if (results[1])
+          if (results[1]) {
             origin_input.value = results[1].formatted_address;
+            origin_span.innerHTML = results[1].formatted_address;
+          }
         }
       });
      });
@@ -91,18 +95,30 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(destination_input);
   }
 
-  /*var toStringLocation = function() {
+  //Geocodifica a localização para uma string literaria
+  var toStringOriginLocation = function(location) {
     geocoder.geocode({
-       "location": geolocation
+       "location": location
     },
     function(results, status) {
        if (status == google.maps.GeocoderStatus.OK) {
-
+         origin_span.innerHTML = results[1].formatted_address;
        }
     });
-  }*/
+  }
 
-  // Expandir a vista para caber no mapa  caso necessario
+  var toStringDestinyLocation = function(location) {
+    geocoder.geocode({
+       "location": location
+    },
+    function(results, status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+         destiny_span.innerHTML = results[1].formatted_address;
+       }
+    });
+  }
+
+  // Expandir a vista para caber no mapa quando calcula a rota
   var expandViewportToFitPlace = function(place) {
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
@@ -117,7 +133,8 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     geocoder.geocode({'placeId': placeID_origin}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         createIcon(results[0].geometry.location, $scope.infoHtml);
-        geoLocation = results[0].geometry.location;
+        $scope.origin = results[0].geometry.location;
+        toStringOriginLocation($scope.origin);
       } else {
         window.alert('Geocoder falhou devido a: ' + status);
       }
@@ -125,6 +142,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     geocoder.geocode({'placeId': placeID_destiny}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         $scope.destiny = results[0].geometry.location;
+        toStringDestinyLocation($scope.destiny);
       } else {
         window.alert('Geocoder falhou devido a: ' + status);
       }
@@ -193,7 +211,11 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
   }
 
   // Acha a geolocalização do usuário
-  var geoLocation = function() {
+  $scope.geoLocation = function() {
+    if(!map) {
+      return;
+    }
+
     navigator.geolocation.getCurrentPosition(function(pos) {
       geolocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
       map.setCenter(geolocation);
@@ -206,29 +228,16 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
       },
       function(results, status) {
          if (status == google.maps.GeocoderStatus.OK) {
-           if (results[1])
+           if (results[1]){
              origin_input.value = results[1].formatted_address;
+             origin_span.innerHTML = results[1].formatted_address;
+           }
          }
       });
     }, function(error) {
       alert('A posição atual não foi encontrada: ' + error.message);
     });
   }
-
-
-  // Localiza o usuário
-  $scope.centerOnMe = function() {
-    if(!map) {
-      return;
-    }
-
-    $scope.loading = $ionicLoading.show({
-      content: 'Procurando posição atual...',
-      showBackdrop: false
-    });
-
-    geoLocation();
-  };
 
   // Função de inicialização do mapa (função principal)
   $scope.initialize = function(element) {
@@ -248,13 +257,27 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
 
     organizeInputs();
 
-    geoLocation();
+    $scope.geoLocation();
 
     originAutocomplete();
 
     destinyAutocomplete();
   };
 
-
-
 });
+
+/*
+
+  INSERIR O MAPA:
+
+  <ion-content>
+      <input id="origin-input" class="controls" type="text" placeholder="Origem">
+      <input id="destination-input" class="controls" type="text" placeholder="Destino">
+      <app-map id="mapa"></app-map>
+      <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+      <p>Geolocalização: <span id="origin">{{origin}}</span></p>
+      <p>Destino: <span id="destiny">{{destiny}}</span></p>
+  </ion-content>
+
+
+*/

@@ -3,8 +3,8 @@
           <input id="origin-input" class="controls" type="text" placeholder="Origem">
           <input id="destination-input" class="controls" type="text" placeholder="Destino">
           <app-map id="mapa"></app-map>
-          <button ng-click="centerOnMe()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-          <p>Geolocalização: {{geolocation}}</p>
-          <p>Destino: {{destiny}}</p>
+          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+          <p>Geolocalização: <span id="origin">{{origin}}</span></p>
+          <p>Destino: <span id="destiny">{{destiny}}</span></p>
       </ion-content>
 </ion-view>
