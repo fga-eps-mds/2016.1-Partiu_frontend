@@ -1,6 +1,6 @@
-var app = angular.module('starter');
+angular.module('starter.controllers')
 
-app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
+.controller('mapCtrl', function($scope) {
   var origin_place_id = null;
   var destination_place_id = null;
   var travel_mode = google.maps.TravelMode.DRIVING;
@@ -18,8 +18,8 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
   $scope.origin
   $scope.destiny
   $scope.img = [
-    {sobrenatural: 'img/cars/sobrenatural.png'},
-    {fusca: 'img/cars/fusca.png'}
+    {oldcar: 'img/cars/oldcar.png'},
+    {beetle: 'img/cars/beetle.png'}
   ];
   $scope.infoHtml = '<div id="content">'+
                       '<h3 class="infoHtml">Partiu!</h3>'+
@@ -28,12 +28,12 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
                       '</div>' +
                     '</div>';
 
-  //Cria o marcador do mapa
+  // Creates the map marker
   var createIcon = function(position, info) {
       marker = new google.maps.Marker({
         position: position,
         animation: google.maps.Animation.DROP,
-        icon: $scope.img[0].sobrenatural,
+        icon: $scope.img[1].beetle,
         draggable: true,
       });
       marker.setMap(map);
@@ -42,7 +42,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
       infoWindow(info);
   };
 
-  //Faz o marcadore pular ao ser clicado
+  // Marker jumps when clicked
   var toggleBounce = function() {
     if (marker.getAnimation() !== null) {
       marker.setAnimation(null);
@@ -51,7 +51,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     }
   };
 
-  //Pegar localização do marcador
+  // Pick up location marker
   var draggableLocation = function() {
     google.maps.event.addListener(marker, 'drag', function(event){
       var coordinates = {lat: event.latLng.lat(), lng: event.latLng.lng()};
@@ -66,12 +66,12 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
      });
   }
 
-  //Deleta um marcador
+  // To delete a bookmark
   var deleteIcon = function() {
     marker.setMap(null);
   };
 
-  //Cria uma janela de informação ao clicar no marcador
+  // Create an information window by clicking on the marker
   var infoWindow = function(info) {
     var infowindow = new google.maps.InfoWindow({
       content:info,
@@ -82,20 +82,20 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   };
 
-  // Pega as informações de trafego das vias
+  // Takes the traffic information of roads
   var getTraficInformation = function() {
     var trafficLayer = new google.maps.TrafficLayer();
     trafficLayer.setMap(map);
   }
 
-  // Organizar o formulario dentro do mapa
+  // Arrange the form in the map
   var organizeInputs = function() {
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(find_me);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(origin_input);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(destination_input);
   }
 
-  //Geocodifica a localização para uma string literaria
+  // Geocode the location for a literal string
   var toStringOriginLocation = function(location) {
     geocoder.geocode({
        "location": location
@@ -118,7 +118,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   }
 
-  // Expandir a vista para caber no mapa quando calcula a rota
+  // Expand the view to fit the map when calculating the route
   var expandViewportToFitPlace = function(place) {
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
@@ -128,7 +128,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     }
   }
 
-  // Traduz o placeID para latitudes e longitudes
+  // Translates the placeId to latitudes and longitudes
   var geocodePlaceId = function(placeID_origin, placeID_destiny) {
     geocoder.geocode({'placeId': placeID_origin}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
@@ -149,7 +149,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   }
 
-  // Calcula a rota entre a origem e o destino
+  // Calculates the route between the origin and destination
   var route = function(origin_place_id, destination_place_id, travel_mode) {
     if (!origin_place_id || !destination_place_id) {
       return;
@@ -172,7 +172,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   }
 
-  // Autocompleta o campo de origem
+  // Autocomplete origin field
   var originAutocomplete = function() {
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
     origin_autocomplete.bindTo('bounds', map);
@@ -191,7 +191,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   }
 
-  // Autocompleta o campo de destino
+  // Autocomplete destiny field
   var destinyAutocomplete = function() {
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', map);
@@ -210,7 +210,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   }
 
-  // Acha a geolocalização do usuário
+  // Find the user geolocation
   $scope.geoLocation = function() {
     if(!map) {
       return;
@@ -219,7 +219,6 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     navigator.geolocation.getCurrentPosition(function(pos) {
       geolocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
       map.setCenter(geolocation);
-      $ionicLoading.hide();
       deleteIcon();
       createIcon(geolocation, $scope.infoHtml);
 
@@ -239,7 +238,7 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   }
 
-  // Função de inicialização do mapa (função principal)
+  // map initialization function (main function)
   $scope.initialize = function(element) {
 
     var mapOptions = {
@@ -265,19 +264,3 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
   };
 
 });
-
-/*
-
-  INSERIR O MAPA:
-
-  <ion-content>
-      <input id="origin-input" class="controls" type="text" placeholder="Origem">
-      <input id="destination-input" class="controls" type="text" placeholder="Destino">
-      <app-map id="mapa"></app-map>
-      <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-      <p>Geolocalização: <span id="origin">{{origin}}</span></p>
-      <p>Destino: <span id="destiny">{{destiny}}</span></p>
-  </ion-content>
-
-
-*/

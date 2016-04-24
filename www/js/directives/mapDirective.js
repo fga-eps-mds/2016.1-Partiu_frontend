@@ -1,7 +1,6 @@
-var app = angular.module('starter')
+angular.module('starter.directives')
 
-// - Documentação: https://developers.google.com/maps/documentation/
-app.directive("appMap", function () {
+.directive("appMap", function () {
     return {
         restrict: "E",
         replace: true,

@@ -8,6 +8,7 @@
 * A animação toogle e infoWindow tem que durar somente 3 segundos e não pode ser clicado
 * Inserir uma janela informativa no destino
 * Armazenar o km do rota
+* Arrumar mapa ao inserir em outros locais, fica aparecendo os inputs novamente.
 
 ## Opcionais
 
