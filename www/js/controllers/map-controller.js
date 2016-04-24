@@ -9,9 +9,12 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
   var origin_input = document.getElementById('origin-input');
   var destination_input = document.getElementById('destination-input');
   var find_me = document.getElementById('findMe');
-  $scope.marker = [];
-  $scope.geolocation;
-  $scope.destiny = {lat: -15.802255, lng: -47.939872};
+  var geocoder = new google.maps.Geocoder;
+  var marker;
+  var map;
+  var geolocation = {lat: -15.793327, lng: -47.882489};
+  $scope.origin;
+  $scope.destiny;
   $scope.img = [
     {sobrenatural: 'img/cars/sobrenatural.png'},
     {fusca: 'img/cars/fusca.png'}
@@ -23,93 +26,84 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
                       '</div>' +
                     '</div>';
 
-
   //Cria o marcador do mapa
-  $scope.createIcon = function(map, position, info) {
-      $scope.marker = new google.maps.Marker({
+  var createIcon = function(position, info) {
+      marker = new google.maps.Marker({
         position: position,
         animation: google.maps.Animation.DROP,
         icon: $scope.img[0].sobrenatural,
         draggable: true,
       });
-      $scope.marker.setMap(map);
-      $scope.marker.addListener('click', toggleBounce);
-      infoWindow(map, info);
+      marker.setMap(map);
+      marker.addListener('click', toggleBounce);
+      draggableLocation();
+      infoWindow(info);
   };
 
   //Faz o marcadore pular ao ser clicado
   var toggleBounce = function() {
-    if ($scope.marker.getAnimation() !== null) {
-      $scope.marker.setAnimation(null);
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
     } else {
-      $scope.marker.setAnimation(google.maps.Animation.BOUNCE);
+      marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   };
 
+  //Pegar localização do marcador
+  var draggableLocation = function() {
+    google.maps.event.addListener(marker, 'drag', function(event){
+      var coordinates = {lat: event.latLng.lat(), lng: event.latLng.lng()};
+      geocoder.geocode({'location': coordinates}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[1])
+            origin_input.value = results[1].formatted_address;
+        }
+      });
+     });
+  }
+
   //Deleta um marcador
-  $scope.deleteIcon = function() {
-    $scope.marker.setMap(null);
+  var deleteIcon = function() {
+    marker.setMap(null);
   };
 
   //Cria uma janela de informação ao clicar no marcador
-  var infoWindow = function(map, info) {
+  var infoWindow = function(info) {
     var infowindow = new google.maps.InfoWindow({
       content:info,
       maxWidth: 200
     });
-    google.maps.event.addListener($scope.marker, 'click', function() {
-      infowindow.open(map, $scope.marker);
+    google.maps.event.addListener(marker, 'click', function() {
+      infowindow.open(map, marker);
     });
   };
 
   // Pega as informações de trafego das vias
-  $scope.getTraficInformation = function(map) {
+  var getTraficInformation = function() {
     var trafficLayer = new google.maps.TrafficLayer();
     trafficLayer.setMap(map);
   }
 
-  // Localiza o usuário
-  $scope.centerOnMe = function() {
-    if(!$scope.map) {
-      return;
-    }
-
-    $scope.deleteIcon();
-
-    $scope.loading = $ionicLoading.show({
-      content: 'Procurando posição atual...',
-      showBackdrop: false
-    });
-
-    navigator.geolocation.getCurrentPosition(function(pos) {
-      $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
-      $scope.map.setCenter($scope.position);
-      $ionicLoading.hide();
-      $scope.createIcon($scope.map, $scope.position, $scope.infoHtml);
-      var geocoder = new google.maps.Geocoder();
-
-      geocoder.geocode({
-         "location": $scope.position
-      },
-      function(results, status) {
-         if (status == google.maps.GeocoderStatus.OK) {
-           $("#origin-input").val(results[0].formatted_address);
-         }
-      });
-    }, function(error) {
-      alert('A posição atual não foi encontrada: ' + error.message);
-    });
-  };
-
   // Organizar o formulario dentro do mapa
-  $scope.organizeInputs = function(map) {
+  var organizeInputs = function() {
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(find_me);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(origin_input);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(destination_input);
   }
 
+  /*var toStringLocation = function() {
+    geocoder.geocode({
+       "location": geolocation
+    },
+    function(results, status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+
+       }
+    });
+  }*/
+
   // Expandir a vista para caber no mapa  caso necessario
-  var expandViewportToFitPlace = function(map, place) {
+  var expandViewportToFitPlace = function(place) {
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
     } else {
@@ -118,15 +112,22 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     }
   }
 
-  var geocodePlaceId = function(placeID, map) {
-    var geocoder = new google.maps.Geocoder;
-    geocoder.geocode({'placeId': placeID}, function(results, status) {
+  // Traduz o placeID para latitudes e longitudes
+  var geocodePlaceId = function(placeID_origin, placeID_destiny) {
+    geocoder.geocode({'placeId': placeID_origin}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
-        $scope.createIcon(map, results[0].geometry.location, results[0].formatted_address);
+        createIcon(results[0].geometry.location, $scope.infoHtml);
+        geoLocation = results[0].geometry.location;
       } else {
         window.alert('Geocoder falhou devido a: ' + status);
       }
-
+    });
+    geocoder.geocode({'placeId': placeID_destiny}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        $scope.destiny = results[0].geometry.location;
+      } else {
+        window.alert('Geocoder falhou devido a: ' + status);
+      }
     });
   }
 
@@ -140,47 +141,50 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
       destination: {'placeId': destination_place_id},
       travelMode: travel_mode
     }
-    $scope.deleteIcon();
-    console.log($scope.request);
-    geocodePlaceId($scope.request.origin.placeId, $scope.map);
+    deleteIcon();
+    geocodePlaceId($scope.request.origin.placeId, $scope.request.destination.placeId);
     directionsService.route($scope.request, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
+        origin_input.value = "";
+        destination_input.value = "";
       } else {
-        window.alert('Directions request failed due to ' + status);
+        window.alert('A rota requerida falhou devido a ' + status);
       }
     });
   }
 
-  // Autocompleta o formulario de origin e destino
-  $scope.autocompleteRoute = function(map) {
-    // ORIGEM AUTOCOMPLETE
+  // Autocompleta o campo de origem
+  var originAutocomplete = function() {
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
     origin_autocomplete.bindTo('bounds', map);
 
     origin_autocomplete.addListener('place_changed', function() {
       var place = origin_autocomplete.getPlace();
       if (!place.geometry) {
-        window.alert("Autocomplete's returned place contains no geometry");
+        window.alert("O local não foi encontrado");
         return;
       }
-      expandViewportToFitPlace(map, place);
+      expandViewportToFitPlace(place);
 
       origin_place_id = place.place_id;
       route(origin_place_id, destination_place_id, travel_mode,
             directionsService, directionsDisplay);
     });
-    // DESTINATION AUTOCOMPLETE
+  }
+
+  // Autocompleta o campo de destino
+  var destinyAutocomplete = function() {
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', map);
 
     destination_autocomplete.addListener('place_changed', function() {
       var place = destination_autocomplete.getPlace();
       if (!place.geometry) {
-        window.alert("Autocomplete's returned place contains no geometry");
+        window.alert("O local não foi encontrado");
         return;
       }
-      expandViewportToFitPlace(map, place);
+      expandViewportToFitPlace(place);
 
       destination_place_id = place.place_id;
       route(origin_place_id, destination_place_id, travel_mode,
@@ -188,34 +192,67 @@ app.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
     });
   }
 
-  $scope.initialize = function(element) {
-
+  // Acha a geolocalização do usuário
+  var geoLocation = function() {
     navigator.geolocation.getCurrentPosition(function(pos) {
-      $scope.position = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
-      $scope.map.setCenter($scope.position);
-      $scope.createIcon($scope.map, $scope.position, $scope.infoHtml);
+      geolocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
+      map.setCenter(geolocation);
+      $ionicLoading.hide();
+      deleteIcon();
+      createIcon(geolocation, $scope.infoHtml);
+
+      geocoder.geocode({
+         "location": geolocation
+      },
+      function(results, status) {
+         if (status == google.maps.GeocoderStatus.OK) {
+           if (results[1])
+             origin_input.value = results[1].formatted_address;
+         }
+      });
     }, function(error) {
       alert('A posição atual não foi encontrada: ' + error.message);
     });
+  }
+
+
+  // Localiza o usuário
+  $scope.centerOnMe = function() {
+    if(!map) {
+      return;
+    }
+
+    $scope.loading = $ionicLoading.show({
+      content: 'Procurando posição atual...',
+      showBackdrop: false
+    });
+
+    geoLocation();
+  };
+
+  // Função de inicialização do mapa (função principal)
+  $scope.initialize = function(element) {
 
     var mapOptions = {
-      center: $scope.position,
+      center: geolocation,
       zoom: 16,
       mapTypeControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-    var map = new google.maps.Map(element, mapOptions);
+    map = new google.maps.Map(element, mapOptions);
     directionsDisplay.setMap(map);
-    $scope.map = map;
 
-    $scope.createIcon($scope.map, $scope.geolocation, $scope.infoHtml);
+    createIcon(geolocation, $scope.infoHtml);
 
-    $scope.getTraficInformation(map);
+    getTraficInformation();
 
-    $scope.organizeInputs(map);
+    organizeInputs();
 
-    $scope.autocompleteRoute(map);
+    geoLocation();
 
+    originAutocomplete();
+
+    destinyAutocomplete();
   };
 
 

@@ -1,10 +1,10 @@
 <ion-view view-title="{{partiu}}">
       <ion-content>
-          <form method="post" action="index.html">
-            <input id="origin-input" class="controls" type="text" placeholder="Origem">
-            <input id="destination-input" class="controls" type="text" placeholder="Destino">
-          </form>
+          <input id="origin-input" class="controls" type="text" placeholder="Origem">
+          <input id="destination-input" class="controls" type="text" placeholder="Destino">
           <app-map id="mapa"></app-map>
           <button ng-click="centerOnMe()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+          <p>Geolocalização: {{geolocation}}</p>
+          <p>Destino: {{destiny}}</p>
       </ion-content>
 </ion-view>
