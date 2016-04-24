@@ -2,15 +2,11 @@
 
 ## Prioridades
 
-* Calcular a rota entre a origem e o destino (ta calculando mas n ta mostrando inserindo)
-* Inserir Geolocalização (ta pegando mas precisa ainda colocar o icone)
+* Inserir o carro na origem do input ao calcular a rota e apagar as outras
 * Usuário pode ter a opção de inserir/editar a origem de 3 maneiras:
-  - através do input
+  - através do input FEITO
   - arrastando o marcador
-  - Através da geolocalização => padrão
-* Usuário só irá ter a opção de inserir/editar destino através do input
-* Arrumar os icones da origem e destino (origem = carro, Destino = ???)
-* Fazer responsividade do mapa.
+  - Através da geolocalização => padrão FEITO
 
 ## Opcionais
 
@@ -18,3 +14,7 @@
 * Inserir uma janela informativa no destino
 * modificar rota
 * Arrumar o HTML da variavel infoHtml
+
+## Dicas
+* tentar colocar o codigo do findMe no initialize
+* tentar fazer o gecode colocar a geolocalização certinha para calcular a rota
