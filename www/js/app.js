@@ -37,4 +37,10 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
         templateUrl: "templates/login.html",
         controller: "loginCtrl"
     })
+
+    .state("map", {
+      url:"/map",
+      templateUrl: "templates/map.html",
+      controller: "mapCtrl"
+    })
 })
