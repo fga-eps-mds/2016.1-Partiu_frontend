@@ -3,9 +3,18 @@
 
   angular.module('starter').config(function($stateProvider, $urlRouterProvider){
 
-    $urlRouterProvider.otherwise("/menu/home");
+
+
+    $urlRouterProvider.otherwise("/views/viewRide");
+
+    /*
+    $routeProvider.when('/viewRide',{
+      templateUrl: 'views/viewRide.html'
+    });
+    */
 
     $stateProvider
+
 
     .state("menu", {
       url:"/menu",
