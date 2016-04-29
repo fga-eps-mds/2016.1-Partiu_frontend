@@ -2,39 +2,19 @@
     <ion-content>
         <h1>Carona</h1>
         <div ng-controller='rideCtrl'>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome do motorista</th>
-                  <th>Quantidade de vagas</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="ride in rides">
-                  <td><strong>{{ride.nameDriver}}</strong></td>
-                  <td></td>
-                  <td>{{ride.numberSeats}}</td>
-                </tr>
-              </tbody>
-            </table>
-
-
-
-         <ion-list>
-             <ion-item href="#/menu/home" menu-close>Carona 1 home</ion-item>
+              
+          <!--   <ion-item href="#/menu/home" menu-close>Carona 1 home</ion-item>
              <ion-item href="#/menu/perfil" menu-close>Carona 2 perfil</ion-item>
              <ion-item href="#/viewRide" menu-close>Carona 3 viewride</ion-item>
+        -->
 
-             <ion-item ng-repeat="ride in rides" class="item-thumbnail-left">
-
-                 <img ng-src="{{item.img}}">
+         <ion-list>
+            <ion-item ng-repeat="ride in rides" class="item-thumbnail-left" ng-href="http://www.gravatar.com/avatar/"><td><img ng-src ={{ride.img}} alt="Cover Image" width="50px;" height="50px;">
                  <h2>Carona 1</h2>
                  <p>{{ride.nameDriver}}</p>
                  <p>{{ride.numberSeats}}</p>
-                 <ion-option-button class="button-positive"
-                                    ng-click="share(ride)">
-               </ion-item>
-             <ion-item href="#" menu-close>Sair</ion-item>
+            </ion-item>
+            <ion-item href="#" menu-close>Sair</ion-item>
          </ion-list>
       </div>
 
