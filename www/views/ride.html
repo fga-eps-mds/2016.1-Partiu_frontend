@@ -1,38 +1,42 @@
 <ion-view view-title="{{perfil}}">
     <ion-content>
         <h1>Carona</h1>
-​
-        <!--
-        Vou precisar colocar:
-          Lista de caronas
-          Cada carona deverá ter:
-            Nome de quem criou a carona
-            Origem e Destino marcados em um mapa
-            Numero de assentos
-            Numero de assentos disponiveis
-            Informacoes do carro
-            Horarios de ida e volta
-            Qual modelo de precos a ser fixado: pago ou nao
-        -->
         <div ng-controller='rideCtrl'>
-            <table>
-              <thead>
-                <tr>
-                  <th>Nome do motorista</th>
-                  <th>Quantidade de vagas</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="ride in rides">
-                  <td><strong>{{ride.nameDriver}}</strong></td>
-                  <td></td>
-                  <td>{{ride.numberSeats}}</td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
+
+
+         <ion-list>
+             <ion-item href="#/menu/home" menu-close>Carona 1 home</ion-item>
+             <ion-item href="#/menu/perfil" menu-close>Carona 2 perfil</ion-item>
+             <ion-item href="#/viewRide" menu-close>Carona 3 viewride</ion-item>
+
+             <ion-item ng-repeat="ride in rides" class="item-thumbnail-left">
+
+                 <img ng-src="{{item.img}}">
+                 <h2>Carona 1</h2>
+                 <p>{{ride.nameDriver}}</p>
+                 <p>{{ride.numberSeats}}</p>
+                 <ion-option-button class="button-positive"
+                                    ng-click="share(ride)">
+               </ion-item>
+             <ion-item href="#" menu-close>Sair</ion-item>
+         </ion-list>
+      </div>
+
 
     </ion-content>
 </ion-view>
+
+<!--
+Vou precisar colocar:
+  Lista de caronas
+  Cada carona deverá ter:
+    Nome de quem criou a carona
+    Origem e Destino marcados em um mapa
+    Numero de assentos
+    Numero de assentos disponiveis
+    Informacoes do carro
+    Horarios de ida e volta
+    Qual modelo de precos a ser fixado: pago ou nao
+-->
 ​
 ​
