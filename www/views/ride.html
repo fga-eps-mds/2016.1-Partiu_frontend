@@ -2,6 +2,22 @@
     <ion-content>
         <h1>Carona</h1>
         <div ng-controller='rideCtrl'>
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome do motorista</th>
+                  <th>Quantidade de vagas</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="ride in rides">
+                  <td><strong>{{ride.nameDriver}}</strong></td>
+                  <td></td>
+                  <td>{{ride.numberSeats}}</td>
+                </tr>
+              </tbody>
+            </table>
+
 
 
          <ion-list>
