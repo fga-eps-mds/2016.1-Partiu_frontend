@@ -21,8 +21,44 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise("/ride");
+  $urlRouterProvider.otherwise("/menu/home");
   $stateProvider
+
+  .state("menu", {
+    url:"/menu",
+    templateUrl: "templates/menu.html",
+    abstract: true
+  })
+
+  .state("menu.home", {
+    url:"/home",
+    views: {
+      "menuContent": {
+          templateUrl: "templates/map.html",
+          controller: "mapCtrl"
+      }
+    }
+  })
+
+  .state("menu.perfil", {
+    url: "/profile",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/profile.html",
+        controller: "profileCtrl"
+      }
+    }
+  })
+
+  .state("menu.login", {
+      url:"/login",
+      views: {
+        "menuContent": {
+            templateUrl: "templates/login.html",
+            controller: "loginCtrl"
+        }
+      }
+  })
 
   .state("ride", {
       url:"/ride",
@@ -30,21 +66,9 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
       controller: "rideCtrl"
   })
 
-  .state("login", {
-      url:"/login",
-      templateUrl: "templates/login.html",
-      controller: "loginCtrl"
-  })
-
-  .state("map", {
+  /*.state("map", {
     url:"/map",
     templateUrl: "templates/map.html",
     controller: "mapCtrl"
-  })
-
-  .state("Perfil", {
-    url: "/profile",
-    templateUrl: "templates/profile.html",
-    controller: "profileCtrl"
-  })
+  })*/
 })
