@@ -57,5 +57,11 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
     templateUrl: "templates/login.html",
     controller: "loginCtrl"
   })
+
+  .state("Perfil", {
+    url: "/profile",
+    templateUrl: "templates/profile.html",
+    controller: "ProfileCtrl"
+  })
   
 })
