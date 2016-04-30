@@ -21,15 +21,33 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise("/menu");
   $stateProvider
 
-  .state("menu.home", {
-    url:"/home",
-    views: {
-      "menuContent": {
-          templateUrl: "views/home-logout.html",
+  .state("menu", {
+      url:"/menu",
+      templateUrl: "templates/menu.html",
+      abstract: true
+  })
+
+  .state("menu.login", {
+      url:"/logins",
+      templates: {
+        "menuContent": {
+            templateUrl: "templates/login.html",
+            controller: "loginCtrl"
+        }
       }
-    }
+  })
+
+  .state("menu.ride", {
+      url:"/ride",
+      templates: {
+        "menuContent": {
+            templateUrl: "templates/ride.html",
+            controller: "rideCtrl"
+        }
+      }
   })
 
   .state("login", {
