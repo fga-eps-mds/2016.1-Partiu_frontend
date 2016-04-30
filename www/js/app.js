@@ -61,7 +61,7 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
   .state("Perfil", {
     url: "/profile",
     templateUrl: "templates/profile.html",
-    controller: "ProfileCtrl"
+    controller: "profileCtrl"
   })
   
 })

@@ -1,6 +1,7 @@
-angular.module('starter.controllers')
+/*angular.module('starter.controllers')
 
-.controller('ProfileCtrl', function ($scope, ngFB) {
+.controller('profileCtrl', function ($scope, ngFB) {
+    console.log('Profile carregado');
     ngFB.api({
         path: '/me',
         params: {fields: 'id,email,name'}
@@ -11,4 +12,4 @@ angular.module('starter.controllers')
         function (error) {
             alert('Facebook error: ' + error.error_description);
         });
-});
+})*/
