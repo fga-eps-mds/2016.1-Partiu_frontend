@@ -23,24 +23,30 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state("menu.home", {
-      url:"/home",
-      views: {
-        "menuContent": {
-            templateUrl: "views/home-logout.html",
-        }
+  .state("menu.home", {
+    url:"/home",
+    views: {
+      "menuContent": {
+          templateUrl: "views/home-logout.html",
       }
-    })
+    }
+  })
 
-    .state("login", {
-        url:"/login",
-        templateUrl: "templates/login.html",
-        controller: "loginCtrl"
-    })
+  .state("login", {
+      url:"/login",
+      templateUrl: "templates/login.html",
+      controller: "loginCtrl"
+  })
 
-    .state("map", {
-      url:"/map",
-      templateUrl: "templates/map.html",
-      controller: "mapCtrl"
-    })
+  .state("map", {
+    url:"/map",
+    templateUrl: "templates/map.html",
+    controller: "mapCtrl"
+  })
+
+  .state("Perfil", {
+    url: "/profile",
+    templateUrl: "templates/profile.html",
+    controller: "profileCtrl"
+  })
 })

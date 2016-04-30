@@ -1,9 +1,10 @@
-angular.module('starter.controllers', ['ngOpenFB', 'ngResource'])
+/*angular.module('starter.controllers')
 
 .controller('profileCtrl', function ($scope, ngFB) {
+    console.log('Profile carregado');
     ngFB.api({
         path: '/me',
-        params: {fields: 'id,email,name,locale'}
+        params: {fields: 'id,email,name'}
     }).then(
         function (user) {
             $scope.user = user;
@@ -11,4 +12,4 @@ angular.module('starter.controllers', ['ngOpenFB', 'ngResource'])
         function (error) {
             alert('Facebook error: ' + error.error_description);
         });
-});
+})*/

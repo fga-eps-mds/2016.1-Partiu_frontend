@@ -1,5 +1,15 @@
-<ion-view>
-  <ion-content>
-    <h1>{{perfil}}</h1>
-  </ion-content>
+<ion-view view-title="Profile">
+    <ion-content class="has-header">
+        <div class="list card">
+            <div class="item">
+                <h1>{{user.name}}</h1>
+                <p>{{user.locale}}</p>
+                <p>{{user.user_about_me}}</p>
+                <p>{{user}}</p>
+            </div>
+            <div class="item item-body">
+                <img src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270"/>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>
