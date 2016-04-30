@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="starter">
+<html ng-app="starter" class="ionic">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
@@ -13,28 +13,34 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
-    <!-- your app's js -->
+    <!-- dependencies -->
+    <script src="lib/ionic/js/angular/angular-resource.min.js"></script>
+    <script src="lib/ionic/js/angular-ui/angular-ui-router.js"></script>
+    <script src="js/openfb.js"></script>
+    <script src="js/ngopenfb.js"></script>
+
+    <!-- app js -->
     <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/directives.js"></script>
 
     <!-- CONTROLLERS -->
-    <script src="js/controllers/app-controller.js"></script>
-    <script src="js/controllers/map-controller.js"></script>
     <script src="js/controllers/ride-controller.js"></script>
+    <script src="js/controllers/loginCtrl.js"></script>
+    <script src="js/controllers/mapCtrl.js"></script>
+    <script src="js/controllers/profileCtrl.js"></script> 
 
-    <!-- ROUTES -->
-    <script src="js/routes/app-routes.js"></script>
-  
 
     <!-- SERVICES -->
 
     <!-- DIRECTIVES -->
-    <script src="js/directives/map-directive.js"></script>
+    <script src="js/directives/mapDirective.js"></script>
 
     <!-- GEOLOCATION GOOGLE MAPS -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGknmuLFXy-yBSHS1uaEIoIYLDX5Yc_Yo&language=pt-br&libraries=places"></script>
 
   </head>
-  <body ng-controller="mapCtrl">
+  <body>
     <ion-nav-view></ion-nav-view>
   </body>
 </html>
