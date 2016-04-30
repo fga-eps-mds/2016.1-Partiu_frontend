@@ -1,6 +1,6 @@
-var app = angular.module('starter');
+angular.module('starter.controllers')
 
-app.controller('mapCtrl2', function($scope, $ionicLoading, $compile) {
+.controller('mapCtrl', function($scope, $ionicLoading, $compile) {
   var findMe = false;
   var marker = [];
   var line;
@@ -208,5 +208,4 @@ app.controller('mapCtrl2', function($scope, $ionicLoading, $compile) {
   };
 
   google.maps.event.addDomListener(window, 'load', initialize);
-
-});
+})
