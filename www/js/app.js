@@ -66,6 +66,16 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
       controller: "rideCtrl"
   })
 
+  /*.state("rideInsertion", {
+      url: "/ride_insertion",
+      views: {
+        "menuContent": {
+            templateUrl: "templates/rideInsertion.html"
+            controller: "rideInsertionCtrl"
+        }
+      }  
+  })
+*/
   /*.state("map", {
     url:"/map",
     templateUrl: "templates/map.html",
