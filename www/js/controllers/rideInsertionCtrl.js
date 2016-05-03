@@ -1,6 +1,6 @@
-angular.console('starter.controllers').
+angular.console('starter.controllers')
 
-controller('rideInsertion', function($scope, $http) {
+.controller('rideInsertion', function($scope, $http) {
 
 
 });
