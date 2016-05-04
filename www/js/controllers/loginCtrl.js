@@ -15,5 +15,5 @@ angular.module('starter.controllers')
         remember: "default",
         scope: "email, public_profile, user_friends, user_about_me, publish_actions"
     });
-    };
+  };
 })
