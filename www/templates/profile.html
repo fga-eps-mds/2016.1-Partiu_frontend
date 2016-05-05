@@ -1,12 +1,14 @@
 <ion-view view-title="Profile">
     <ion-content class="has-header" ng-controller="profileCtrl">
         <div class="list card">
+            <div class="row">
+                <div class="item item-body col-30">
+                    <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.userId}}/picture?width=90&height=90"/>
+                </div>
+            </div>    
             <div class="item">
-                <h1>{{user.name}}</h1>
-                <p>{{user.email}}</p>
-            </div>
-            <div class="item item-body">
-                <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.id}}/picture?width=270&height=270"/>
+                <h3>{{user.name}}</h3>
+                <h4>{{user.email}}</h4>
             </div>
         </div>
     </ion-content>
