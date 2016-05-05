@@ -10,17 +10,16 @@ angular.module('starter.services', [])
     user.gender = gender,
     user.photo = photoURL,
     user.id = userId,
-    user.facebook_profile = profileLink
+    user.facebook_profile = profileLink;
+
+    var getUser = function() {
+      return user;
     }
 
-  var getUser = function() {
-    return user;
-  }
-
-  return {
-    setUser: setUser,
-    getUser: getUser
-  }
+    return {
+      setUser: setUser,
+      getUser: getUser
+    }
 })
 
 .factory('UserAPI', function($resource) {
@@ -65,4 +64,8 @@ angular.module('starter.services', [])
     });
   };
   return service;
-});
+})
+
+.factory('Vehicle', function($resource) {
+  return $resource("http://localhost:3000/vehicles/:id.json");
+})

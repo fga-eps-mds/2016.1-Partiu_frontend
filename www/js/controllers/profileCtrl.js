@@ -6,4 +6,6 @@ angular.module('starter.controllers')
   User.query().$promise.then(function(response){
     $scope.users = response;
   });
+.controller('profileCtrl', function($scope, Profile) {
+  $scope.user = Profile.getUser();
 })
