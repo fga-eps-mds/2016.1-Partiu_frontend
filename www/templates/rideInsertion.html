@@ -1,69 +1,57 @@
-<h1> Cadatro de Caronas </h1>
+<body ng-app = "starter">
 
-<!-- Map -->
+  <ion-pane ng-controller = "rideCtrl">
 
-<ion-content>
+    <!-- Header-->
 
-    <input id="origin-input" class="controls" type="text" placeholder="Origem">
-    <input id="destination-input" class="controls" type="text" placeholder="Destino">
-    <app-map id="mapa"></app-map>
-    <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+      <ion-header-bar class="bar-energized">
+        <h1 class = "title"> Criar Carona</h1>
+      </ion-header-bar> 
 
-  <!-- Form -->
+      <!-- Map -->
+  
+    <ion-content padding>
 
-  <div class="list">
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Horário</span>
-        <input type="text" placeholder="Horário">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Vagas</span>
-        <input type="text" placeholder="Vagas">
-      </label>
-      <label class="item item-input item-floating-label">
-        <span class="input-label">Descrição</span>
-        <input type="text" placeholder="Descrição">
-      </label>
-      
-  </div>
+          <input id="origin-input" class="controls" type="text" placeholder="Origem">
+          <input id="destination-input" class="controls" type="text" placeholder="Destino">
+          <app-map id="mapa"></app-map>
+          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
 
-  <!--Checkbox -->
- 
-  <ul class="list">
-    <li class="item item-toggle">
-       Ajuda de Custo 
-       <label class="toggle toggle-assertive">
-         <input type="checkbox">
-         <div class="track">
-            <div class="handle"></div>
-         </div>
-       </label>
-    </li>
-  </ul>
+      <!-- Form -->
+
+      <div class="list">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Horário</span>
+            <input type="text" placeholder="Horário">
+          </label>  
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Vagas</span>
+            <input type="text" placeholder="Vagas">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Descrição</span>
+            <input type="text" placeholder="Descrição">
+          </label>
+          
+      </div>
+
+
+       <!--Checkbox -->
    
-  <!-- Footer-->
+      <ul class="list">
+        <li class="item item-toggle">
+           Ajuda de Custo 
+           <label class="toggle toggle-assertive">
+             <input type="checkbox">
+             <div class="track">
+                <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+      </ul>
 
-  <div class="bar bar-footer bar-balanced">
-    <div class="title">Criar Carona</div>
-  </div>
+    </ion-content>  
+    
+  </ion-pane>
 
-
-   <ul class="list">
-    <li class="item item-toggle">
-       Ajuda de Custo 
-       <label class="toggle toggle-assertive">
-         <input type="checkbox">
-         <div class="track">
-            <div class="handle"></div>
-         </div>
-       </label>
-    </li>
-  </ul>
-
-
-
-</ion-content>
-
-
-
-
+</body>
