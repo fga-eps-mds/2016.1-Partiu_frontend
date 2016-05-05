@@ -60,11 +60,15 @@ angular.module('starter', ['ionic', 'ngResource', 'ngOpenFB', 'starter.controlle
       }
   })
 
-  .state("ride", {
+  .state("menu.ride", {
       url:"/ride",
-      templateUrl: "templates/ride.html",
-      controller: "rideCtrl"
-  })
+      views: {
+        "menuContent": {
+          templateUrl: "templates/ride.html",
+          controller: "rideCtrl"
+        }
+      }
+  });
 
   /*.state("map", {
     url:"/map",
