@@ -1,6 +1,6 @@
-/*angular.module('starter.controllers')
+angular.module('starter.controllers')
 
-.controller('profileCtrl', function ($scope, ngFB) {
+/*.controller('profileCtrl', function ($scope, ngFB) {
     console.log('Profile carregado');
     ngFB.api({
         path: '/me',
@@ -13,3 +13,9 @@
             alert('Facebook error: ' + error.error_description);
         });
 })*/
+
+.controller('userCtrl', function($scope, User) {
+  User.query().$promise.then(function(response){
+    $scope.users = response;
+  });
+})
