@@ -17,25 +17,29 @@
                 <div class="item item-divider"><strong>{{ride.title}}<strong></div>
                 <div class="item item-body">
                   <ion-item class="item-thumbnail-left">
-                    <img ng-src ="http://pink.dornbeast.com/wp-content/uploads/2008/07/7803325b0b54_main400-300x300.jpg" alt="Cover Image" width="50px;" height="50px;">
-                    <p>Origem: {{ride.origin}}</p>
-                    <p>Destino: {{ride.destiny}}</p>
-                    <p>Só ida?: {{ride.is_only_departure}}</p>
-                    <p>{{ride.total_seats}} Vagas</p> <!-- Essa é o total de vagas não é o número de vagas sobrando, o número de vagas sobrando vai ser calculado pelo app -->
-                    <p>Hora de ida: {{ride.departure_time}}</p> <!-- Ainda vou formatar essa saída -->
-                    <p>Hora de volta: {{ride.return_time}}</p> <!-- Se for só carona de ida não mostrar -->
-                    <p>Cheio?: {{ride.is_finished}}</p> <!-- Fazer validação para que se for true apareça a mensagem Cheio, se for false apareça o número de vagas -->
-                    <p>Ajuda de custo?: {{ride.is_subsistence_allowance}}</p>
-                    <p>Descrição: {{ride.description}}</p>
-                    <p>Rank: Em construção</p>
+                    <img ng-src ="{{ride.img}}" alt="Cover Image" width="50px;" height="50px;">
+
+                    <p>Nome do Motorista: {{ride.nameDriver}}
+                    | Assentos: {{ride.numberSeats}}
+                    | Origem: {{ride.origin}}
+                    | Destino: {{ride.destiny}}
+                    | É só ida?: {{ride.is_only_departure}}
+                    | Hora da Saída: {{ride.departure_time}}</p>
+                    <p> Hora da Volta: {{ride.return_time}}
+                    | Carona Finalizada: {{ride.is_finished}}
+                    | Ajuda de Custo: {{ride.is_subsistence_allowance}}
+                    | Descricao: {{ride.description}}
+                    | Ranking do Motorista: {{ride.rank}}</p>
+
                   </ion-item>
               </div>
               </div>
             </ion-list>
-            <button class="button button-block button-positive icon icon-center ion-home" ng-click="goHome()">
-              Voltar
-            </button>
-            <ion-item href="#/menu/home" menu-close>Voltar</ion-item>
+
+            <a href="#/menu/home" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+
+
+          <!--  <ion-item href="#/menu/home" menu-close>Voltar</ion-item> -->
 
     </ion-content>
 </ion-view>
