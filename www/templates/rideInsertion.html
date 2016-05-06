@@ -4,9 +4,9 @@
 
     <!-- Header-->
 
-      <ion-header-bar class="bar-energized header">
-        <h1 class = "title"> Criar Carona</h1>
-      </ion-header-bar>
+    <ion-header-bar class="bar-energized">
+      <h1 class = "title"> Criar Carona</h1>
+    </ion-header-bar> 
 
       <!-- Map -->
 
@@ -28,11 +28,13 @@
             <span class="input-label">Vagas</span>
             <input type="text" placeholder="Vagas">
           </label>
-          <label class="item item-input item-floating-label">
+          <label class="item item-input item-floating-label item-icon-right">
             <span class="input-label">Descrição</span>
             <input type="text" placeholder="Descrição">
+            <i class="icon icon-accessory ion-ios-information-outline" ng-click="showInfo()"></i>
           </label>
-
+          
+          <!-- works <i class="icon ion-home balanced"></i> -->
       </div>
 
 
@@ -51,6 +53,14 @@
       </ul>
 
     </ion-content>
+      <!-- Save Button -->
+
+      <button class="button button-full button-positive button-outside">
+          Salvar
+      </button>  
+    
+
+      </ion-content>  
 
   </ion-pane>
 
