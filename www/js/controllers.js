@@ -1,1 +1,1 @@
-angular.module('starter.controllers', ['ngResource'])
+angular.module('starter.controllers', [])

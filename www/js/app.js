@@ -33,8 +33,8 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
     url:"/home",
     views: {
       "menuContent": {
-          templateUrl: "templates/map.html",
-          controller: "mapCtrl"
+          templateUrl: "",
+          controller: ""
       }
     }
   })
@@ -64,11 +64,20 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       views: {
         "menuContent": {
           templateUrl: "templates/ride.html",
-          controller: "rideCtrl"
+          controller: "userCtrl"
+        }
+      }
+  })
+
+  .state("menu.rideInsertion", {
+      url: "/rideInsertion",
+      views: {
+        "menuContent": {
+            templateUrl: "templates/rideInsertion.html",
+            controller: "userCtrl"
         }
       }
   });
-
   /*.state("map", {
     url:"/map",
     templateUrl: "templates/map.html",
