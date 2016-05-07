@@ -26,6 +26,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   .state("menu", {
     url:"/menu",
     templateUrl: "templates/menu.html",
+    controller: "menuCtrl",
     abstract: true
   })
 
