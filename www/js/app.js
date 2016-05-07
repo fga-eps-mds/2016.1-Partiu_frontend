@@ -65,6 +65,15 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       controller: "rideCtrl"
   })
 
+  .state("menu.rideInsertion", {
+      url: "/rideInsertion",
+      views: {
+        "menuContent": {
+            templateUrl: "templates/rideInsertion.html",
+            controller: "rideCtrl"
+        }
+      }  
+  })
   /*.state("map", {
     url:"/map",
     templateUrl: "templates/map.html",
