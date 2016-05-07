@@ -7,12 +7,14 @@
             <div class="row">
                 <div class="col-md-12">
                 <form>
-                     <input class="form-control" placeholder="Filtrar carona" ng-model="filterRide">
+                     <input class="form-control" placeholder="Filtrar por Origem" ng-model="filterRide.origin">
+                     <input class="form-control" placeholder="Filtrar por Destino" ng-model="filterRide.destiny">
+                     <input class="form-control" placeholder="Filtrar por Nome" ng-model="filterRide.nameDriver">
                 </form>
                 </div>
             </div>
 
-            <ion-list ng-repeat="ride in rides | filter: filterRide">
+            <ion-list ng-repeat="ride in rides | filter: filterRide : strict">
               <div class="list card">
                 <div class="item item-divider"><strong>{{ride.title}}<strong></div>
                 <div class="item item-body">
