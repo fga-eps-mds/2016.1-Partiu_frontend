@@ -29,6 +29,21 @@ origin destiny is_only_departure total_seats departure_time return_time is_finis
         is_subsistence_allowance: 'Sim', description: 'Partiu!',
         rank: 'Confiável'
        },
+       {nameDriver: 'Arnauld', numberSeats: 0,
+        img : "http://pink.dornbeast.com/wp-content/uploads/2008/07/7804712858de_main400-300x300.jpg",
+        origin: 'Riacho Fundo', destiny:'Luziânia', is_only_departure: 'Não',
+        departure_time: '12:00', return_time:'23:00', is_finished: 'Não',
+        is_subsistence_allowance: 'Sim', description: 'Partiu!',
+        rank: 'Confiável'
+       },
+       {nameDriver: 'Sconetto', numberSeats: 1,
+        img : "http://pink.dornbeast.com/wp-content/uploads/2008/07/7804530f1b10_main400-300x300.jpg",
+        origin: 'Gama', destiny:'Taguatinga', is_only_departure: 'Não',
+        departure_time: '12:00', return_time:'23:00', is_finished: 'Não',
+        is_subsistence_allowance: 'Sim', description: 'Partiu!',
+        rank: 'Confiável'
+       },
+
 
 
    ];
