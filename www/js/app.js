@@ -63,7 +63,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       url:"/ride",
       views: {
         "menuContent": {
-          templateUrl: "templates/ride.html",
+          templateUrl: "templates/searchRide.html",
           controller: "userCtrl"
         }
       }

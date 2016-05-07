@@ -7,9 +7,9 @@
             <div class="row">
                 <div class="col-md-12">
                 <form>
-                     <input class="form-control" placeholder="Filtrar por Origem" ng-model="filterRide.origin">
+                     <!--<input class="form-control" placeholder="Filtrar por Origem" ng-model="filterRide.origin">-->
                      <input class="form-control" placeholder="Filtrar por Destino" ng-model="filterRide.destiny">
-                    
+  
                 </form>
                 </div>
             </div>
@@ -19,23 +19,23 @@
               <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
                 <div class="item item-divider"><strong>{{ride.title}}<strong></div>
                 <div class="item item-body">
-                  <ion-item class="item-thumbnail-left">
+                 <ion-item class="item-thumbnail-left">
                     <img style="border-radius: 50%" ng-src ="{{user.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
-                    <p>Motorista: {{user.name}}</p>
-                    <p>Origem: {{ride.origin}}</p>
-                    <p>Destino: {{ride.destiny}}</p>
-                    <p>Hora de ida: {{ride.departure_time}}</p>
-                    <p>Hora de volta: {{ride.return_time}}</p>
-                    <p>Total de vagas: {{ride.total_seats}}</p>
-                    <p>Descrição: {{ride.description}}</p>
-                    <p>Veiculo: {{ride.vehicle.car_model}}</p>
+                    <button class="button button-stable">Motorista: {{user.name}}</button>
+                    <button class="button button-stable">Origem: {{ride.origin}}</button>
+                    <button class="button button-stable">Destino: {{ride.destiny}}</button>
+                    <button class="button button-stable">Total de vagas: {{ride.total_seats}}</button>
+                    <!--<button class="button button-stable">Hora de ida: {{ride.departure_time}}</button>
+                    <button class="button button-stable">Hora de volta: {{ride.return_time}}</button>
+                    <button class="button button-stable">Descrição: {{ride.description}}</button>
+                    <button class="button button-stable">Veiculo: {{ride.vehicle.car_model}}</button>-->
 
                   </ion-item>
               </div>
               </div>
             </ion-list>
 
-            <a href="#/menu/home" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+            <a href="#/menu/rideInsertion" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
 
 
           <!--  <ion-item href="#/menu/home" menu-close>Voltar</ion-item> -->
