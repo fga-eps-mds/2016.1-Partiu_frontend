@@ -4,4 +4,4 @@ angular.module('starter.controllers')
 
 	$scope.information = {information: 'Mais informações', is_finish: item}
 
-});
+})
