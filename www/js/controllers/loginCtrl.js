@@ -9,7 +9,14 @@ angular.module('starter.controllers')
         } else {
             console.log("Authenticated successfully with payload:", authData);
             var data = authData.facebook;
+            if(data.cachedUserProfile.gender == 'male') {
+                data.cachedUserProfile.gender = 'Masculino';
+            }
+            else if(data.cachedUserProfile.gender == 'female') {
+                data.cachedUserProfile.gender = 'Feminino';
+            }
             Profile.setUser(data.displayName, data.email, data.accessToken, data.cachedUserProfile.gender, data.profileImageURL, data.id, data.cachedUserProfile.link);
+            $state.go("menu.home");
         }
     }, {
         remember: "default",
