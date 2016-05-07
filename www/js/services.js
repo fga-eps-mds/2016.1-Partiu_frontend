@@ -3,11 +3,14 @@ angular.module('starter.services', [])
 .service('Profile', function() {
   var user = {}
 
-  var setUser = function(email, userId, name, token) {
-    user.email = email,
-    user.userId = userId,
+  var setUser = function(name, email, token, gender, photoURL, userId, profileLink) {
     user.name = name,
-    user.token = token
+    user.email = email,
+    user.token = token,
+    user.gender = gender,
+    user.photo = photoURL,
+    user.id = userId,
+    user.facebook_profile = profileLink
     }
 
   var getUser = function() {
