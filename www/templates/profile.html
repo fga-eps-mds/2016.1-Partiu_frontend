@@ -1,8 +1,8 @@
-<ion-view view-title="Profile">
+<ion-view view-title="Perfil">
     <ion-content class="has-header" ng-controller="profileCtrl">
         <div class="list card">
             <div class="row">
-                <div class="item item-body col-30">
+                <div style="float: right;" class="item item-body col-30">
                     <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.id}}/picture?width=90&height=90"/>
                 </div>
             </div>    
@@ -24,6 +24,19 @@
             <div class="item">
                 <h3>{{user.name}}</h3>
                 <h4>{{user.email}}</h4>
+                <div style="float: left;" class="item col-70">
+                    <h2>{{user.name}}</h2>
+                    <h3>{{user.email}}</h3>
+                    <h3>{{user.gender}}</h3>
+                    <!-- <h4>{{user.facebook_profile}}</h4> -->
+                </div>
+            </div>
+            <div class="item">
+                <label class="item">
+                    <button style="float: left;" class="button button-block button-assertive" ng-click="fbLogout()">
+                      Logout
+                    </button>
+                </label>
             </div>
         </div>
     </ion-content>
