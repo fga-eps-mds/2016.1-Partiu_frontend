@@ -10,16 +10,25 @@ angular.module('starter.services', [])
     user.gender = gender,
     user.photo = photoURL,
     user.id = userId,
-    user.facebook_profile = profileLink;
+    user.facebook_profile = profileLink
+  }
 
-    var getUser = function() {
-      return user;
-    }
+  var getUser = function() {
+    return user;
+  }
 
-    return {
-      setUser: setUser,
-      getUser: getUser
-    }
+  return {
+    setUser: setUser,
+    getUser: getUser
+  }
+})
+
+.factory('User', function($resource) {
+  return $resource("http://localhost:3000/users/:id.json");
+})
+
+.factory('Ride', function($resource) {
+  return $resource("http://localhost:3000/rides/:id.json");
 })
 
 .factory('UserAPI', function($resource) {
@@ -69,3 +78,4 @@ angular.module('starter.services', [])
 .factory('Vehicle', function($resource) {
   return $resource("http://localhost:3000/vehicles/:id.json");
 })
+
