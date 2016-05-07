@@ -1,7 +1,7 @@
 <ion-view view-title="{{perfil}}">
     <ion-content class="padding">
         <h1>Carona</h1>
-        <div ng-controller='rideCtrl'>
+        <div>
 
         <!-- Campo de busca -->
             <div class="row">
@@ -12,24 +12,20 @@
                 </div>
             </div>
 
-            <ion-list ng-repeat="ride in rides | filter: filterRide">
-              <div class="list card">
+            <ion-list ng-repeat="user in users | filter: filterRide">
+              <div class="list card" ng-repeat="ride in user.driver.rides">
                 <div class="item item-divider"><strong>{{ride.title}}<strong></div>
                 <div class="item item-body">
-                  <ion-item class="item-thumbnail-left" ng-repeat="user in ride.users">
+                  <ion-item class="item-thumbnail-left">
                     <img ng-src ="{{user.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
-                    <p>Driver: {{user.name}}</p>
+                    <p>Motorista: {{user.name}}</p>
                     <p>Origem: {{ride.origin}}</p>
                     <p>Destino: {{ride.destiny}}</p>
-                    <p>Carro: {{ride.vehicle.car_model}}</p>
-                    <p>Só ida?: {{ride.is_only_departure}}</p>
-                    <p>{{ride.total_seats}} Vagas</p> <!-- Essa é o total de vagas não é o número de vagas sobrando, o número de vagas sobrando vai ser calculado pelo app -->
-                    <p>Hora de ida: {{ride.departure_time}}</p> <!-- Ainda vou formatar essa saída -->
-                    <p>Hora de volta: {{ride.return_time}}</p> <!-- Se for só carona de ida não mostrar -->
-                    <p>Cheio?: {{ride.is_finished}}</p> <!-- Fazer validação para que se for true apareça a mensagem Cheio, se for false apareça o número de vagas -->
-                    <p>Ajuda de custo?: {{ride.is_subsistence_allowance}}</p>
+                    <p>Hora de ida: {{ride.departure_time}}</p>
+                    <p>Hora de volta: {{ride.return_time}}</p>
+                    <p>Total de vagas: {{ride.total_seats}}</p>
                     <p>Descrição: {{ride.description}}</p>
-                    <p>Rank: Em construção</p>
+                    <p>Veiculo: {{ride.vehicle.car_model}}
                   </ion-item>
               </div>
               </div>
