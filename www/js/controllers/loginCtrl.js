@@ -9,7 +9,7 @@ angular.module('starter.controllers')
         } else {
             console.log("Authenticated successfully with payload:", authData);
             var data = authData.facebook;
-            Profile.setUser(data.email, data.id, data.displayName, data.accessToken);
+            Profile.setUser(data.displayName, data.email, data.accessToken, data.cachedUserProfile.gender, data.profileImageURL, data.id, data.cachedUserProfile.link);
         }
     }, {
         remember: "default",
