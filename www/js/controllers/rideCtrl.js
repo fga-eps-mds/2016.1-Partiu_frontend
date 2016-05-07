@@ -3,7 +3,8 @@ angular.module('starter.controllers')
 .controller('userCtrl', function($scope, UserAPI, UserResource) {
 
   $scope.users = [];
-  $scope.rides = [];
+  $scope.driver_rides = [];
+  $scope.passenger_rides = [];
   $scope.vehicles = [];
   $scope.ride = {};
   $scope.filter = '';
@@ -11,10 +12,20 @@ angular.module('starter.controllers')
 
   UserAPI.query(function(response) {
     $scope.users = response;
+    console.log("Users:");
     console.log(response);
     for(i=0; i<$scope.users.length; i++) {
-      $scope.rides = $scope.users[i].driver_rides
-      $scope.vehicles = $scope.users[i].driver_vehicles
+      if($scope.users[i].driver) {
+        $scope.driver_rides[i] = $scope.users[i].driver.rides
+        $scope.vehicles[i] = $scope.users[i].driver.vehicles
+        console.log("Driver ride[" + i + "]:");
+        console.log($scope.driver_rides[i]);
+        console.log("Vehicle[" + i + "]:");
+        console.log($scope.vehicles[i]);
+      }
+        $scope.passenger_rides[i] = $scope.users[i].passenger.rides
+        console.log("Passenger ride[" + i + "]:");
+        console.log($scope.passenger_rides[i]);
     }
   }, function(erro) {
     console.log(erro)
@@ -50,6 +61,7 @@ angular.module('starter.controllers')
 			var rideIndex = $scope.rides.indexOf(ride);
 			$scope.rides.splice(rideIndex, 1);
 			$scope.message = "Carona " + ride.title + " foi removida com sucesso!";
+      console.log("Carona " + ride.title + " foi removida com sucesso!")
 		}, function(erro){
 			console.log(erro);
 			$scope.message = "Não foi possivel remover a carona " + ride.title;

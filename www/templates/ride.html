@@ -25,7 +25,8 @@
                     <p>Hora de volta: {{ride.return_time}}</p>
                     <p>Total de vagas: {{ride.total_seats}}</p>
                     <p>Descrição: {{ride.description}}</p>
-                    <p>Veiculo: {{ride.vehicle.car_model}}
+                    <p>Veiculo: {{ride.vehicle_model}}</p>
+                    <button ng-click="remove(ride)">Remover</button>
                   </ion-item>
               </div>
               </div>
