@@ -68,4 +68,4 @@ angular.module('starter.controllers')
 		});
 	};
 
-})
+});
