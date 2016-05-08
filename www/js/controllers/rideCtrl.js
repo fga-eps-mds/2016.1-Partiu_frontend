@@ -56,4 +56,4 @@ angular.module('starter.controllers')
 		});
 	};
 
-})
+});

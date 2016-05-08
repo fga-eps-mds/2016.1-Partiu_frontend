@@ -1,47 +1,49 @@
-<ion-pane>
+<ion-view view-tittle="Inserir Carona">
+  <ion-pane>
+    <ion-content padding>
+          <input id="origin-input" class="controls" type="text" placeholder="Origem">
+          <input id="destination-input" class="controls" type="text" placeholder="Destino">
+          <app-map id="mapa"></app-map>
+          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
 
-    <!-- Map -->
+      <div class="list">
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Horário</span>
+            <input type="text" placeholder="Horário">
+          </label>
+          <label class="item item-input item-floating-label">
+            <span class="input-label">Vagas</span>
+            <input type="text" placeholder="Vagas">
+          </label>
+          <label class="item item-input item-floating-label item-icon-right">
+            <span class="input-label">Descrição</span>
+            <input type="text" placeholder="Descrição">
+            <i class="icon icon-accessory ion-ios-information-outline" ng-click="showInfo()"></i>
+          </label>
 
-  <ion-content padding>
+          <!-- works <i class="icon ion-home balanced"></i> -->
+      </div>
 
-        <input id="origin-input" class="controls" type="text" placeholder="Origem">
-        <input id="destination-input" class="controls" type="text" placeholder="Destino">
-        <app-map id="mapa"></app-map>
-        <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+       <!--Checkbox -->
 
-    <!-- Form -->
+      <ul class="list">
+        <li class="item item-toggle">
+           Ajuda de Custo
+           <label class="toggle toggle-assertive">
+             <input type="checkbox">
+             <div class="track">
+                <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+      </ul>
 
-    <div class="list">
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Horário</span>
-          <input type="text" placeholder="Horário">
-        </label>
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Vagas</span>
-          <input type="text" placeholder="Vagas">
-        </label>
-        <label class="item item-input item-floating-label">
-          <span class="input-label">Descrição</span>
-          <input type="text" placeholder="Descrição">
-        </label>
+      <!-- Save Button -->
 
-    </div>
+      <button class="button button-full button-positive button-outside">
+          Salvar
+      </button>
 
-
-     <!--Checkbox -->
-
-    <ul class="list">
-      <li class="item item-toggle">
-         Ajuda de Custo
-         <label class="toggle toggle-assertive">
-           <input type="checkbox">
-           <div class="track">
-              <div class="handle"></div>
-           </div>
-         </label>
-      </li>
-    </ul>
-
-  </ion-content>
-
-</ion-pane>
+    </ion-content>
+  </ion-pane>
+</ion-view>
