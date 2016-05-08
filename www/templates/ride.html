@@ -1,7 +1,6 @@
 <ion-view>
     <ion-content class="padding">
         <h1>Carona</h1>
-        <div ng-controller='rideCtrl'>
 
         <!-- Campo de busca -->
             <div class="row">
@@ -12,8 +11,8 @@
                 </div>
             </div>
 
-            <ion-list ng-repeat="ride in rides | filter: filterRide">
-              <div class="list card">
+            <ion-list ng-repeat="user in users">
+              <div class="list card" ng-repeat="ride in user.driver.rides">
                 <div class="item item-divider"><strong>{{ride.title}}<strong></div>
                 <div class="item item-body">
                   <ion-item class="item-thumbnail-left">

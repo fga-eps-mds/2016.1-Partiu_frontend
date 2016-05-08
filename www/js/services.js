@@ -24,7 +24,7 @@ angular.module('starter.services', [])
 })
 
 .factory('UserAPI', function($resource) {
-  return $resource("http://localhost:3000/api/users/:id", null, {
+  return $resource("http://localhost:3000/api/users/:ID", null, {
     update: {
       method: 'PUT'
     }
@@ -44,7 +44,7 @@ angular.module('starter.services', [])
             create: false
           });
         }, function(erro){
-          console.log(erro);
+          // console.log(erro);
           error({
             message: "Não foi possivel editar a carona " + ride.title
           });
@@ -56,7 +56,7 @@ angular.module('starter.services', [])
               create: true
             });
         }, function(erro) {
-            console.log(erro);
+            // console.log(erro);
             error({
               message: "Não foi possível criar a carona " + ride.title
             });

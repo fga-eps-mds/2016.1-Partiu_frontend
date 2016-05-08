@@ -18,14 +18,14 @@ angular.module('starter.controllers')
       if($scope.users[i].driver) {
         $scope.driver_rides[i] = $scope.users[i].driver.rides
         $scope.vehicles[i] = $scope.users[i].driver.vehicles
-        console.log("Driver ride[" + i + "]:");
-        console.log($scope.driver_rides[i]);
-        console.log("Vehicle[" + i + "]:");
-        console.log($scope.vehicles[i]);
+        // console.log("Driver ride[" + i + "]:");
+        // console.log($scope.driver_rides[i]);
+        // console.log("Vehicle[" + i + "]:");
+        // console.log($scope.vehicles[i]);
       }
         $scope.passenger_rides[i] = $scope.users[i].passenger.rides
-        console.log("Passenger ride[" + i + "]:");
-        console.log($scope.passenger_rides[i]);
+        // console.log("Passenger ride[" + i + "]:");
+        // console.log($scope.passenger_rides[i]);
     }
   }, function(erro) {
     console.log(erro)
@@ -43,13 +43,13 @@ angular.module('starter.controllers')
   $scope.submit = function() {
     //  if($scope.form.$valid) {
 
-       UserResource.register($scope.rides)
+       UserResource.register($scope.driver_rides[0])
        .then(function(dados){
          $scope.message = dados.message;
          if(dados.create) $scope.ride = {};
        })
        .catch(function(erro){
-         $scope.message = erro.message;
+        $scope.message = erro.message;
        });
 
     // }
@@ -57,13 +57,15 @@ angular.module('starter.controllers')
 
 
   $scope.remove = function(ride) {
-		UserAPI.delete({id: ride.id}, function(){
+    console.log(ride);
+		UserAPI.delete({ID: ride.id}, function(){
 			var rideIndex = $scope.rides.indexOf(ride);
 			$scope.rides.splice(rideIndex, 1);
 			$scope.message = "Carona " + ride.title + " foi removida com sucesso!";
       console.log("Carona " + ride.title + " foi removida com sucesso!")
 		}, function(erro){
-			console.log(erro);
+			// console.log(erro);
+      console.log("Não foi possivel remover a carona " + ride.title);
 			$scope.message = "Não foi possivel remover a carona " + ride.title;
 		});
 	};
