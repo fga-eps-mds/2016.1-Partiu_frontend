@@ -55,20 +55,15 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       }
   })
 
-  .state("ride", {
-      url:"/ride",
-      templateUrl: "templates/ride.html",
+  .state("rides", {
+      url:"/rides",
+      templateUrl: "templates/searchRide.html",
       controller: "userCtrl"
   })
 
   .state("rideForm", {
       url: "/ride/new",
       templateUrl: "templates/rideForm.html",
-      controller: "userCtrl"
+      controller: "rideCtrl"
   });
-  /*.state("map", {
-    url:"/map",
-    templateUrl: "templates/map.html",
-    controller: "mapCtrl"
-  })*/
 })
