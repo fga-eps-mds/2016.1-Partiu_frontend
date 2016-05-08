@@ -24,11 +24,11 @@ angular.module('starter.services', [])
 })
 
 .factory('Ride', function($resource) {
-  return $resource("http://localhost:3000/rides/:id.json");
+  return $resource("http://localhost:3000/api/rides/:id.json");
 })
 
 .factory('User', function($resource) {
-  return $resource("http://localhost:3000/users/:id.json");
+  return $resource("http://localhost:3000/api/users/:id.json");
 })
 
 .factory('Vehicle', function($resource) {
