@@ -1,57 +1,47 @@
-<body ng-app = "starter">
+<ion-pane>
 
-  <ion-pane>
+    <!-- Map -->
 
-    <!-- Header-->
+  <ion-content padding>
 
-      <ion-header-bar class="bar-energized header">
-        <h1 class = "title"> Criar Carona</h1>
-      </ion-header-bar>
+        <input id="origin-input" class="controls" type="text" placeholder="Origem">
+        <input id="destination-input" class="controls" type="text" placeholder="Destino">
+        <app-map id="mapa"></app-map>
+        <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
 
-      <!-- Map -->
+    <!-- Form -->
 
-    <ion-content padding>
+    <div class="list">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Horário</span>
+          <input type="text" placeholder="Horário">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Vagas</span>
+          <input type="text" placeholder="Vagas">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Descrição</span>
+          <input type="text" placeholder="Descrição">
+        </label>
 
-          <input id="origin-input" class="controls" type="text" placeholder="Origem">
-          <input id="destination-input" class="controls" type="text" placeholder="Destino">
-          <app-map id="mapa"></app-map>
-          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-
-      <!-- Form -->
-
-      <div class="list">
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Horário</span>
-            <input type="text" placeholder="Horário">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Vagas</span>
-            <input type="text" placeholder="Vagas">
-          </label>
-          <label class="item item-input item-floating-label">
-            <span class="input-label">Descrição</span>
-            <input type="text" placeholder="Descrição">
-          </label>
-
-      </div>
+    </div>
 
 
-       <!--Checkbox -->
+     <!--Checkbox -->
 
-      <ul class="list">
-        <li class="item item-toggle">
-           Ajuda de Custo
-           <label class="toggle toggle-assertive">
-             <input type="checkbox">
-             <div class="track">
-                <div class="handle"></div>
-             </div>
-           </label>
-        </li>
-      </ul>
+    <ul class="list">
+      <li class="item item-toggle">
+         Ajuda de Custo
+         <label class="toggle toggle-assertive">
+           <input type="checkbox">
+           <div class="track">
+              <div class="handle"></div>
+           </div>
+         </label>
+      </li>
+    </ul>
 
-    </ion-content>
+  </ion-content>
 
-  </ion-pane>
-
-</body>
+</ion-pane>
