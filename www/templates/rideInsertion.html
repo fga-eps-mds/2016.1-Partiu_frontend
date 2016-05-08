@@ -1,0 +1,127 @@
+<body ng-app = "starter">
+
+  <ion-pane ng-controller = "rideCtrl">
+    <ion-view view-title = "Criar Carona">
+      
+      <!-- Map -->
+    
+        <ion-content padding>
+              <input id="origin-input" class="controls" type="text" placeholder="Origem">
+              <input id="destination-input" class="controls" type="text" placeholder="Destino" ng-model="newRide.destiny">
+              <app-map id="mapa"></app-map>
+              <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+
+          <!-- Form -->
+
+          <div class="list">
+            <label class="item item-input">
+              <span class="input-label">Origem</span>
+              <input type="text" placeholder="Origem da carona" ng-model="newRide.origin">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Título</span>
+                <input type="text" placeholder="O título da sua carona" ng-model="newRide.title">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Horas</span>
+                <input type="time" placeholder="Hora de chegada da sua carona" ng-model="newRide.endTime">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Vagas</span>
+                <input id="total_seats" max="4" min="1" name="" step="1" type="number" ng-model="newRide.total_seats">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Modelo</span>
+                <input type="text" placeholder="O modelo do seu carro" ng-model="newRide.carModel">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Cor</span>
+                <input type="text" placeholder="A cor do seu veículo" ng-model="newRide.carColor">
+            </label>
+             <label class="item item-input item-stacked-label">
+                <span class="input-label">Descrição</span>
+                <textarea id="message" name="message" cols="24" rows="6" placeholder="Informações adicionais sobre carona" ng-model="newRide.description">
+                </textarea>
+            </label>
+         </div>
+         
+           <!--Checkbox -->
+       
+          <div>
+            <ul class="list">
+              <li class="item item-toggle">
+                 Ajuda de Custo
+                 <label class="toggle toggle-balanced">
+                   <input type="checkbox" ng-model="newRide.costHelp">
+                   <div class="track">
+                      <div class="handle"></div>
+                   </div>
+                 </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Save Button -->
+
+          <button class="button button-full button-calm button-outside" ng-click="submitRide(newRide)">
+            Salvar
+          </button>  
+      
+
+
+          </ion-content>     
+
+      </ion-view>             
+
+  </ion-pane>
+
+</body>
+
+<!-- Header
+
+      
+
+      <div class="bar bar-header">
+        <button class= "button button-icon icon ios-close-outline"></button>
+        <div class="h1 title">Criar Carona</div>
+        <button class="button button-clear button-assertive">Cancelar</button>  
+      </div>
+       --> 
+
+
+
+
+
+ <!-- Form
+
+
+
+              <label class="item item-input item-floating-label">
+                <span class="input-label">First Name</span>
+                <span class="input-label">Horário</span>
+                <input type="text" placeholder="Horário">
+           
+              -->
+           <!--
+              </label>  
+              <label class="item item-input item-floating-label">
+                <span class="input-label">First Name</span>
+                <span class="input-label">Vagas</span>
+                <input type="text" placeholder="Vagas">
+              </label>
+              <label class="item item-input item-floating-label item-icon-right">
+                <span class="input-label">First Name</span>
+                <span class="input-label">Descrição</span>
+                <input type="text" placeholder="Descrição">
+                <i class="icon icon-accessory ion-ios-information-outline" ng-click="showInfo()"></i>
+              </label>
+              -->
+              <!-- works <i class="icon ion-home balanced"></i> -->
+
+
+      

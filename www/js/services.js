@@ -65,4 +65,16 @@ angular.module('starter.services', [])
     });
   };
   return service;
+})
+
+.factory('Ride', function($resource) {
+  return $resource("http://localhost:3000/api/rides/:id.json");
+})
+
+.factory('User', function($resource) {
+  return $resource("http://localhost:3000/api/users/:id.json");
+})
+
+.factory('Vehicle', function($resource) {
+  return $resource("http://localhost:3000/vehicles/:id.json");
 });

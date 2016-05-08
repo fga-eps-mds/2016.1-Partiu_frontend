@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('userCtrl', function($scope, UserAPI, UserResource) {
+/*.controller('userCtrl', function($scope, UserAPI, UserResource) {
 
   $scope.users = [];
   $scope.driver_rides = [];
@@ -8,9 +8,25 @@ angular.module('starter.controllers')
   $scope.vehicles = [];
   $scope.ride = {};
   $scope.filter = '';
-  $scope.message = '';
+  $scope.message = '';*/
 
-  UserAPI.query(function(response) {
+.controller('rideCtrl', function($scope, Ride, $http) {
+  Ride.query().$promise.then(function(response){
+    $scope.rides = response;
+  });
+
+  $scope.submitRide = function(newRide) {
+    console.log("ride:");
+    console.log(newRide);
+    newRide.departure_time = newRide.endTime;
+    $http.post('http://localhost:3000/api/rides', newRide).success(function(data) {
+      console.log("data:");
+      console.log(data);
+    });
+  }
+
+
+  /*UserAPI.query(function(response) {
     $scope.users = response;
     console.log("Users:");
     console.log(response);
@@ -38,7 +54,7 @@ angular.module('starter.controllers')
           console.log(erro);
           $scope.message = 'Não foi possível obter a carona'
       });
-  }*/
+  }
 
   $scope.submit = function() {
     //  if($scope.form.$valid) {
@@ -53,7 +69,7 @@ angular.module('starter.controllers')
        });
 
     // }
-  };
+  };*/
 
 
   $scope.remove = function(ride) {
