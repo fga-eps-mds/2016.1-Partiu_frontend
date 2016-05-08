@@ -1,0 +1,61 @@
+<ion-view view-title="{{perfil}}">
+    <ion-content class="padding">
+        <h1>Carona</h1>
+        <div>
+
+        <!-- Campo de busca -->
+            <div class="row">
+                <div class="col-md-12">
+                <form>
+                     <!--<input class="form-control" placeholder="Filtrar por Origem" ng-model="filterRide.origin">-->
+                     <input class="form-control" placeholder="Filtrar por Destino" ng-model="filterRide.destiny">
+  
+                </form>
+                </div>
+            </div>
+
+            <ion-list ng-if="ride.numberSeats !=0" ng-repeat="user in users">
+    
+              <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
+                <div class="item item-divider"><strong>{{ride.title}}<strong></div>
+                <div class="item item-body">
+                 <ion-item class="item-thumbnail-left">
+                    <img style="border-radius: 50%" ng-src ="{{user.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
+                    <button class="button button-stable">Motorista: {{user.name}}</button>
+                    <button class="button button-stable">Origem: {{ride.origin}}</button>
+                    <button class="button button-stable">Destino: {{ride.destiny}}</button>
+                    <button class="button button-stable">Total de vagas: {{ride.total_seats}}</button>
+                    <!--<button class="button button-stable">Hora de ida: {{ride.departure_time}}</button>
+                    <button class="button button-stable">Hora de volta: {{ride.return_time}}</button>
+                    <button class="button button-stable">Descrição: {{ride.description}}</button>
+                    <button class="button button-stable">Veiculo: {{ride.vehicle.car_model}}</button>-->
+
+                  </ion-item>
+              </div>
+              </div>
+            </ion-list>
+
+            <a href="#/menu/rideInsertion" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+
+
+          <!--  <ion-item href="#/menu/home" menu-close>Voltar</ion-item> -->
+
+    </ion-content>
+</ion-view>
+
+<!--
+Vou precisar colocar:
+  - Lista de caronas (Olhar prototipo) e deixar mais bonito organizando cada informação no seu lugar
+  de acordo com o prototipo criado.
+  - Total de vagas não vai ser inserido e nem a descrição, isso vai ser visto ao clicar na carona
+  - A opção só_ida é só para verificar se vai aparecer a hora de volta ou não
+  - Cada carona deverá ter:
+      Titulo da carona (fazer o search pelo titulo ou pelo destino, usuario escolher)
+      Destino, string que o mapa irá disponibilizar
+      Numero de assentos disponiveis (caso cheio aparecer Cheio, caso contrario aparecer o número, is_finished pode ajudar)
+      Horarios de ida (e volta caso necessario)
+      Qual modelo de precos a ser fixado: (ajuda de custo ou não)
+      rank
+-->
+​
+​

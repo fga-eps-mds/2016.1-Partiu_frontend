@@ -11,7 +11,7 @@ angular.module('starter.services', [])
     user.photo = photoURL,
     user.id = userId,
     user.facebook_profile = profileLink
-    }
+  }
 
   var getUser = function() {
     return user;

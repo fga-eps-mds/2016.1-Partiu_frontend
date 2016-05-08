@@ -60,10 +60,14 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       }
   })
 
-  .state("ride", {
+  .state("menu.ride", {
       url:"/ride",
-      templateUrl: "templates/ride.html",
-      controller: "userCtrl"
+      views: {
+        "menuContent": {
+          templateUrl: "templates/searchRide.html",
+          controller: "userCtrl"
+        }
+      }
   })
 
   .state("menu.rideInsertion", {
@@ -74,7 +78,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
             controller: "userCtrl"
         }
       }
-  })
+  });
   /*.state("map", {
     url:"/map",
     templateUrl: "templates/map.html",

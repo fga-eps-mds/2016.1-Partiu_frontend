@@ -1,5 +1,6 @@
 angular.module('starter.controllers')
 
+<<<<<<< HEAD
 .controller('profileCtrl', function($scope, $state, Profile) {
   $scope.user = Profile.getUser();
   

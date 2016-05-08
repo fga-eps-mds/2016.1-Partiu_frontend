@@ -1,17 +1,18 @@
 <body ng-app = "starter">
+<ion-view view-tittle="Inserir Carona"
+    <ion-pane ng-controller = "rideCtrl">
 
   <ion-pane>
 
     <!-- Header-->
 
-      <ion-header-bar class="bar-energized header">
-        <h1 class = "title"> Criar Carona</h1>
-      </ion-header-bar>
+    <ion-header-bar class="bar-energized">
+      <h1 class = "title"> Criar Carona</h1>
+    </ion-header-bar> 
 
-      <!-- Map -->
-
+    <!-- Map -->
+  
     <ion-content padding>
-
           <input id="origin-input" class="controls" type="text" placeholder="Origem">
           <input id="destination-input" class="controls" type="text" placeholder="Destino">
           <app-map id="mapa"></app-map>
@@ -28,11 +29,13 @@
             <span class="input-label">Vagas</span>
             <input type="text" placeholder="Vagas">
           </label>
-          <label class="item item-input item-floating-label">
+          <label class="item item-input item-floating-label item-icon-right">
             <span class="input-label">Descrição</span>
             <input type="text" placeholder="Descrição">
+            <i class="icon icon-accessory ion-ios-information-outline" ng-click="showInfo()"></i>
           </label>
-
+          
+          <!-- works <i class="icon ion-home balanced"></i> -->
       </div>
 
 
@@ -51,7 +54,13 @@
       </ul>
 
     </ion-content>
+      <!-- Save Button -->
 
-  </ion-pane>
-
+      <button class="button button-full button-positive button-outside">
+          Salvar
+      </button>  
+    
+      </ion-content>  
+    </ion-pane>
+  </ion-view>
 </body>
