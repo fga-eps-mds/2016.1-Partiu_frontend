@@ -1,8 +1,14 @@
- <img src="">
-
-<ion-view view-title="Login">
-  <div class="pane">
-    <label class="item">
+<ion-view view-title="Home">
+  <div>
+  <app-map class="item" id="mapa"></app-map>
+    <div class="row">
+      <label class="col col-50">
+        <img src="img/others/partiu_1024x1024.png" width="70" height="70">
+      </label>
+      <h1 class="col col-50"> Partiu! </h1>
+    </div> 
+  <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+    <label ng-hide="isLogged()" class="item">
         <button class="button button-block button-positive login" ng-click="fbLogin()">
         Login com o facebook
         </button>
