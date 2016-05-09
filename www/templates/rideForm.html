@@ -56,11 +56,13 @@
                 <input ng-model="newRide.departure_time" name="departure_time" type="time" placeholder="Hora da saida da carona"
                 required />
             </label>
+            <!--
             <label class="item item-input">
                 <span class="input-label">Vagas</span>
                 <input ng-model="newRide.total_seats" name="total_seats" max="4" min="1" name="" step="1" type="number"
                 ng-maxlength="4" ng-minlength="1" required />
             </label>
+            -->
             <label class="item item-input">
                 <span class="input-label">Modelo</span>
                 <input ng-model="newRide.car_model" name="car_model" type="text" placeholder="O modelo do seu carro"
@@ -76,6 +78,19 @@
                 <textarea ng-model="newRide.description" name="description" cols="24" rows="6" placeholder="Informações adicionais sobre carona"
                 ng-maxlength="300"></textarea>
             </label>
+             <label class="item item-input item-select">
+                <div class="input-label">
+                    Vagas
+                </div>
+                  <select>
+                    <option selected>1</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
+            </label>
+            
          </div>
 
          <div>
