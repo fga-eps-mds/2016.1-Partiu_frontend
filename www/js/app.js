@@ -1,8 +1,3 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starter.directives', 'starter.services'])
 
 .run(function($ionicPlatform) {
@@ -26,6 +21,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   .state("menu", {
     url:"/menu",
     templateUrl: "templates/menu.html",
+    controller: "menuCtrl",
     abstract: true
   })
 
@@ -33,8 +29,8 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
     url:"/home",
     views: {
       "menuContent": {
-          templateUrl: "templates/map.html",
-          controller: "mapCtrl"
+          templateUrl: "",
+          controller: ""
       }
     }
   })
@@ -59,24 +55,15 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       }
   })
 
-  .state("ride", {
-      url:"/ride",
-      templateUrl: "templates/ride.html",
-      controller: "rideCtrl"
+  .state("rides", {
+      url:"/rides",
+      templateUrl: "templates/searchRide.html",
+      controller: "userCtrl"
   })
 
-  .state("menu.rideInsertion", {
-      url: "/rideInsertion",
-      views: {
-        "menuContent": {
-            templateUrl: "templates/rideInsertion.html",
-            controller: "rideCtrl"
-        }
-      }  
-  })
-  /*.state("map", {
-    url:"/map",
-    templateUrl: "templates/map.html",
-    controller: "mapCtrl"
-  })*/
+  .state("rideForm", {
+      url: "/ride/new",
+      templateUrl: "templates/rideForm.html",
+      controller: "rideCtrl"
+  });
 })

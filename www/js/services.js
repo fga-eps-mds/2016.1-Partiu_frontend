@@ -11,7 +11,7 @@ angular.module('starter.services', [])
     user.photo = photoURL,
     user.id = userId,
     user.facebook_profile = profileLink
-    }
+  }
 
   var getUser = function() {
     return user;
@@ -23,14 +23,14 @@ angular.module('starter.services', [])
   }
 })
 
-.factory('Ride', function($resource) {
-  return $resource("http://localhost:3000/rides/:id.json");
+.factory('RideAPI', function($resource) {
+  return $resource("http://localhost:3000/api/users/:id/rides/:id");
 })
 
-.factory('User', function($resource) {
-  return $resource("http://localhost:3000/users/:id.json");
+.factory('UserAPI', function($resource) {
+  return $resource("http://localhost:3000/api/users/:id");
 })
 
-.factory('Vehicle', function($resource) {
-  return $resource("http://localhost:3000/vehicles/:id.json");
+.factory('VehicleAPI', function($resource) {
+  return $resource("http://localhost:3000/users/:id/vehicles/:id");
 });
