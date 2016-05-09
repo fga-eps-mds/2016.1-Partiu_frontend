@@ -61,6 +61,20 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       controller: "userCtrl"
   })
 
+   .state("welcome", {
+      url:"/welcome",
+      templateUrl: "templates/home.html",
+      controller: "loginCtrl"
+  })
+
+    .state("intro", {
+      url:"/intro",
+      templateUrl: "templates/intro.html",
+      controller: "loginCtrl"
+  })
+
+
+
   .state("rideForm", {
       url: "/ride/new",
       templateUrl: "templates/rideForm.html",
