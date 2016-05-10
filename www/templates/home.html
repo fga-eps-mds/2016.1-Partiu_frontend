@@ -1,5 +1,5 @@
 <!--
-
+Sconetto version
 <ion-view view-title="Home">
   <ion-content class="padding">
     <app-map class="item" id="mapa"></app-map>
@@ -20,6 +20,31 @@
 
 -->
 <ion-view view-title="Home">
+    <ion-content class="has-header" ng-controller="profileCtrl">
+        <div class="list card">
+            <div>
+                <div class="item item-thumbnail-left">
+
+                    <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.id}}/picture?width=90&height=90"/>
+                    <h2>{{user.name}}</h2>
+                    <p>{{user.email}}</p>
+                    <p>{{user.gender}}</p>
+                </div>
+            </div>
+            <div class="item row">
+                <label class="col col-50">
+                    <button class="button button-block button-positive">
+                        <a href="#" ng-click="window.open('{{user.facebook_profile}}', '_system', 'location=yes')"><h2 class="light">Facebook</h2></a>
+                    </button>
+                </label>
+                <label class="col col-50">
+                    <button class="button button-block button-assertive" ng-click="fbLogout()">
+                      Logout
+                    </button>
+                </label>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>
 <!--
 The last one : Before Miguel changes
