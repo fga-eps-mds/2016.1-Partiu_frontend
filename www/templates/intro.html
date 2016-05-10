@@ -2,8 +2,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>Ionic App</title>
-
+    <title>Partiu!</title>    
     <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
     <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
   </head>
@@ -19,62 +18,63 @@
 
 
     <script id="templates/intro.html" type="text/ng-template"> 
-      <ion-view view-title="Intro">
+      <ion-view view-title="Introdução">
         <ion-nav-buttons side="left">
           <button class="button button-positive button-clear no-animation"
                   ng-click="startApp()" ng-show="!slideIndex">
-            Skip Intro
+            Pular Introdução
           </button>
           <button class="button button-positive button-clear no-animation"
-                  ng-click="previous()" ng-show="slideIndex > 0">
-            Previous Slide
+                  ng-click= "previous()" ng-show="slideIndex > 0">
+            Passo Anterior
           </button>
         </ion-nav-buttons>
         <ion-nav-buttons side="right"> 
           <button class="button button-positive button-clear no-animation"
-                  ng-click="next()" ng-show="slideIndex != 2">
-            Next
+                  ng-click="" ng-show="slideIndex != 2">
+            Próximo
           </button>
           <button class="button button-positive button-clear no-animation"
                   ng-click="startApp()" ng-show="slideIndex == 2">
-            Start using MyApp
+            Comece  a utilizar
           </button>
         </ion-nav-buttons>
         <ion-slide-box on-slide-changed="slideChanged(index)">
           <ion-slide>
-            <h3>Thank you for choosing the Awesome App!</h3>
+            <h3>Obrigado por ter escolhido o Partiu!</h3>
             <div id="logo">
               <img src="http://code.ionicframework.com/assets/img/app_icon.png">
             </div>
             <p>
-              We've worked super hard to make you happy.
+              texto_1.
             </p>
             <p>
-              But if you are angry, too bad.
+              texto_2.
             </p>
           </ion-slide>
           <ion-slide>
-            <h3>Using Awesome</h3>
-            
+            <h3>texto_3</h3>
+              
             <div id="list">
-              <h5>Just three steps:</h5>
+              <h5>Passos:</h5>
               <ol>
-                <li>Be awesome</li>
-                <li>Stay awesome</li>
-                <li>There is no step 3</li>
+                <li>Passo1</li>
+                <li>Passo2</li>
+                <li>Passo3</li>
               </ol>
             </div>
           </ion-slide>
           <ion-slide>
-            <h3>Any questions?</h3>
+            <h3>Preparado?</h3>
             <p>
-              Too bad!
+              Te desejamos uma ótima carona, Partiu!
             </p>
           </ion-slide>
         </ion-slide-box>
       </ion-view>
     </script>
 
+<!--
     <script id="templates/main.html" type="text/ng-template">
       <ion-view hide-back-button="true" view-title="Awesome">
         <ion-content class="padding">
@@ -83,6 +83,6 @@
         </ion-content>
       </ion-view>
     </script>
-    
+-->    
   </body>
 </html>

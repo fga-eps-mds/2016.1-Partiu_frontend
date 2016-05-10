@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+.controller('introCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
  
   // Called to navigate to the main app
   $scope.startApp = function() {
