@@ -1,11 +1,13 @@
-angular.module('starter.controllers')
+ /*angular.module('starter.controllers', ['ionic'])
 
 .controller('introCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
- 
+*//* 
   $scope.startApp = function() {
     $state.go('main');
   };
-  $scope.next = function() {
+
+ */ 
+/*  $scope.next = function() {
     $ionicSlideBoxDelegate.next();
   };
   $scope.previous = function() {
@@ -16,6 +18,7 @@ angular.module('starter.controllers')
     $scope.slideIndex = index;
   };
 });
+*/
 /*
 .controller('MainCtrl', function($scope, $state) {
   console.log('MainCtrl');
