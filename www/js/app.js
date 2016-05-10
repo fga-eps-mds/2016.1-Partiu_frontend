@@ -71,7 +71,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       controller: ""
   })
 
-  .state("menu.rideForm", {
+  .state("ride", {
       url: "/ride/new",
       views: {
         "menuContent": {
