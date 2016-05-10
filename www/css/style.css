@@ -7,3 +7,24 @@
     margin-right: auto;
     display: block;
 }
+
+
+.logo {
+    display: block;
+    position: relative;
+    width: 60%;
+    margin: 0 auto;
+}
+.logoText {
+    text-align: center;
+    font-size: 28px;
+    font-family: fantasy;
+}
+.item-note {
+    font-size: 10px;
+    margin-top: -22px;
+    margin-right: -35px;
+}
+.textCenter {
+    text-align: center;
+}
