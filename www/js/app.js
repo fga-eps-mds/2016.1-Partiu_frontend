@@ -70,7 +70,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
     .state("intro", {
       url:"/intro",
       templateUrl: "templates/intro.html",
-      controller: "loginCtrl"
+      controller: "introCtrl"
   })
 
 
