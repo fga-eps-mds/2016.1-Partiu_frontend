@@ -7,6 +7,7 @@ angular.module('starter.controllers')
     $scope.user = Profile.setUser(null);
     console.log($scope.user);
     $state.go("menu.intro");
+
   }
 })
 
@@ -16,3 +17,4 @@ angular.module('starter.controllers')
     console.log($scope.users);
   });
 })
+

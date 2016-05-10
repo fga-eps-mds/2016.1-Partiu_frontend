@@ -1,113 +1,133 @@
+<ion-pane>
   <ion-view view-title = "Criar Carona">
-  <ion-content class="has-header" ng-controller="rideCtrl">
-    <input id="origin-input" name="origin" class="controls" type="text" placeholder="Origem" ng-model="newRide.origin" required>
-    <input id="destination-input" name="destiny" class="controls" type="text" placeholder="Destino" ng-model="newRide.destiny" required>
-    <app-map id="mapa"></app-map>
-    <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+    <ion-content padding>
+      <form name="form" class="col s12" novalidate>
+        <div ng-show="message.length" class="card erros">
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
+            <h3 class="card-title erros">{{message}}</h3>
+          </div>
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">Erros<i class="material-icons right">close</i></span>
+            <br />
+            <ul class="collection">
+              <li class="collection-item" ng-show="form.$submitted && form.origin.$error.required">
+                Origem obrigatória!
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.destiny.$error.required">
+                Destino obrigatório!
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.title.$error.required">
+                Título obrigatório!
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.title.$error.maxlength && form.title.$error.maxlength">
+                Título dever ter no máximo 20 caracteres e no mínimo 3 caracteres
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.departure_time.$error.required">
+                Hora de saída obrigatório!
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.total_seats.$error.required">
+                Quantidade de vagas obrigatório!
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.total_seats.$error.maxlength && form.total_seats.$error.maxlength">
+                Dever ter no máximo 4 quantidades de vagas e no mínimo 1
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.car_model.$error.required">
+                Modelo do carro obrigatório!
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.car_model.$error.maxlength && form.car_model.$error.maxlength">
+                Modelo dever ter no máximo 20 caracteres e no mínimo 3 caracteres
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.color.$error.maxlength">
+                Cor dever ter no máximo 20 caracteres
+              </li>
+              <li class="collection-item" ng-show="form.$submitted && form.description.$error.maxlength">
+                Descrição dever ter no máximo 300 caracteres
+              </li>
+            </ul>
+          </div>
+        </div>
 
-    <div class="padding">
-      <h3 ng-show="message.length">{{message}}</h3>
-      <p ng-show="form.$submitted && form.origin.$error.required">
-        Origem obrigatória!
-      </p>
-      <p ng-show="form.$submitted && form.destiny.$error.required">
-        Destino obrigatório!
-      </p>
-      <p ng-show="form.$submitted && form.title.$error.required">
-        Título obrigatório!
-      </p>
-      <p ng-show="form.$submitted && form.title.$error.maxlength && form.title.$error.maxlength">
-        Título dever ter no máximo 20 caracteres e no mínimo 3 caracteres
-      </p>
-      <p ng-show="form.$submitted && form.departure_time.$error.required">
-        Hora de saída obrigatório!
-      </p>
-      <p ng-show="form.$submitted && form.total_seats.$error.required">
-        Quantidade de vagas obrigatório!
-      </p>
-      <p ng-show="form.$submitted && form.total_seats.$error.maxlength && form.total_seats.$error.maxlength">
-        Dever ter no máximo 4 quantidades de vagas e no mínimo 1
-      </p>
-      <p ng-show="form.$submitted && form.car_model.$error.required">
-        Modelo do carro obrigatório!
-      </p>
-      <p ng-show="form.$submitted && form.car_model.$error.maxlength && form.car_model.$error.maxlength">
-        Modelo dever ter no máximo 20 caracteres e no mínimo 3 caracteres
-      </p>
-      <p ng-show="form.$submitted && form.car_model.$error.maxlength">
-        Cor dever ter no máximo 10 caracteres
-      </p>
-      <p ng-show="form.$submitted && form.car_model.$error.maxlength">
-        Descrição dever ter no máximo 300 caracteres
-      </p>
-    </div>
+        <input id="origin-input" name="origin" class="controls" type="text" placeholder="Origem" ng-model="ride.origin" required>
+        <input id="destination-input" name="destiny" class="controls" type="text" placeholder="Destino" ng-model="ride.destiny" required>
+        <app-map id="mapa"></app-map>
+        <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+        <div class="list list-inset">
+          <p class="item item-text-wrap">Origem: <span id="origin">{{ride.origin}}</span></p>
+          <p class="item item-text-wrap">Destino: <span id="destiny">{{ride.destiny}}</span></p>
+        </div>
 
-    <!-- inserir os ng-model="" com os dados da carona -->
-    <form name="form" novalidate>
-        <div class="list">
-          <label class="item item-input">
-              <span class="input-label">Título</span>
-              <input ng-model="newRide.title" type="text" name="title" placeholder="O título da sua carona"
-              ng-maxlength="20" ng-minlength="3" required />
-          </label>
-           <label class="item item-input">
-              <span class="input-label">Horas</span>
-              <input ng-model="newRide.departure_time" name="departure_time" type="time" placeholder="Hora da saida da carona"
-              required />
-          </label>
-          <!--
-          <label class="item item-input">
-              <span class="input-label">Vagas</span>
-              <input ng-model="newRide.total_seats" name="total_seats" max="4" min="1" name="" step="1" type="number"
-              ng-maxlength="4" ng-minlength="1" required />
-          </label>
-          -->
-          <label class="item item-input">
-              <span class="input-label">Modelo</span>
-              <input ng-model="newRide.car_model" name="car_model" type="text" placeholder="O modelo do seu carro"
-              ng-maxlength="20" ng-minlength="3" required />
-          </label>
-          <label class="item item-input">
-              <span class="input-label">Cor</span>
-              <input ng-model="newRide.color" name="color" type="text" placeholder="A cor do seu veículo"
-              ng-maxlength="10" />
-          </label>
-           <label class="item item-input item-stacked-label">
-              <span class="input-label">Descrição</span>
-              <textarea ng-model="newRide.description" name="description" cols="24" rows="6" placeholder="Informações adicionais sobre carona"
-              ng-maxlength="300"></textarea>
-          </label>
-           <label class="item item-input item-select">
-              <div class="input-label">
-                  Vagas
-              </div>
-                <select>
-                  <option selected>1</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
-          </label>
-          
-       </div>
-
-       <div>
-         <ul class="list">
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">label</i>
+            <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3"
+            required id="icon_prefix" type="text" class="validate" >
+            <label for="icon_prefix">Título</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">schedule</i>
+            <input ng-model="ride.departure_time" name="departure_time" id="icon_prefix"
+            type="text" class="validate" required>
+            <label for="icon_prefix">Hora de partida</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">navigation</i>
+            <input ng-model="vehicle.car_model" name="car_model" ng-maxlength="20" ng-minlength="3"
+            required id="icon_prefix" type="text" class="validate" >
+            <label for="icon_prefix">Modelo</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">navigation</i>
+            <input ng-model="vehicle.color" name="color" ng-maxlength="20"
+            id="icon_prefix" type="text" class="validate" >
+            <label for="icon_prefix">Cor</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+            <textarea ng-model="ride.description" name="description" id="textarea1"
+            class="materialize-textarea" ng-maxlength="300"></textarea>
+            <label for="textarea1">Descrição</label>
+          </div>
+        </div>
+        <div class="row">
+          <i class="material-icons prefix">person_pin</i>
+          <label for="radio">Total de vagas</label>
+        </div>
+          <ion-list id="radio">
+            <ion-radio ng-model="ride.total_seats" ng-value="1">1 Vaga</ion-radio>
+            <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas</ion-radio>
+            <ion-radio ng-model="ride.total_seats" ng-value="3">3 Vagas</ion-radio>
+            <ion-radio ng-model="ride.total_seats" ng-value="4">4 Vagas</ion-radio>
+          </ion-list>
+        </div>
+        <div>
+          <ul class="list">
            <li class="item item-toggle">
               Ajuda de Custo
               <label class="toggle toggle-balanced">
-                <input type="checkbox" ng-model="newRide.is_subsistence_allowance">
+                <input type="checkbox" ng-model="ride.is_subsistence_allowance">
                 <div class="track">
                    <div class="handle"></div>
                 </div>
               </label>
            </li>
-         </ul>
-       </div>
-        <button class="button button-full button-balanced button-outside" ng-click="submitRide(newRide)">
-          Salvar
-        </button>
-    </form>
-  </ion-content>
-</ion-view>
+          </ul>
+        </div>
+        <div class="row">
+          <button class="waves-effect waves-light button button-full
+          button-positive button-outside" ng-click="submitRide()">
+            Salvar
+          </button>
+        </div>
+      </form>
+    </ion-content>
+  </ion-view>
+</ion-pane>
