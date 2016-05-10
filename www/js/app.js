@@ -40,7 +40,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       views: {
       "menuContent": {
           templateUrl: "templates/intro.html",
-          controller: ""
+          controller: "introCtrl"
       }
     }
   })
@@ -70,20 +70,8 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       templateUrl: "templates/searchRide.html",
       controller: "userCtrl"
   })
-  
-  .state("welcome", {
-      url:"/welcome",
-      templateUrl: "templates/home.html",
-      controller: "loginCtrl"
-  })
 
-  .state("intro", {
-      url:"/intro",
-      templateUrl: "templates/intro.html",
-      controller: "introCtrl"
-  })
-
-  .state("rideForm", {
+  .state("menu.rideForm", {
       url: "/ride/new",
       views: {
         "menuContent": {
