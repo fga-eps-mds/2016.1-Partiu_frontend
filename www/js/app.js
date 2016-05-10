@@ -80,4 +80,14 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
         } 
       }
   })
+
+  .state("menu.about", {
+    url: "/about",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/about.html",
+        controller: "aboutCtrl"
+      }
+    }
+  })
 })
