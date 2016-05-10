@@ -68,7 +68,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   .state("rides", {
       url:"/rides",
       templateUrl: "templates/searchRide.html",
-      controller: "userCtrl"
+      controller: ""
   })
 
   .state("menu.rideForm", {

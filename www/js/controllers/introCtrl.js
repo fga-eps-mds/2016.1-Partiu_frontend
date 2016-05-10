@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic'])
+angular.module('starter.controllers')
 
 .controller('introCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
  
