@@ -5,6 +5,20 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starter.directives', 'starter.services'])
 
+
+.controller('ExampleController', ['$scope', function($scope) {
+  $scope.numbers = [1,2,3,4,5,6,7,8,9];
+  $scope.letters = "abcdefghi";
+  $scope.longNumber = 2345432342;
+  $scope.numLimit = 3;
+  $scope.letterLimit = 3;
+  $scope.longNumberLimit = 3;
+}])
+
+.config(function($ionicConfigProvider){
+  $ionicConfigProvider.tabs.style('top');
+})
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
