@@ -20,7 +20,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise("/menu/home");
+  $urlRouterProvider.otherwise("/menu/ride");
   $stateProvider
 
   .state("menu", {

@@ -1,54 +1,81 @@
-<ion-view view-title="{{Carona}}">
+<ion-view view-title="Carona">
 
         <ion-pane class="padding">
-            <ion-tabs class="tabs-positive tabs-icon-top">
+            <ion-tabs class="bar-stable tabs-icon-top tabs-striped">
 
-                <ion-tab title="Pesquisar" icon-on="ion-arrow-right-a" icon-off="ion-ios-filing-outline">
-                    <br><br><br>
-                            
-                  <ion-content class="padding">
-                            <!-- Campo de busca -->
-                            <h1>Pesquisar</h1> 
-                            <div class="row">
-                                <div class="col-md-12">
-                                <form>
-                                     <!--<input class="form-control" placeholder="Filtrar por Origem" ng-model="filterRide.origin">-->
-                                     <input class="form-control" placeholder="Filtrar por Destino" ng-model="filterRide.destiny">
-                                </form>
-                                </div>
+                <!-- Pesquisar -->
+                <ion-tab title="Pesquisar" icon-on="ion-arrow-right-a" icon-off="ion-arrow-right-a-outline">
+                  <ion-view>        
+                    <ion-content class="padding">
+                        <!-- Campo de busca -->
+                        <div class="row">
+                            <div class="col-md-12">
+                              <form>
+                                <h1>Pesquisar</h1> 
+                                <input class="form-control" placeholder="Pesquisar por Destino" ng-model="filterRide.destiny">
+                              </form>
                             </div>
+                        </div>
 
-                            <ion-list ng-if="ride.numberSeats !=0" ng-repeat="user in users">
-                              <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
-                                <div class="item item-divider"><strong>{{ride.title}}<strong></div>
-                                <div class="item item-body">
-                                  <ion-item class="item-thumbnail-left">
-                                    <img style="border-radius: 50%" ng-src ="{{user.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
-                                    <div class="panel-body">Motorista: {{user.name}}</div>
-                                    <button class="button button-stable">Origem: {{ride.origin}}</button>
-                                    <button class="button button-stable">Destino: {{ride.destiny}}</button>
-                                    <!--
-                                    <button class="button button-stable">Total de vagas: {{ride.total_seats}}</button>
-                                    <button class="button button-stable">Hora de ida: {{ride.departure_time}}</button>
-                                    <button class="button button-stable">Hora de volta: {{ride.return_time}}</button>
-                                    <button class="button button-stable">Descrição: {{ride.description}}</button>
-                                    <button class="button button-stable">Veiculo: {{ride.vehicle.car_model}}</button>
-                                    -->
-
-                                  </ion-item>
-                                </div>
-                              </div>
-                            </ion-list>
-
-                            <a href="#/menu/rideInsertion" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
-                  </ion-content>
+                      <ion-list ng-if="ride.numberSeats !=0" ng-repeat="user in users">
+                        <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
+                          <div class="item item-divider"><strong>{{ride.title}}<strong></div>
+                          <div class="item item-body">
+                            <ion-item class="item-thumbnail-left">
+                              <img style="border-radius: 50%" ng-src ="{{user.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
+                              <div style="font-size: 10px; font-weight: 300; text-align: right">Vagas: {{ride.total_seats}}</div>
+                              <div style="font-size: 14px; font-weight: 10">Motorista: {{user.name}}</div>
+                              <div style="font-size: 10px; font-weight: 300">Destino: {{ride.destiny}}</div>
+                              <div style="font-size: 10px; font-weight: 300">Hora de ida: {{ride.departure_time}}</div>
+                            </ion-item>
+                          </div>
+                        </div>
+                      </ion-list>
+                      <!-- Botao de Voltar -->
+                      <a href="#/menu/rideInsertion" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+                    </ion-content>
+                  </ion-view>
                 </ion-tab>
 
+                <!-- Filtrar -->
                 <ion-tab title="Filtrar" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline" badge-style="badge-positive">
-                    <br><br><br>
-                    <h1>Filtrar</h1> 
-                </ion-tab>
+                  <ion-view>
+                                <ion-content class="padding">
+                                    <!-- Campo de busca -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <form>
+                                            <h1>Pesquisar</h1> 
+                                            <input class="form-control" placeholder="Filtrar por Origem" ng-model="filterRide.origin">
+                                            <input class="form-control" placeholder="Filtrar por Destino" ng-model="filterRide.destiny">
+                                          </form>
+                                        </div>
+                                    </div>
 
+                                  <ion-list ng-if="ride.numberSeats !=0" ng-repeat="user in users">
+                                    <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
+                                      <div class="item item-divider"><strong>{{ride.title}}<strong></div>
+                                      <div class="item item-body">
+                                        <ion-item class="item-thumbnail-left">
+                                          <img style="border-radius: 50%" ng-src ="{{user.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
+                                          <div style="font-size: 10px; font-weight: 300; text-align: right">Vagas: {{ride.total_seats}}</div>
+                                          <div style="font-size: 14px; font-weight: 10">Motorista: {{user.name}}</div>
+                                          <div style="font-size: 10px; font-weight: 300">Gênero: {{user.gender}}</div>
+                                          <div style="font-size: 10px; font-weight: 300">Destino: {{ride.destiny}}</div>
+                                          <div style="font-size: 10px; font-weight: 300">Hora de ida: {{ride.departure_time}}</div>
+                                          <div style="font-size: 10px; font-weight: 300">Hora da Volta: {{ride.return_time}}</div>
+                                          <div style="font-size: 10px; font-weight: 300">Descrição: {{ride.description}}</div>
+                                          <div style="font-size: 10px; font-weight: 300">Veículo: {{ride.vehicle.car_model}}</div>
+                                       
+                                        </ion-item>
+                                      </div>
+                                    </div>
+                                  </ion-list>
+                                  <!-- Botao de Voltar -->
+                                  <a href="#/menu/rideInsertion" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+                                </ion-content>      
+                  </ion-view>
+                </ion-tab>
             </ion-tabs>
         </ion-pane>
         
