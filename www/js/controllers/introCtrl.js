@@ -1,8 +1,7 @@
 angular.module('starter.controllers', ['ionic'])
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+.controller('introCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
  
-  // Called to navigate to the main app
   $scope.startApp = function() {
     $state.go('main');
   };
@@ -13,12 +12,11 @@ angular.module('starter.controllers', ['ionic'])
     $ionicSlideBoxDelegate.previous();
   };
 
-  // Called each time the slide changes
   $scope.slideChanged = function(index) {
     $scope.slideIndex = index;
   };
-})
-
+});
+/*
 .controller('MainCtrl', function($scope, $state) {
   console.log('MainCtrl');
   
@@ -26,3 +24,5 @@ angular.module('starter.controllers', ['ionic'])
     $state.go('intro');
   }
 });
+
+*/
