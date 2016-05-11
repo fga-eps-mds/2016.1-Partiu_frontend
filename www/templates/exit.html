@@ -16,21 +16,27 @@
       <br/>
       <center>
         <div class="card">
-          <div class="item item-text-wrap">
-            Deseja realmente sair?
-          </div>
-          <div class="row">
-            <label class="col col-50">
-              <button class="button button-block button-positive" ng-click="cancelRedirect()" ng-controller="menuCtrl">
-                Cancelar
-              </button>
-            </label>
-            <label class="col col-50">
-              <button class="button button-block button-assertive" ng-click="ionic.Platform.exitApp()">
-                Sair
-              </button>
-            </label>
-          </div>
+          <center>
+            <div class="item item-text-wrap">
+              Deseja realmente sair?
+            </div>
+            <div class="row">
+              <label class="col col-50">
+                <center>
+                  <button class="button button-block button-positive" ng-click="cancelRedirect()" ng-controller="menuCtrl">
+                    Cancelar
+                  </button>
+                </center>
+              </label>
+              <label class="col col-50">
+                <center>
+                  <button class="button button-block button-assertive" ng-click="ionic.Platform.exitApp()">
+                    Sair
+                  </button>
+                </center>
+              </label>
+            </div>
+         </center>
         </div>
       </center>
     </div> 
