@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, RideAPI, VehicleAPI, RegisterRide, $http) {
+.controller('rideCtrl', function($scope, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http) {
   $scope.rides = [];
   $scope.vehicles = [];
   $scope.ride = {};
@@ -16,6 +16,11 @@ angular.module('starter.controllers')
           $scope.message = 'Não foi possível obter a carona'
       });
   }*/
+
+  UserAPI.query().$promise.then(function(response){
+    $scope.users = response;
+    console.log($scope.users);
+  });
 
   RideAPI.query().$promise.then(function(response){
     $scope.rides = response;
@@ -57,4 +62,5 @@ angular.module('starter.controllers')
 
     // }
   };
+
 });
