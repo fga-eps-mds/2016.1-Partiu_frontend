@@ -14,6 +14,10 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   });
 })
 
+.config(function($ionicConfigProvider){
+  $ionicConfigProvider.tabs.style('top');
+})
+
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise("/menu/home");
   $stateProvider

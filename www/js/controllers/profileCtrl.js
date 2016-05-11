@@ -11,10 +11,3 @@ angular.module('starter.controllers')
   }
 })
 
-.controller('userCtrl', function($scope, UserAPI) {
-  UserAPI.query().$promise.then(function(response){
-    $scope.users = response;
-    console.log($scope.users);
-  });
-})
-
