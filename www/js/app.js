@@ -44,6 +44,15 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       }
     }
   })
+
+  .state("menu.rank", {
+    url: "/rank",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/rank.html"
+      }
+    }
+  })
 /* Page relationed with login*/
   .state("menu.login", {
       url:"/login",
@@ -69,6 +78,15 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
           controller: "rideCtrl"
         } 
       }
+  })
+
+  .state("menu.configuration", {
+    url: "/configuration",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/configuration.html"
+      }
+    }
   })
 
   .state("menu.about", {
