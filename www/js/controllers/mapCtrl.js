@@ -90,9 +90,9 @@ angular.module('starter.controllers')
 
   // Arrange the form in the map
   var organizeInputs = function() {
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(find_me);
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(origin_input);
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(destination_input);
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(find_me);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(destination_input);
   }
 
   // Geocode the location for a literal string

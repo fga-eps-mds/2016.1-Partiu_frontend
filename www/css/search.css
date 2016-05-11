@@ -1,0 +1,19 @@
+.attributes {
+	font-size: 10px; 
+	font-weight: 300;
+}
+
+.driver {
+	font-size: 14px;
+	font-weight: 10;
+}
+
+.total_seats {
+	font-size: 10px; 
+	font-weight: 300;
+	text-align: right;
+}
+
+.img {
+	border-radius: 50%;
+}

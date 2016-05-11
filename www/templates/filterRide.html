@@ -1,0 +1,36 @@
+<ion-view>
+  <ion-content class="padding">
+      <div class="row">
+          <div class="col-md-12">
+            <form>
+              <h1>Filtrar</h1>
+              <input type="search" placeholder="Título" ng-model="filterRide.title">
+              <input type="search" placeholder="Origem" ng-model="filterRide.origin">
+              <input type="search" placeholder="Destino" ng-model="filterRide.destiny">
+              <input type="search" placeholder="Veículo" ng-model="filterRide.vehicle.car_model"> 
+            </form>
+          </div>
+      </div>
+
+      <ion-list ng-repeat="user in users">
+        <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
+          <div class="item item-divider"><strong>{{ride.title}}<strong></div>
+          <div class="item item-body">
+            <ion-item class="item-thumbnail-left">
+              <img style="border-radius: 50%" ng-src ="{{user.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
+              <div style="font-size: 10px; font-weight: 300; text-align: right">Vagas: {{ride.total_seats}}</div>
+              <div style="font-size: 14px; font-weight: 10">Motorista: {{user.name}}</div>
+              <div style="font-size: 10px; font-weight: 300">Gênero: {{user.gender}}</div>
+              <div style="font-size: 10px; font-weight: 300">Origem: {{ride.origin}}</div>
+              <div style="font-size: 10px; font-weight: 300">Destino: {{ride.destiny}}</div>
+              <div style="font-size: 10px; font-weight: 300">Hora de ida: {{ride.departure_time}}</div>
+              <div style="font-size: 10px; font-weight: 300">Hora da Volta: {{ride.return_time}}</div>
+              <div style="font-size: 10px; font-weight: 300">Descrição: {{ride.description}}</div>
+              <div style="font-size: 10px; font-weight: 300">Veículo: {{ride.vehicle.car_model}}</div>
+            </ion-item>
+          </div>
+        </div>
+      </ion-list>
+      <a href="#/menu/home" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+  </ion-content>        
+</ion-view>

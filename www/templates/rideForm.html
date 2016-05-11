@@ -2,6 +2,7 @@
   <ion-view view-title = "Criar Carona">
     <ion-content padding>
       <form name="form" class="col s12" novalidate>
+        <h1 class="title">Nova carona</h1>
         <div ng-show="message.length" class="card erros">
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
@@ -48,14 +49,16 @@
           </div>
         </div>
 
-        <input id="origin-input" name="origin" class="controls" type="text" placeholder="Origem" ng-model="ride.origin" required>
-        <input id="destination-input" name="destiny" class="controls" type="text" placeholder="Destino" ng-model="ride.destiny" required>
-        <app-map id="mapa"></app-map>
-        <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-        <div class="list list-inset">
-          <p class="item item-text-wrap">Origem: <span id="origin">{{ride.origin}}</span></p>
-          <p class="item item-text-wrap">Destino: <span id="destiny">{{ride.destiny}}</span></p>
-        </div>
+        <div>
+          <input id="origin-input" name="origin" class="controls" type="text" placeholder="Origem" ng-model="ride.origin" required>
+          <input id="destination-input" name="destiny" class="controls" type="text" placeholder="Destino" ng-model="ride.destiny" required>
+          <app-map id="mapa"></app-map>
+          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+          <div class="list list-inset">
+            <p class="item item-text-wrap">Origem: <span id="origin">{{ride.origin}}</span></p>
+            <p class="item item-text-wrap">Destino: <span id="destiny">{{ride.destiny}}</span></p>
+          </div>
+        </div>  
 
         <div class="row">
           <div class="input-field col s12">
@@ -98,14 +101,31 @@
           </div>
         </div>
         <div class="row">
-          <i class="material-icons prefix">person_pin</i>
-          <label for="radio">Total de vagas</label>
+          <h5><i class="icon ion-person-stalker"> Total de vagas</i></h5>
         </div>
+        <div class="list">
           <ion-list id="radio">
-            <ion-radio ng-model="ride.total_seats" ng-value="1">1 Vaga</ion-radio>
-            <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas</ion-radio>
-            <ion-radio ng-model="ride.total_seats" ng-value="3">3 Vagas</ion-radio>
-            <ion-radio ng-model="ride.total_seats" ng-value="4">4 Vagas</ion-radio>
+            <div class="row">
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="1">1 vaga</ion-radio>
+              </div>
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i><i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas <i class="icon ion-man"></i>
+                <i class="icon ion-man"></i></ion-radio>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="3">3 Vagas</ion-radio>
+              </div>
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="4">4 Vagas</ion-radio>
+              </div>
+            </div>
           </ion-list>
         </div>
         <div>
