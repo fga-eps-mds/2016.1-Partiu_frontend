@@ -1,13 +1,12 @@
 angular.module('starter.controllers')
 
-.controller('profileCtrl', function($scope, $state, Profile) {
+.controller('profileCtrl', function($scope, $state, $stateParams, Profile) {
   $scope.user = Profile.getUser();
 
   $scope.fbLogout = function() {
     $scope.user = Profile.setUser(null);
     console.log($scope.user);
-    $state.go("menu.intro");
-
+    $state.go("menu.home");
   }
 })
 
@@ -17,4 +16,3 @@ angular.module('starter.controllers')
     console.log($scope.users);
   });
 })
-
