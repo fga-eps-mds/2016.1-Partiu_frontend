@@ -1,69 +1,19 @@
-<!--
-Sconetto version
 <ion-view view-title="Home">
   <ion-content class="padding">
-    <app-map class="item" id="mapa"></app-map>
-      <div class="row">
-      <label class="col col-50">
-        <img src="img/others/partiu.png" width="70" height="70">
-      </label>
-      <h1 class="col col-50"> Partiu! </h1>
-      </div> 
-    <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-      <label ng-hide="isLogged()" class="item">
-      <button class="item button button-block button-positive login" ng-click="fbLogin()">
-        Login com o facebook
-      </button>
-      </label>
+    <div class="list">
+      <center>
+        <label>
+          <img src="img/others/logo_circ.png" width="250" height="250">
+        </label>
+        <h3>Partiu!</h3>
+      </center>
+    </div> 
+    <label ng-hide="isLogged()" class="item">
+    <button class="item button button-block button-positive login" ng-click="fbLogin()">
+      Login com o facebook
+    </button>
+    <p style="text-align: center;" ng-hide="isLogged()" ng-controller="menuCtrl">Você deve logar para usar a aplicação</p>
+    </label>
+    <h5 style="text-align: center;"ng-show="isLogged()" ng-controller="menuCtrl">Bem Vindo {{user.name}}!</h5>
   </ion-content>
 </ion-view>
-
--->
-<ion-view view-title="Home">
-    <ion-content class="has-header" ng-controller="profileCtrl">
-        <div class="list card">
-            <div>
-                <div class="item item-thumbnail-left">
-
-                    <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.id}}/picture?width=90&height=90"/>
-                    <h2>{{user.name}}</h2>
-                    <p>{{user.email}}</p>
-                    <p>{{user.gender}}</p>
-                </div>
-            </div>
-            <div class="item row">
-                <label class="col col-50">
-                    <button class="button button-block button-positive">
-                        <a href="#" ng-click="window.open('{{user.facebook_profile}}', '_system', 'location=yes')"><h2 class="light">Facebook</h2></a>
-                    </button>
-                </label>
-                <label class="col col-50">
-                    <button class="button button-block button-assertive" ng-click="fbLogout()">
-                      Logout
-                    </button>
-                </label>
-            </div>
-        </div>
-    </ion-content>
-</ion-view>
-<!--
-The last one : Before Miguel changes
-<ion-content class="padding">
-
-    <div class="list">
-        <center>
-            <img src="img/others/logo.png" height="250" width="250">
-        </center>
-        <div style="text-align: center;">
-            <h1>Partiu!</h1>
-        </div>
-    </div>
-      <label class="item">
-        <button class="button button-block button-positive login" ng-click="fbLogin()">
-        Login com o facebook
-         </button>
-    </label>     
-    </div>
-</ion-content>
-
--->
