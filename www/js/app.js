@@ -15,8 +15,8 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise("/login");
- /* $urlRouterProvider.otherwise("/menu/intro");*/
+ /* $urlRouterProvider.otherwise("/login"); s*/
+ $urlRouterProvider.otherwise("/menu/intro");
   $stateProvider
 
   .state("menu", {
@@ -55,8 +55,8 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       }
     }
   })
-
-  /*.state("menu.login", {
+/* Page relationed with login*/
+  .state("menu.login", {
       url:"/login",
       views: {
         "menuContent": {
@@ -65,14 +65,16 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
         }
       }
   })
-*/
+
+/*
+  Single Page for login
   .state("login", {
       url:"/login",
       templateUrl: "templates/login.html",
       controller: "loginCtrl"
   })
 
-
+*/
   .state("rides", {
       url:"/rides",
       templateUrl: "templates/searchRide.html",
