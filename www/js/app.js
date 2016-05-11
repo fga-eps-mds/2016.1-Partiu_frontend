@@ -18,8 +18,9 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   $ionicConfigProvider.tabs.style('top');
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $urlRouterProvider.otherwise("/menu/home");
+  $ionicConfigProvider.views.maxCache(0);
   $stateProvider
 
   .state("menu", {
@@ -68,6 +69,26 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       }
   })
 
+  .state("menu.rides", {
+      url:"/rides",
+      views: {
+        "menuContent": {
+          templateUrl: "templates/searchRide.html",
+          controller: "rideCtrl"
+        }
+      }
+  })
+
+  .state("menu.rideForm", {
+      url: "/ride/new",
+      views: {
+        "menuContent": {
+          templateUrl: "templates/rideForm.html",
+          controller: "rideCtrl"
+        }
+      }
+  })
+
   .state("menu.configuration", {
     url: "/configuration",
     views: {
@@ -87,23 +108,12 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
     }
   })
 
-  .state("menu.rides", {
-      url:"/rides",
-      views: {
-        "menuContent": {  
-          templateUrl: "templates/searchRide.html",
-          controller: "rideCtrl"
-        }
+  .state("menu.exit", {
+    url: "/exit",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/exit.html"
       }
-  })
-
-  .state("menu.rideForm", {
-      url: "/ride/new",
-      views: {
-        "menuContent": {
-          templateUrl: "templates/rideForm.html",
-          controller: "rideCtrl"
-        }
-      }
+    }
   })
 })

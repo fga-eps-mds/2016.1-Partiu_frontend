@@ -16,7 +16,7 @@ angular.module('starter.controllers')
                 data.cachedUserProfile.gender = 'Feminino';
             }
             Profile.setUser(data.displayName, data.email, data.accessToken, data.cachedUserProfile.gender, data.profileImageURL, data.id, data.cachedUserProfile.link);
-            $state.go("menu.home");
+            $state.go('menu.home');
         }
     }, {
         remember: "default",
