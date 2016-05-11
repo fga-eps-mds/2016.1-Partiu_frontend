@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('loginCtrl', function($scope, $ionicModal, $state, Profile) {
+.controller('loginCtrl', function($scope, $ionicModal, $state, Profile, $http) {
   $scope.fbLogin = function () {
     var ref = new Firebase("https://partiuapp.firebaseio.com");
     ref.authWithOAuthPopup("facebook", function(error, authData) {
@@ -16,6 +16,9 @@ angular.module('starter.controllers')
                 data.cachedUserProfile.gender = 'Feminino';
             }
             Profile.setUser(data.displayName, data.email, data.accessToken, data.cachedUserProfile.gender, data.profileImageURL, data.id, data.cachedUserProfile.link);
+            $http.post('http://104.236.252.208/api/users', Profile.getUser()).success(function(data) {
+            
+            });
             $state.go('menu.home');
         }
     }, {

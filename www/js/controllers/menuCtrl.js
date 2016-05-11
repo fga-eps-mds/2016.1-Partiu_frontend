@@ -15,4 +15,8 @@ angular.module('starter.controllers')
   $scope.cancelRedirect = function() {
     $state.go('menu.home');
   }
+
+  $scope.closeApp = function() {
+    ionic.Platform.exitApp();
+  }
 })

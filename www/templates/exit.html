@@ -23,14 +23,14 @@
             <div class="row">
               <label class="col col-50">
                 <center>
-                  <button class="button button-block button-positive" ng-click="cancelRedirect()" ng-controller="menuCtrl">
+                  <button class="button button-block button-positive" ng-controller="menuCtrl" ng-click="cancelRedirect()">
                     Cancelar
                   </button>
                 </center>
               </label>
               <label class="col col-50">
                 <center>
-                  <button class="button button-block button-assertive" ng-click="ionic.Platform.exitApp()">
+                  <button class="button button-block button-assertive" ng-controller="menuCtrl" ng-click="closeApp()">
                     Sair
                   </button>
                 </center>

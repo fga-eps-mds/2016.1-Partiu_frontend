@@ -3,52 +3,7 @@
     <ion-content padding>
       <form name="form" class="col s12" novalidate>
         <h1 class="title">Nova carona</h1>
-        <div ng-show="message.length" class="card erros">
-          <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"><i class="material-icons right">more_vert</i></span>
-            <h3 class="card-title erros">{{message}}</h3>
-          </div>
-          <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Erros<i class="material-icons right">close</i></span>
-            <br />
-            <ul class="collection">
-              <li class="collection-item" ng-show="form.$submitted && form.origin.$error.required">
-                Origem obrigatória!
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.destiny.$error.required">
-                Destino obrigatório!
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.title.$error.required">
-                Título obrigatório!
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.title.$error.maxlength && form.title.$error.maxlength">
-                Título dever ter no máximo 20 caracteres e no mínimo 3 caracteres
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.departure_time.$error.required">
-                Hora de saída obrigatório!
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.total_seats.$error.required">
-                Quantidade de vagas obrigatório!
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.total_seats.$error.maxlength && form.total_seats.$error.maxlength">
-                Dever ter no máximo 4 quantidades de vagas e no mínimo 1
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.car_model.$error.required">
-                Modelo do carro obrigatório!
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.car_model.$error.maxlength && form.car_model.$error.maxlength">
-                Modelo dever ter no máximo 20 caracteres e no mínimo 3 caracteres
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.color.$error.maxlength">
-                Cor dever ter no máximo 20 caracteres
-              </li>
-              <li class="collection-item" ng-show="form.$submitted && form.description.$error.maxlength">
-                Descrição dever ter no máximo 300 caracteres
-              </li>
-            </ul>
-          </div>
-        </div>
-
+        
         <div>
           <input id="origin-input" name="origin" class="controls" type="text" placeholder="Origem" ng-model="ride.origin" required>
           <input id="destination-input" name="destiny" class="controls" type="text" placeholder="Destino" ng-model="ride.destiny" required>
@@ -59,6 +14,14 @@
             <p class="item item-text-wrap">Destino: <span id="destiny">{{ride.destiny}}</span></p>
           </div>
         </div>  
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">label</i>
+            <input ng-model="ride.origin" name="origin" required id="icon_prefix" type="text" class="validate">
+            <label for="icon_prefix">Origem</label>
+          </div>
+        </div>
 
         <div class="row">
           <div class="input-field col s12">
@@ -112,8 +75,7 @@
               </div>
               <div class="col col.50 card">
                 <i class="icon ion-man"></i><i class="icon ion-man"></i>
-                <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas <i class="icon ion-man"></i>
-                <i class="icon ion-man"></i></ion-radio>
+                <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas</ion-radio>
               </div>
             </div>
             <div class="row">

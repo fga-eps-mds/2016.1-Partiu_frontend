@@ -44,23 +44,18 @@ angular.module('starter.controllers')
 	};
 
   $scope.submitRide = function() {
-    //  if($scope.form.$valid) {
-       console.log("ride:");
-       console.log($scope.ride);
-       console.log($scope.vehicle);
 
-       RegisterRide.register($scope.ride, $scope.vehicle)
-       .then(function(data_success){
-         $scope.message = data_success.message;
-         console.log($scope.message);
-         if(data_success.create) $scope.ride = {};
-       })
-       .catch(function(data_error){
-         $scope.message = data_error.message;
-         console.log($scope.message);
-       });
+    RegisterRide.register($scope.ride, $scope.vehicle)
+      .then(function(data_success){
+        $scope.message = data_success.message;
+        console.log($scope.message);
+        if(data_success.create);
+      })
+    .catch(function(data_error){
+      $scope.message = data_error.message;
+      console.log($scope.message);
+    });
 
-    // }
   };
 
 });
