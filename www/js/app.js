@@ -18,8 +18,9 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   $ionicConfigProvider.tabs.style('top');
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $urlRouterProvider.otherwise("/menu/home");
+  $ionicConfigProvider.views.maxCache(0);
   $stateProvider
 
   .state("menu", {
@@ -103,6 +104,15 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       "menuContent": {
         templateUrl: "templates/about.html",
         controller: "aboutCtrl"
+      }
+    }
+  })
+
+  .state("menu.exit", {
+    url: "/exit",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/exit.html"
       }
     }
   })
