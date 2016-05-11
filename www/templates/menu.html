@@ -1,7 +1,7 @@
 <ion-side-menus>
   <ion-side-menu-content>
     <ion-nav-bar class="bar-positive" align-title="center">
-      <ion-nav-back-button></ion-nav-back-button>
+      <!-- <ion-nav-back-button></ion-nav-back-button> -->
       <ion-nav-buttons side="left">
         <button class="button button-clear button-icon light ion-navicon"
         menu-toggle="left"></button>
@@ -19,10 +19,10 @@
     <ion-content>
       <ion-list>
         <ion-item href="#/menu/home" menu-close>Home</ion-item>
-        <ion-item href="#/menu/intro" menu-close>Introdução</ion-item>
+        <ion-item href="#" menu-close>Introdução</ion-item>
         <ion-item ng-show="isLogged()" href="#/menu/profile" menu-close>Perfil</ion-item>
         <ion-item ng-show="isLogged()" href="#" menu-close>Rank</ion-item>
-        <ion-item ng-show="isLogged()" href="#/menu/ride/new" menu-close>Nova Carona</ion-item>
+        <ion-item ng-show="isLogged()" href="#/ride/new" menu-close>Nova Carona</ion-item>
         <ion-item href="#" menu-close>Configurações</ion-item>
         <ion-item href="#/menu/about" menu-close>Sobre</ion-item>
         <ion-item ng-click="navigator.Plataform.exitApp()" menu-close>Sair</ion-item>

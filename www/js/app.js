@@ -15,7 +15,7 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise("/menu/intro");
+  $urlRouterProvider.otherwise("/menu/home");
   $stateProvider
 
   .state("menu", {
@@ -31,16 +31,6 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       "menuContent": {
           templateUrl: "templates/home.html",
           controller: "loginCtrl"
-      }
-    }
-  })
-
-  .state("menu.intro", {
-      url:"/intro",
-      views: {
-      "menuContent": {
-          templateUrl: "templates/intro.html",
-          controller: "introCtrl"
       }
     }
   })
@@ -68,17 +58,13 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   .state("rides", {
       url:"/rides",
       templateUrl: "templates/searchRide.html",
-      controller: ""
+      controller: "rideCtrl"
   })
 
-  .state("menu.rideForm", {
+  .state("rideForm", {
       url: "/ride/new",
-      views: {
-        "menuContent": {
-          templateUrl: "templates/rideForm.html",
-          controller: "rideCtrl"
-        } 
-      }
+      templateUrl: "templates/rideForm.html",
+      controller: "rideCtrl"
   })
 
   .state("menu.about", {

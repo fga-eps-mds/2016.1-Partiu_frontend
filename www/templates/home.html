@@ -1,39 +1,18 @@
-<!--
-
-<ion-view view-title="Home">
+<ion-view view-title="Login">
   <ion-content class="padding">
-    <app-map class="item" id="mapa"></app-map>
-      <div class="row">
-      <label class="col col-50">
-        <img src="img/others/partiu.png" width="70" height="70">
-      </label>
-      <h1 class="col col-50"> Partiu! </h1>
-      </div> 
-    <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-      <label ng-hide="isLogged()" class="item">
-      <button class="item button button-block button-positive login" ng-click="fbLogin()">
-        Login com o facebook
-      </button>
-      </label>
+      <div class="list">
+          <center>
+              <img src="img/others/logo.png" height="250" width="250">
+          </center>
+          <div style="text-align: center;">
+              <h1>Partiu!</h1>
+          </div>
+      </div>
+        <label class="item">
+          <button class="button button-block button-positive login" ng-click="fbLogin()">
+          Login com o facebook
+           </button>
+      </label>     
+      </div>
   </ion-content>
 </ion-view>
-
--->
-
-<ion-view view-title="Login">
-    <ion-content class="padding">
-        <div class="list">
-            <center>
-                <img src="img/others/logo.png" height="250" width="250">
-            </center>
-            <div style="text-align: center;">
-                <h1>Partiu!</h1>
-            </div>
-        </div>
-          <label class="item">
-            <button class="button button-block button-positive login" ng-click="fbLogin()">
-            Login com o facebook
-             </button>
-        </label>     
-        </div>
-    </ion-content>

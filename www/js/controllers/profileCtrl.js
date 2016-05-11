@@ -6,7 +6,7 @@ angular.module('starter.controllers')
   $scope.fbLogout = function() {
     $scope.user = Profile.setUser(null);
     console.log($scope.user);
-    $state.go("menu.intro");
+    $state.go("menu.home");
 
   }
 })
