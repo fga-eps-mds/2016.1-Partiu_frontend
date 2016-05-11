@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('menuCtrl', function($scope, $ionicModal, $state, Profile) {
+.controller('menuCtrl', function($scope, $ionicModal, $state, $stateParams, Profile) {
   $scope.user = Profile.getUser();
 
   $scope.isLogged = function() {
@@ -10,5 +10,9 @@ angular.module('starter.controllers')
     }
     else
       return true;
+  }
+
+  $scope.cancelRedirect = function() {
+    $state.go('menu.home');
   }
 })
