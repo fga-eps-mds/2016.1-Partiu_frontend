@@ -1,0 +1,44 @@
+<ion-view view-title="Partiu!">
+  <ion-content class="padding">
+    <div class="list">
+      <div class="row">
+        <label class="col col-50">
+          <img src="img/others/logo_circ.png" width="90" height="90">
+        </label>
+        <h3 class="col col-50">Partiu!</h3>
+      </div>
+      <center>
+        <label>
+          <h5>Volte sempre!</h5>
+        </label>
+      </center>
+      <br/>
+      <br/>
+      <center>
+        <div class="card">
+          <center>
+            <div class="item item-text-wrap">
+              Deseja realmente sair?
+            </div>
+            <div class="row">
+              <label class="col col-50">
+                <center>
+                  <button class="button button-block button-positive" ng-controller="menuCtrl" ng-click="cancelRedirect()">
+                    Cancelar
+                  </button>
+                </center>
+              </label>
+              <label class="col col-50">
+                <center>
+                  <button class="button button-block button-assertive" ng-controller="menuCtrl" ng-click="closeApp()">
+                    Sair
+                  </button>
+                </center>
+              </label>
+            </div>
+         </center>
+        </div>
+      </center>
+    </div> 
+  </ion-content>
+</ion-view>

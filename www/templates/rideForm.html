@@ -1,0 +1,115 @@
+<ion-pane>
+  <ion-view view-title = "Criar Carona">
+    <ion-content padding>
+      <form name="form" class="col s12" novalidate>
+        <h1 class="title">Nova carona</h1>
+        
+        <div>
+          <input id="origin-input" name="origin" class="controls" type="text" placeholder="Origem" ng-model="ride.origin" required>
+          <input id="destination-input" name="destiny" class="controls" type="text" placeholder="Destino" ng-model="ride.destiny" required>
+          <app-map id="mapa"></app-map>
+          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+          <div class="list list-inset">
+            <p class="item item-text-wrap">Origem: <span id="origin">{{ride.origin}}</span></p>
+            <p class="item item-text-wrap">Destino: <span id="destiny">{{ride.destiny}}</span></p>
+          </div>
+        </div>  
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">label</i>
+            <input ng-model="ride.origin" name="origin" required id="icon_prefix" type="text" class="validate">
+            <label for="icon_prefix">Origem</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">label</i>
+            <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3"
+            required id="icon_prefix" type="text" class="validate" >
+            <label for="icon_prefix">Título</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">schedule</i>
+            <input ng-model="ride.departure_time" name="departure_time" id="icon_prefix"
+            type="text" class="validate" required>
+            <label for="icon_prefix">Hora de partida</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">navigation</i>
+            <input ng-model="vehicle.car_model" name="car_model" ng-maxlength="20" ng-minlength="3"
+            required id="icon_prefix" type="text" class="validate" >
+            <label for="icon_prefix">Modelo</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">navigation</i>
+            <input ng-model="vehicle.color" name="color" ng-maxlength="20"
+            id="icon_prefix" type="text" class="validate" >
+            <label for="icon_prefix">Cor</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">description</i>
+            <textarea ng-model="ride.description" name="description" id="textarea1"
+            class="materialize-textarea" ng-maxlength="300"></textarea>
+            <label for="textarea1">Descrição</label>
+          </div>
+        </div>
+        <div class="row">
+          <h5><i class="icon ion-person-stalker"> Total de vagas</i></h5>
+        </div>
+        <div class="list">
+          <ion-list id="radio">
+            <div class="row">
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="1">1 vaga</ion-radio>
+              </div>
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i><i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas</ion-radio>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="3">3 Vagas</ion-radio>
+              </div>
+              <div class="col col.50 card">
+                <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
+                <ion-radio ng-model="ride.total_seats" ng-value="4">4 Vagas</ion-radio>
+              </div>
+            </div>
+          </ion-list>
+        </div>
+        <div>
+          <ul class="list">
+           <li class="item item-toggle">
+              Ajuda de Custo
+              <label class="toggle toggle-balanced">
+                <input type="checkbox" ng-model="ride.is_subsistence_allowance">
+                <div class="track">
+                   <div class="handle"></div>
+                </div>
+              </label>
+           </li>
+          </ul>
+        </div>
+        <div class="row">
+          <button class="waves-effect waves-light button button-full
+          button-positive button-outside" ng-click="submitRide()">
+            Salvar
+          </button>
+        </div>
+      </form>
+    </ion-content>
+  </ion-view>
+</ion-pane>

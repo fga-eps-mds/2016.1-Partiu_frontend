@@ -1,0 +1,10 @@
+<ion-content>
+    <input id="origin-input" class="controls" type="text" placeholder="Origem">
+    <input id="destination-input" class="controls" type="text" placeholder="Destino">
+    <app-map id="mapa"></app-map>
+    <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+    <div class="list list-inset">
+      <p class="item item-text-wrap">Geolocation: <span id="origin">{{origin}}</span></p>
+      <p class="item item-text-wrap">Destiny: <span id="destiny">{{destiny}}</span></p>
+    </div>
+</ion-content>
