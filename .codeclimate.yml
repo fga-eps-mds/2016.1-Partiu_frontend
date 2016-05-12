@@ -1,0 +1,23 @@
+engines:
+  golint:
+    enabled: true
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+ratings:
+  paths:
+  - www/templates/**
+  - www/js/**
+  - www/css
+exclude_paths:
+- node_modules
+- hooks
+- .git
+- plugins
+- "www/lib"
