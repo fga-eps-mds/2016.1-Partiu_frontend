@@ -20,6 +20,12 @@ angular.module('starter.controllers')
 
   /*Function to open in app an link*/
   $scope.inAppOpenLink = function(url) {
-    window.open(url, '_system', 'location=yes');
+    var ref = cordova.InAppBrowser.open(url, '_system', 'location=yes');
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+      console.log("window.open works well");
+      window.open = cordova.InAppBrowser.open;
+      window.open(url, '_system', 'location=yes');
+    }
   }
 })
