@@ -1,6 +1,10 @@
 angular.module('starter.controllers')
 
-.controller('loginCtrl', function($scope, $ionicModal, $state, Profile, $http) {
+.controller('loginCtrl', function($scope, $ionicModal, $state, $ionicHistory, Profile, $http) {
+  /*Dealings of the Ionic to clear navigation history*/
+  $ionicHistory.clearHistory();
+
+  /*Function to login with the Facebook and set the user on the services*/
   $scope.fbLogin = function () {
     var ref = new Firebase("https://partiuapp.firebaseio.com");
     ref.authWithOAuthPopup("facebook", function(error, authData) {
