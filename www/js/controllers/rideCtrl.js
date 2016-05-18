@@ -1,6 +1,7 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http) {
+.controller('rideCtrl', function($scope, $ionicHistory, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http) {
+  $ionicHistory.clearHistory();
   $scope.rides = [];
   $scope.vehicles = [];
   $scope.ride = {};
