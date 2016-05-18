@@ -8,9 +8,9 @@ angular.module('starter.services', [])
     user.email = email,
     user.token = token,
     user.gender = gender,
-    user.photo = photoURL,
-    user.id = userId,
-    user.facebook_profile = profileLink
+    user.photo_url = photoURL,
+    user.facebook_id = userId,
+    user.link_profile = profileLink
   }
 
   var getUser = function() {
@@ -24,7 +24,7 @@ angular.module('starter.services', [])
 })
 
 .factory('RideAPI', function($resource) {
-  return $resource("http://104.236.252.208/api/users/1/rides/:rideID", null , {
+  return $resource("http://localhost:3000/api/users/3/rides/:rideID", null , {
     update: {
       method: 'PUT'
     }
@@ -32,11 +32,11 @@ angular.module('starter.services', [])
 })
 
 .factory('UserAPI', function($resource) {
-  return $resource("http://104.236.252.208/api/users/:userID");
+  return $resource("http://localhost:3000/api/users/:userID");
 })
 
 .factory('VehicleAPI', function($resource) {
-  return $resource('http://104.236.252.208/api/users/1/vehicles/:vehicleID', null, {
+  return $resource('http://localhost:3000/api/users/3/vehicles/:vehicleID', null, {
     update: {
       method: 'PUT'
     }
