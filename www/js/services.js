@@ -8,9 +8,9 @@ angular.module('starter.services', [])
     user.email = email,
     user.token = token,
     user.gender = gender,
-    user.photo = photoURL,
-    user.id = userId,
-    user.facebook_profile = profileLink
+    user.photo_url = photoURL,
+    user.facebook_id = userId,
+    user.link_profile = profileLink
   }
 
   var getUser = function() {

@@ -8,4 +8,6 @@ angular.module('starter.controllers')
     console.log($scope.user);
     $state.go('menu.home');
   }
+
+
 })
