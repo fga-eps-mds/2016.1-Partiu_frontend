@@ -1,10 +1,10 @@
-describe('chatCtrl tests', function() {
-  beforeEach(module('app'));
-
-  describe('#sendMessage', function() {
-    it('should do blabla', function() {
-      expect(true).toEqual(true)
+describe('rideCtrl tests', function() {
+  describe('configuration', function() {
+    it(' - test #1', function($controller) {
+      var controller = $controller('rideCtrl', {});
+      expect(controller).toBeDefined();
+      expect(controller.rides).toBe([]);
+      expect(controller.rides).toBeDefined();
     });
   });
 });
-

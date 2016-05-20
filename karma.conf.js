@@ -15,15 +15,17 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'www/lib/angular/angular.js',
-      'www/lib/angular-animate/angular-animate.js',
+      'www/lib/ionic/js/ionic.bundle.js',
+      'www/lib/ionic/js/angular/angular-resource.min.js',
       'www/lib/angular-mocks/angular-mocks.js',
-      'www/lib/angular-sanitize/angular-sanitize.js',
-      'www/lib/angular-ui-router/release/angular-ui-router.js',
-      'www/lib/ionic/js/*.js',
-      'www/lib/ionic/js/**/*.js',
+      'www/js/app.js',
+      'www/js/controllers.js',
+      'www/js/services.js',
+      'www/js/factories.js',
+      'www/js/controllers/*.js',
+      'www/js/factories/*.js',
+      'www/js/services/*.js',
       'www/js/*.js',
-      'www/js/**/*.js',
       'test/**/*.js',
       'test/*.js'
     ],
@@ -31,8 +33,6 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      'www/lib/ionic/js/ionic-angular.js',
-      'www/lib/ionic/js/ionic-angular.min.js'
     ],
 
 
