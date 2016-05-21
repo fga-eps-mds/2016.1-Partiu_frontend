@@ -1,36 +1,36 @@
 <ion-view view-title="Perfil">
-    <ion-content class="padding">
-        <div class="card">
-          <div class="item item-text-wrap">
-            <center>
-                <label class="item">
-                  <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.id}}/picture?width=200&height=200">
-              </label>
-              <br/>
-              <h2>{{user.name}}</h2>
-              <br/>
-              <h4>{{user.email}}</h4>
-              <br/>
-              <h4>{{user.gender}}</h4>
-              <br/>
-            </center>
-          </div>
-          <div class="item item-text-wrap row">
-              <label class="col col-50">
-                <center>
-                    <button class="button button-block button-positive">
-                        <a ng-click="inAppOpenLink('https://facebook.com/{{user.id}}')"><h2 class="light">Facebook</h2></a>
-                    </button>
-                </center>
-            </label>
-            <label class="col col-50">
-                <center>
-                    <button class="button button-block button-assertive" ng-click="fbLogout()">
-                      Logout
-                    </button>
-                </center>
-            </label>
-          </div>
-        </div>
-    </ion-content>
+  <ion-content class="padding">
+    <div class="card">
+      <div class="item item-text-wrap">
+        <center>
+          <label class="item">
+            <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.id}}/picture?width=200&height=200">
+          </label>
+          <br/>
+          <h2>{{user.name}}</h2>
+          <br/>
+          <h4>{{user.email}}</h4>
+          <br/>
+          <h4>{{user.gender}}</h4>
+          <br/>
+        </center>
+      </div>
+      <div class="item item-text-wrap row">
+        <label class="col col-50">
+          <center>
+            <button class="button button-block button-positive" ng-click="inAppOpenLink('https://www.facebook.com/{{user.id}}')">
+              Facebook
+            </button>
+          </center>
+        </label>
+        <label class="col col-50">
+          <center>
+            <button class="button button-block button-assertive" ng-click="fbLogout()">
+              Logout
+            </button>
+          </center>
+        </label>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>
