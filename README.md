@@ -20,6 +20,15 @@ Na raiz do repositório, execute:
  $ npm install -g cordova ionic
  $ ionic serve --lab
 ```
+
+## Executando os Testes
+
+```
+npm test
+```
+
+O resultado da cobertura de testes gerado após a execução dos testes encontra-se em: coverage/lcov-report/index.html
+
 ### Build de desenvolvimento Android
 
 #### Pré-requisitos

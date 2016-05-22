@@ -2,7 +2,7 @@
 // Generated on Thu May 19 2016 12:15:21 GMT-0300 (BRT)
 
 module.exports = function(config) {
-  config.set({
+  var configuration = {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -18,16 +18,9 @@ module.exports = function(config) {
       'www/lib/ionic/js/ionic.bundle.js',
       'www/lib/ionic/js/angular/angular-resource.min.js',
       'www/lib/angular-mocks/angular-mocks.js',
-      'www/js/app.js',
-      'www/js/controllers.js',
-      'www/js/services.js',
-      'www/js/factories.js',
-      'www/js/controllers/*.js',
-      'www/js/factories/*.js',
-      'www/js/services/*.js',
       'www/js/*.js',
+      'www/js/**/*.js',
       'test/**/*.js',
-      'test/*.js'
     ],
 
 
@@ -39,14 +32,20 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'www/js/**/*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage'],
 
+    coverageReporter: {
+      type : 'lcov',
+      dir : 'coverage/',
+      subdir: '.'
+    },
 
     // web server port
     port: 9876,
@@ -69,13 +68,25 @@ module.exports = function(config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome', 'Firefox'],
 
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
-  })
-}
+  };
+
+  if(process.env.TRAVIS) {
+    configuration.browsers = ['Chrome_travis_ci', 'Firefox'];
+  }
+
+  config.set(configuration);
+};
