@@ -9,15 +9,6 @@ angular.module('starter.controllers')
   $scope.message = '';
   $scope.filtro = '';
 
-  /*if($routeParams.rideID) {
-      RideAPI.get({rideId: $routeParams.rideID}, function(ride) {
-          $scope.ride = ride;
-      }, function(erro) {
-          console.log(erro.status);
-          $scope.message = 'Não foi possível obter a carona'
-      });
-  }*/
-
   UserAPI.query().$promise.then(function(response){
     $scope.users = response;
     console.log($scope.users);
@@ -58,5 +49,9 @@ angular.module('starter.controllers')
     });
 
   };
+
+  $scope.testStub = function (value) {
+    return value*5;
+  }
 
 });
