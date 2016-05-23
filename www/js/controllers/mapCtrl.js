@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('mapCtrl', function($scope) {
+.controller('mapCtrl', function($scope, RideAPI) {
   var origin_place_id = null;
   var destination_place_id = null;
   var travel_mode = google.maps.TravelMode.DRIVING;
@@ -8,8 +8,6 @@ angular.module('starter.controllers')
   var directionsDisplay = new google.maps.DirectionsRenderer;
   var origin_input = document.getElementById('origin-input');
   var destination_input = document.getElementById('destination-input');
-  var origin_span = document.getElementById('origin');
-  var destiny_span = document.getElementById('destiny');
   var find_me = document.getElementById('findMe');
   var geocoder = new google.maps.Geocoder;
   var marker;
@@ -17,16 +15,20 @@ angular.module('starter.controllers')
   var geolocation = {lat: -15.793327, lng: -47.882489};
   $scope.origin
   $scope.destiny
+  $scope.km
+  $scope.time
   $scope.img = [
     {oldcar: 'img/cars/oldcar.png'},
     {beetle: 'img/cars/beetle.png'}
   ];
+ 
   $scope.infoHtml = '<div id="content">'+
                       '<h3 class="infoHtml">Partiu!</h3>'+
                       '<div id="bodyContent">'+
-                        '<p>Casa</p>'+
+                        '<p>'+$scope.destiny+'</p>'+
                       '</div>' +
                     '</div>';
+
 
   // Creates the map marker
   var createIcon = function(position, info) {
@@ -44,11 +46,14 @@ angular.module('starter.controllers')
 
   // Marker jumps when clicked
   var toggleBounce = function() {
-    if (marker.getAnimation() !== null) {
-      marker.setAnimation(null);
-    } else {
-      marker.setAnimation(google.maps.Animation.BOUNCE);
-    }
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        window.setTimeout(function(){
+          marker.setAnimation(null);
+        }, 3000);
+      }
   };
 
   // Pick up location marker
@@ -57,10 +62,8 @@ angular.module('starter.controllers')
       var coordinates = {lat: event.latLng.lat(), lng: event.latLng.lng()};
       geocoder.geocode({'location': coordinates}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
-          if (results[1]) {
+          if (results[1])
             origin_input.value = results[1].formatted_address;
-            origin_span.innerHTML = results[1].formatted_address;
-          }
         }
       });
      });
@@ -82,40 +85,9 @@ angular.module('starter.controllers')
     });
   };
 
-  // Takes the traffic information of roads
-  var getTraficInformation = function() {
-    var trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(map);
-  }
-
-  // Arrange the form in the map
+  // Organize inputs on map
   var organizeInputs = function() {
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(origin_input);
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(find_me);
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(destination_input);
-  }
-
-  // Geocode the location for a literal string
-  var toStringOriginLocation = function(location) {
-    geocoder.geocode({
-       "location": location
-    },
-    function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
-         origin_span.innerHTML = results[1].formatted_address;
-       }
-    });
-  }
-
-  var toStringDestinyLocation = function(location) {
-    geocoder.geocode({
-       "location": location
-    },
-    function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
-         destiny_span.innerHTML = results[1].formatted_address;
-       }
-    });
+    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(find_me);
   }
 
   // Expand the view to fit the map when calculating the route
@@ -128,13 +100,32 @@ angular.module('starter.controllers')
     }
   }
 
+  var distance = function() {
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+      origins: [$scope.origin],
+      destinations: [$scope.destiny],
+      travelMode: travel_mode,
+      unitSystem: google.maps.UnitSystem.METRIC
+    }, calculeDistance);
+
+  }
+
+  var calculeDistance = function(response, status) {
+    if(status != google.maps.DistanceMatrixStatus.OK)
+      console.log(status);
+    else {
+      $scope.km = response.rows[0].elements[0].distance.text
+      $scope.time = response.rows[0].elements[0].duration.text
+    }
+  }
+
   // Translates the placeId to latitudes and longitudes
   var geocodePlaceId = function(placeID_origin, placeID_destiny) {
     geocoder.geocode({'placeId': placeID_origin}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         createIcon(results[0].geometry.location, $scope.infoHtml);
         $scope.origin = results[0].geometry.location;
-        toStringOriginLocation($scope.origin);
       } else {
         window.alert('Geocoder falhou devido a: ' + status);
       }
@@ -142,7 +133,6 @@ angular.module('starter.controllers')
     geocoder.geocode({'placeId': placeID_destiny}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         $scope.destiny = results[0].geometry.location;
-        toStringDestinyLocation($scope.destiny);
       } else {
         window.alert('Geocoder falhou devido a: ' + status);
       }
@@ -164,8 +154,7 @@ angular.module('starter.controllers')
     directionsService.route($scope.request, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
-        origin_input.value = "";
-        destination_input.value = "";
+        distance();
       } else {
         window.alert('A rota requerida falhou devido a ' + status);
       }
@@ -210,6 +199,8 @@ angular.module('starter.controllers')
     });
   }
 
+
+
   // Find the user geolocation
   $scope.geoLocation = function() {
     if(!map) {
@@ -229,7 +220,6 @@ angular.module('starter.controllers')
          if (status == google.maps.GeocoderStatus.OK) {
            if (results[1]){
              origin_input.value = results[1].formatted_address;
-             origin_span.innerHTML = results[1].formatted_address;
            }
          }
       });
@@ -252,8 +242,6 @@ angular.module('starter.controllers')
 
     createIcon(geolocation, $scope.infoHtml);
 
-    getTraficInformation();
-
     organizeInputs();
 
     $scope.geoLocation();
@@ -261,6 +249,8 @@ angular.module('starter.controllers')
     originAutocomplete();
 
     destinyAutocomplete();
+
+  
   };
 
 });

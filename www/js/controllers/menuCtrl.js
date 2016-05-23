@@ -19,4 +19,5 @@ angular.module('starter.controllers')
   $scope.closeApp = function() {
     ionic.Platform.exitApp();
   }
+
 })

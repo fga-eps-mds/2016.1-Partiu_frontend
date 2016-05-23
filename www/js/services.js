@@ -24,7 +24,7 @@ angular.module('starter.services', [])
 })
 
 .factory('RideAPI', function($resource) {
-  return $resource("http://104.236.252.208/api/users/1/rides/:rideID", null , {
+  return $resource("http://localhost:3000/api/users/1/rides/:id", null , {
     update: {
       method: 'PUT'
     }
@@ -32,11 +32,11 @@ angular.module('starter.services', [])
 })
 
 .factory('UserAPI', function($resource) {
-  return $resource("http://104.236.252.208/api/users/:userID");
+  return $resource("http://localhost:3000/api/users/:id");
 })
 
 .factory('VehicleAPI', function($resource) {
-  return $resource('http://104.236.252.208/api/users/1/vehicles/:vehicleID', null, {
+  return $resource('http://104.236.252.208/api/users/:user_id/vehicles/:id', null, {
     update: {
       method: 'PUT'
     }

@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http) {
+.controller('rideCtrl', function($scope, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http, $stateParams, $ionicModal) {
   $scope.rides = [];
   $scope.vehicles = [];
   $scope.ride = {};
@@ -8,14 +8,14 @@ angular.module('starter.controllers')
   $scope.message = '';
   $scope.filtro = '';
 
-  /*if($routeParams.rideID) {
-      RideAPI.get({rideId: $routeParams.rideID}, function(ride) {
-          $scope.ride = ride;
-      }, function(erro) {
-          console.log(erro.status);
-          $scope.message = 'Não foi possível obter a carona'
-      });
-  }*/
+   $ionicModal.fromTemplateUrl('templates/modal.html', {
+    scope: $scope
+    //animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  //console.log($stateParams.user_id)
 
   UserAPI.query().$promise.then(function(response){
     $scope.users = response;
