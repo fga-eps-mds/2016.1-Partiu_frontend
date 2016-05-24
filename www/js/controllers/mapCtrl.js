@@ -89,13 +89,6 @@ angular.module('starter.controllers')
     trafficLayer.setMap(map);
   }
 
-  // Arrange the form in the map
-  var organizeInputs = function() {
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(origin_input);
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(find_me);
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(destination_input);
-  }
-
   // Geocode the location for a literal string
   var toStringOriginLocation = function(location) {
     geocoder.geocode({
@@ -254,8 +247,6 @@ angular.module('starter.controllers')
     createIcon(geolocation, $scope.infoHtml);
 
     getTraficInformation();
-
-    organizeInputs();
 
     $scope.geoLocation();
 

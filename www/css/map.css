@@ -9,20 +9,6 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
-#origin-input,
-#destination-input {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300px;
-  margin-left: 12px;
-  padding: 3px 11px 3px 13px;
-  text-overflow: ellipsis;
-  width: 130px;
-  margin-left: 0px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 #origin-input:focus,
 #destination-input:focus {
   border-color: #4d90fe;

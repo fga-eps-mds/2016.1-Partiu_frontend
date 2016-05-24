@@ -3,34 +3,33 @@
     <ion-content padding>
       <form name="form" class="col s12" novalidate>
         <h1 class="title">Nova carona</h1>
-        
-        <div>
-          <input id="origin-input" name="origin" class="controls" type="text" placeholder="Origem" ng-model="ride.origin" required>
-          <input id="destination-input" name="destiny" class="controls" type="text" placeholder="Destino" ng-model="ride.destiny" required>
-          <app-map id="mapa"></app-map>
-          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-          <div class="list list-inset">
-            <p class="item item-text-wrap">Origem: <span id="origin">{{ride.origin}}</span></p>
-            <p class="item item-text-wrap">Destino: <span id="destiny">{{ride.destiny}}</span></p>
-          </div>
-        </div>  
 
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">label</i>
-            <input ng-model="ride.origin" name="origin" required id="icon_prefix" type="text" class="validate">
-            <label for="icon_prefix">Origem</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s12">
-            <i class="material-icons prefix">label</i>
-            <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3"
-            required id="icon_prefix" type="text" class="validate" >
+            <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="icon_prefix" type="text" class="validate" >
             <label for="icon_prefix">Título</label>
           </div>
         </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">place</i>
+            <input ng-model="ride.origin" name="origin" required id="origin-input" type="text" class="validate" placeholder="">
+            <label for="icon_prefix">Origem</label>
+          </div>
+          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-android-locate"></button>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix">place</i>
+            <input ng-model="ride.destiny" name="destiny" required id="destination-input" type="text" class="validate" placeholder="">
+            <label for="icon_prefix">Destino</label>
+          </div>
+        </div>
+
+        <app-map id="mapa"></app-map>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">schedule</i>
