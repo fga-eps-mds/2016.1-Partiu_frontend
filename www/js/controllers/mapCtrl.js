@@ -102,7 +102,7 @@ angular.module('starter.controllers')
        "location": location
     },
     function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
+       if (status === google.maps.GeocoderStatus.OK) {
          origin_span.innerHTML = results[1].formatted_address;
        }
     });
@@ -113,7 +113,7 @@ angular.module('starter.controllers')
        "location": location
     },
     function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
+       if (status === google.maps.GeocoderStatus.OK) {
          destiny_span.innerHTML = results[1].formatted_address;
        }
     });
@@ -227,7 +227,7 @@ angular.module('starter.controllers')
          "location": geolocation
       },
       function(results, status) {
-         if (status == google.maps.GeocoderStatus.OK) {
+         if (status === google.maps.GeocoderStatus.OK) {
            if (results[1]){
              origin_input.value = results[1].formatted_address;
              origin_span.innerHTML = results[1].formatted_address;

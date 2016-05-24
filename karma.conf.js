@@ -20,7 +20,7 @@ module.exports = function(config) {
       'www/lib/angular-mocks/angular-mocks.js',
       'www/js/*.js',
       'www/js/**/*.js',
-      'test/**/*.js',
+      'test/**/*.js'
     ],
 
 
