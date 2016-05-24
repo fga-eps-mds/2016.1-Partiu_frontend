@@ -3,62 +3,47 @@ angular.module('starter.controllers')
 .controller('mapCtrl', function($scope, RideAPI) {
   var origin_place_id = null;
   var destination_place_id = null;
-  var travel_mode = google.maps.TravelMode.DRIVING;
-  var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer;
   var origin_input = document.getElementById('origin-input');
   var destination_input = document.getElementById('destination-input');
   var find_me = document.getElementById('findMe');
-  var geocoder = new google.maps.Geocoder;
-  var marker;
-  var map;
-  var geolocation = {lat: -15.793327, lng: -47.882489};
-  $scope.origin
-  $scope.destiny
-  $scope.km
-  $scope.time
-  $scope.img = [
-    {oldcar: 'img/cars/oldcar.png'},
-    {beetle: 'img/cars/beetle.png'}
-  ];
- 
-  $scope.infoHtml = '<div id="content">'+
-                      '<h3 class="infoHtml">Partiu!</h3>'+
-                      '<div id="bodyContent">'+
-                        '<p>'+$scope.destiny+'</p>'+
-                      '</div>' +
-                    '</div>';
-
 
   // Creates the map marker
-  var createIcon = function(position, info) {
-      marker = new google.maps.Marker({
-        position: position,
-        animation: google.maps.Animation.DROP,
-        icon: $scope.img[1].beetle,
-        draggable: true,
-      });
-      marker.setMap(map);
-      marker.addListener('click', toggleBounce);
-      draggableLocation();
-      infoWindow(info);
+  function createIcon(position) {
+    $scope.img = [
+      {oldcar: 'img/cars/oldcar.png'},
+      {beetle: 'img/cars/beetle.png'}
+    ];
+
+    $scope.marker = new google.maps.Marker({
+      position: position,
+           animation: google.maps.Animation.DROP,
+           icon: $scope.img[1].beetle,
+           draggable: true,
+    });
+
+    $scope.marker.setMap($scope.map);
+    $scope.marker.addListener('click', toggleBounce);
+    draggableLocation();
+    infoWindow();
   };
 
   // Marker jumps when clicked
-  var toggleBounce = function() {
-      if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        window.setTimeout(function(){
-          marker.setAnimation(null);
-        }, 3000);
+  function toggleBounce() {
+      if($scope.marker.getAnimation() !== null) {
+         $scope.marker.setAnimation(null);
+      }else{
+         $scope.marker.setAnimation(google.maps.Animation.BOUNCE);
+         window.setTimeout(function(){
+           $scope.marker.setAnimation(null);
+         }, 3000);
       }
   };
 
   // Pick up location marker
-  var draggableLocation = function() {
-    google.maps.event.addListener(marker, 'drag', function(event){
+  function draggableLocation() {
+    var geocoder = new google.maps.Geocoder;
+    google.maps.event.addListener($scope.marker, 'drag', function(event){
       var coordinates = {lat: event.latLng.lat(), lng: event.latLng.lng()};
       geocoder.geocode({'location': coordinates}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
@@ -70,48 +55,53 @@ angular.module('starter.controllers')
   }
 
   // To delete a bookmark
-  var deleteIcon = function() {
-    marker.setMap(null);
+  function deleteIcon() {
+    $scope.marker.setMap(null);
   };
 
   // Create an information window by clicking on the marker
-  var infoWindow = function(info) {
+  function infoWindow() {
     var infowindow = new google.maps.InfoWindow({
-      content:info,
+      content: '<div id="content">'+
+                 '<h3 class="infoHtml">Partiu!</h3>'+
+                 '<div id="bodyContent">'+
+                    '<p>'+$scope.destiny+'</p>'+
+                 '</div>'+
+               '</div>' ,
       maxWidth: 200
     });
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(map, marker);
+    google.maps.event.addListener($scope.marker, 'click', function() {
+      infowindow.open($scope.map, $scope.marker);
     });
   };
 
   // Organize inputs on map
-  var organizeInputs = function() {
-    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(find_me);
+  function organizeInputs() {
+    $scope.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(find_me);
   }
 
   // Expand the view to fit the map when calculating the route
-  var expandViewportToFitPlace = function(place) {
+  function expandViewportToFitPlace(place) {
     if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
+      $scope.map.fitBounds(place.geometry.viewport);
     } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);
+      $scope.map.setCenter(place.geometry.location);
+      $scope.map.setZoom(17);
     }
   }
 
-  var distance = function() {
+  function distance() {
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix({
       origins: [$scope.origin],
       destinations: [$scope.destiny],
-      travelMode: travel_mode,
+      travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC
     }, calculeDistance);
 
   }
 
-  var calculeDistance = function(response, status) {
+  function calculeDistance(response, status) {
     if(status != google.maps.DistanceMatrixStatus.OK)
       console.log(status);
     else {
@@ -120,16 +110,22 @@ angular.module('starter.controllers')
     }
   }
 
-  // Translates the placeId to latitudes and longitudes
-  var geocodePlaceId = function(placeID_origin, placeID_destiny) {
+  // Translates the placeIdOrigem to latitudes and longitudes
+  function geocodePlaceIdOrigem(placeID_origin) {
+    var geocoder = new google.maps.Geocoder;
     geocoder.geocode({'placeId': placeID_origin}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
-        createIcon(results[0].geometry.location, $scope.infoHtml);
+        createIcon(results[0].geometry.location);
         $scope.origin = results[0].geometry.location;
       } else {
         window.alert('Geocoder falhou devido a: ' + status);
       }
     });
+  }
+
+  // Translates the placeIdDestiny to latitudes and longitudes
+  function geocodePlaceIdDestiny(placeID_destiny) {
+    var geocoder = new google.maps.Geocoder;
     geocoder.geocode({'placeId': placeID_destiny}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         $scope.destiny = results[0].geometry.location;
@@ -137,21 +133,24 @@ angular.module('starter.controllers')
         window.alert('Geocoder falhou devido a: ' + status);
       }
     });
+    
   }
 
   // Calculates the route between the origin and destination
-  var route = function(origin_place_id, destination_place_id, travel_mode) {
+  function route(origin_place_id, destination_place_id) {
+    var directionsService = new google.maps.DirectionsService;
     if (!origin_place_id || !destination_place_id) {
       return;
     }
-    $scope.request = {
+    var request = {
       origin: {'placeId': origin_place_id},
       destination: {'placeId': destination_place_id},
-      travelMode: travel_mode
+      travelMode: google.maps.TravelMode.DRIVING
     }
     deleteIcon();
-    geocodePlaceId($scope.request.origin.placeId, $scope.request.destination.placeId);
-    directionsService.route($scope.request, function(response, status) {
+    geocodePlaceIdOrigem(request.origin.placeId)
+    geocodePlaceIdDestiny(request.destination.placeId)
+    directionsService.route(request, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {
         directionsDisplay.setDirections(response);
         distance();
@@ -162,9 +161,9 @@ angular.module('starter.controllers')
   }
 
   // Autocomplete origin field
-  var originAutocomplete = function() {
+  function originAutocomplete() {
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
-    origin_autocomplete.bindTo('bounds', map);
+    origin_autocomplete.bindTo('bounds', $scope.map);
 
     origin_autocomplete.addListener('place_changed', function() {
       var place = origin_autocomplete.getPlace();
@@ -175,15 +174,14 @@ angular.module('starter.controllers')
       expandViewportToFitPlace(place);
 
       origin_place_id = place.place_id;
-      route(origin_place_id, destination_place_id, travel_mode,
-            directionsService, directionsDisplay);
+      route(origin_place_id, destination_place_id);
     });
   }
 
   // Autocomplete destiny field
-  var destinyAutocomplete = function() {
+  function destinyAutocomplete() {
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
-    destination_autocomplete.bindTo('bounds', map);
+    destination_autocomplete.bindTo('bounds', $scope.map);
 
     destination_autocomplete.addListener('place_changed', function() {
       var place = destination_autocomplete.getPlace();
@@ -194,8 +192,7 @@ angular.module('starter.controllers')
       expandViewportToFitPlace(place);
 
       destination_place_id = place.place_id;
-      route(origin_place_id, destination_place_id, travel_mode,
-            directionsService, directionsDisplay);
+      route(origin_place_id, destination_place_id);
     });
   }
 
@@ -203,16 +200,14 @@ angular.module('starter.controllers')
 
   // Find the user geolocation
   $scope.geoLocation = function() {
-    if(!map) {
+    var geocoder = new google.maps.Geocoder;
+    if(!$scope.map) 
       return;
-    }
-
     navigator.geolocation.getCurrentPosition(function(pos) {
       geolocation = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude)
-      map.setCenter(geolocation);
+      $scope.map.setCenter(geolocation);
       deleteIcon();
-      createIcon(geolocation, $scope.infoHtml);
-
+      createIcon(geolocation);
       geocoder.geocode({
          "location": geolocation
       },
@@ -230,17 +225,18 @@ angular.module('starter.controllers')
 
   // map initialization function (main function)
   $scope.initialize = function(element) {
+    $scope.origin = {lat: -15.793327, lng: -47.882489}
 
     var mapOptions = {
-      center: geolocation,
+      center: $scope.origin,
       zoom: 16,
       mapTypeControl: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     };
-    map = new google.maps.Map(element, mapOptions);
-    directionsDisplay.setMap(map);
+    $scope.map = new google.maps.Map(element, mapOptions);
+    directionsDisplay.setMap($scope.map);
 
-    createIcon(geolocation, $scope.infoHtml);
+    createIcon($scope.origin);
 
     organizeInputs();
 
@@ -249,7 +245,6 @@ angular.module('starter.controllers')
     originAutocomplete();
 
     destinyAutocomplete();
-
   
   };
 
