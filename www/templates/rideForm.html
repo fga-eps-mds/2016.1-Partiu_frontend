@@ -4,6 +4,7 @@
       <form name="form" class="col s12" novalidate>
         <h1 class="title">Nova carona</h1>
 
+    <div ng-controller="mapCtrl as vm">
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">label</i>
@@ -15,21 +16,30 @@
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">place</i>
-            <input ng-model="ride.origin" name="origin" required id="origin-input" type="text" class="validate" placeholder="">
+            <input id="origin" class="validate" type="text" ng-focus="disableTap()" placeholder="" places-auto-complete ng-model="vm.origin" required/>
             <label for="icon_prefix">Origem</label>
           </div>
-          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-android-locate"></button>
+          <button ng-click="getCurrentLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-android-locate"></button>
         </div>
 
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">place</i>
-            <input ng-model="ride.destiny" name="destiny" required id="destination-input" type="text" class="validate" placeholder="">
+            <input id="destination" class="validate" type="text" ng-focus="disableTap()" placeholder="" places-auto-complete ng-model="vm.destination" required/>
             <label for="icon_prefix">Destino</label>
           </div>
         </div>
 
-        <app-map id="mapa"></app-map>
+        <ng-map>
+          <directions
+                draggable="true"
+                travel-mode="TRANSIT"
+                origin="{{vm.origin}}"
+                destination="{{vm.destination}}">
+          </directions>
+        </ng-map>
+
+        <!-- origin="Ceilândia Norte, Brasília - DF, Brasil" -->
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">schedule</i>
@@ -108,6 +118,7 @@
             Salvar
           </button>
         </div>
+    </div>
       </form>
     </ion-content>
   </ion-view>
