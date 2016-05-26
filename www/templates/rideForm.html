@@ -2,7 +2,6 @@
   <ion-view view-title = "Criar Carona">
     <ion-content padding>
       <form name="form" class="col s12" novalidate>
-        <button class="button button-positive button-full" ng-click="modal.show()">Tipo de carona</button>
         <div ng-controller="mapCtrl">
           <app-map id="mapa"></app-map>
           <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
@@ -16,8 +15,8 @@
           </div>
           <div class="item item-icon-left">
             <i class="icon ion-ios-location"></i>
-            <p class="item item-text-wrap">Distancia: <span ng-model="ride.distance">{{km}}</span></p>
-            <p class="item item-text-wrap">Tempo: <span ng-model="ride.time">{{time}}</span></p>
+            <p class="item item-text-wrap">Distancia: <input type="text" id="km" ng-model="ride.distance"></p>
+            <p class="item item-text-wrap">Tempo: <input type="text" id="time" ng-model="ride.time"></p>
           </div>
 
         <div class="list">
@@ -101,9 +100,21 @@
            </li>
           </ul>
         </div>
+        <div>
+          <ul class="list">
+           <li class="item item-toggle">
+              Agendar Carona
+              <label class="toggle toggle-balanced">
+                <input type="checkbox" ng-click="modal.show()">
+                <div class="track">
+                   <div class="handle"></div>
+                </div>
+              </label>
+           </li>
+          </ul>
+        </div>
         <div class="row">
-          <button class="waves-effect waves-light button button-full
-          button-positive button-outside" ng-click="submitRide()">
+          <button class="button button-full button-positive" ng-click="submitRide()">
             Salvar
           </button>
         </div>
@@ -130,30 +141,13 @@
 <script id="templates/modal.html" type="text/ng-template">
   <ion-modal-view>
     <ion-header-bar class="bar bar-header bar-positive">
-      <h1 class="title">Tipo da carona</h1>
+      <h1 class="title">Agendar Carona</h1>
+        <button class="button button-clear button-primary" ng-click="modal.hide()">Cancelar</button>
     </ion-header-bar>
     <ion-content class="padding">
       <div class="row">
         <h3 class="title"><i class="icon ion-person-stalker"> Tipo de carona:</i></h3>
       </div>
-      <div class="list">
-        <ion-list id="radio">
-          <div class="row">
-            <div class="col col.35 card">
-              <p><i class="icon ion-ios-speedometer"></i> Só ida</p>
-              <ion-radio ng-click="modal.hide()" ng-model="ride.kind_of_ride" ng-value="1"><i class="icon ion-model-s"></i></ion-radio>
-            </div>
-            <div class="col col.35 card">
-              <p><i class="icon ion-ios-speedometer"></i> Ida e volta</p>
-              <ion-radio ng-click="modal.hide()" ng-model="ride.kind_of_ride" ng-value="2"><i class="icon ion-model-s"></i></ion-radio>
-            </div>
-            <div class="col col.35 card">
-              <p><i class="icon ion-ios-speedometer"></i> Contínua</p>
-              <ion-radio ng-click="modal.hide()" ng-model="ride.kind_of_ride" ng-value="3"><i class="icon ion-model-s"></i></ion-radio>
-            </div>
-          </div>
-        </ion-list>
-      </div> 
     </ion-content>
   </ion-modal-view>
 </script>

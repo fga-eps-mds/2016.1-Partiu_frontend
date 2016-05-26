@@ -6,6 +6,8 @@ angular.module('starter.controllers')
   var directionsDisplay = new google.maps.DirectionsRenderer;
   var origin_input = document.getElementById('origin-input');
   var destination_input = document.getElementById('destination-input');
+  var distance_input = document.getElementById('km');
+  var time_input = document.getElementById('time')
   var find_me = document.getElementById('findMe');
 
   // Creates the map marker
@@ -105,8 +107,8 @@ angular.module('starter.controllers')
     if(status != google.maps.DistanceMatrixStatus.OK)
       console.log(status);
     else {
-      $scope.km = response.rows[0].elements[0].distance.text
-      $scope.time = response.rows[0].elements[0].duration.text
+      km.value = response.rows[0].elements[0].distance.text
+      time.value = response.rows[0].elements[0].duration.text
     }
   }
 
