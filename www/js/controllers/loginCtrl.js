@@ -19,8 +19,23 @@ angular.module('starter.controllers')
             else if(data.cachedUserProfile.gender == 'female') {
                 data.cachedUserProfile.gender = 'Feminino';
             }
+
             Profile.setUser(data.displayName, data.email, data.accessToken, data.cachedUserProfile.gender, data.profileImageURL, data.id, data.cachedUserProfile.link);
-            $http.post('http://104.236.252.208/api/users', Profile.getUser()).success(function(data) {
+
+            var requestData = {
+              "user": {
+                "name": data.displayName,
+                "email": data.email,
+                "facebook_id": data.id,
+                "photo_url": data.profileImageURL
+              }
+            }
+
+            $http.post('http://localhost:3000/api/users', requestData).success(function(data) {
+            });
+
+            $http.get('http://localhost:3000/api/get_user_id', {params:{"facebook_id": data.id}}).success(function(idData) {
+              Profile.updateBackendId(idData);
 
             });
             $state.go('menu.home');

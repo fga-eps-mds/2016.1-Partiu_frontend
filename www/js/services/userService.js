@@ -29,6 +29,10 @@ angular.module('starter.services')
     })
   }
 
+  this.updateBackendId = function(newId) {
+    user.backendId = newId;
+  }
+
   this.getUser = function() {
     return user;
   }

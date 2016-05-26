@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, $ionicHistory, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http) {
+.controller('rideCtrl', function($scope, $ionicHistory, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http, Profile) {
   $ionicHistory.clearHistory();
   $scope.rides = [];
   $scope.vehicles = [];
@@ -9,15 +9,15 @@ angular.module('starter.controllers')
   $scope.message = '';
   $scope.filtro = '';
 
-  UserAPI.query().$promise.then(function(response){
+  UserAPI.query({id: Profile.getUser().backendId}).$promise.then(function(response){
     $scope.users = response;
   });
 
-  RideAPI.query().$promise.then(function(response){
+  RideAPI.query({userId: Profile.getUser().backendId}).$promise.then(function(response){
     $scope.rides = response;
   });
 
-  VehicleAPI.query().$promise.then(function(response){
+  VehicleAPI.query({userId: Profile.getUser().backendId}).$promise.then(function(response){
     $scope.vehicles = response;
   });
 
@@ -33,7 +33,7 @@ angular.module('starter.controllers')
 	};
 
   $scope.submitRide = function() {
-    RegisterRide.register($scope.ride, $scope.vehicle)
+    RegisterRide.register($scope.ride, $scope.vehicle, Profile.getUser().backendId)
       .then(function(data_success){
         $scope.message = data_success.message;
         console.log($scope.message);
