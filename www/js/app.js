@@ -19,8 +19,8 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
 })
 
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(20);
   $urlRouterProvider.otherwise("/menu/home");
-  $ionicConfigProvider.views.maxCache(0);
   $stateProvider
 
   .state("menu", {
@@ -72,18 +72,28 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       url:"/rides",
       views: {
         "menuContent": {
-          templateUrl: "templates/searchRide.html",
+          templateUrl: "templates/rides/index.html",
           controller: "rideCtrl"
         }
       }
   })
 
   .state("menu.rideForm", {
-      url: "/ride/new",
+      url: "/rides/new",
       views: {
         "menuContent": {
-          templateUrl: "templates/rideForm.html",
+          templateUrl: "templates/rides/new.html",
           controller: "rideCtrl"
+        }
+      }
+  })
+
+  .state("menu.showRide", {
+      url: "/rides/:id/show/",
+      views: {
+        "menuContent": {
+          templateUrl: "templates/rides/show.html",
+          controller: "rideShowCtrl"
         }
       }
   })
