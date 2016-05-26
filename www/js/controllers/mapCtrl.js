@@ -4,9 +4,6 @@ angular.module('starter.controllers')
   var origin_place_id = null;
   var destination_place_id = null;
   var directionsDisplay = new google.maps.DirectionsRenderer;
-  var origin_input = document.getElementById('origin-input');
-  var destination_input = document.getElementById('destination-input');
-  var find_me = document.getElementById('findMe');
 
   // Creates the map marker
   function createIcon(position) {
@@ -48,7 +45,7 @@ angular.module('starter.controllers')
       geocoder.geocode({'location': coordinates}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[1])
-            origin_input.value = results[1].formatted_address;
+            document.getElementById('origin-input').value = results[1].formatted_address;
         }
       });
      });
@@ -77,6 +74,7 @@ angular.module('starter.controllers')
 
   // Organize inputs on map
   function organizeInputs() {
+    var find_me = document.getElementById('findMe');
     $scope.map.controls[google.maps.ControlPosition.RIGHT_TOP].push(find_me);
   }
 
@@ -90,6 +88,7 @@ angular.module('starter.controllers')
     }
   }
 
+  // Calcule distance of route
   function distance() {
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix({
@@ -101,12 +100,13 @@ angular.module('starter.controllers')
 
   }
 
+  // 
   function calculeDistance(response, status) {
-    if(status != google.maps.DistanceMatrixStatus.OK)
-      console.log(status);
-    else {
-      $scope.km = response.rows[0].elements[0].distance.text
-      $scope.time = response.rows[0].elements[0].duration.text
+    if(status == google.maps.DistanceMatrixStatus.OK) {
+      document.getElementById('km').value = response.rows[0].elements[0].distance.text
+      document.getElementById('time').value = response.rows[0].elements[0].duration.text
+    }else{
+     console.log(status); 
     }
   }
 
@@ -162,6 +162,7 @@ angular.module('starter.controllers')
 
   // Autocomplete origin field
   function originAutocomplete() {
+    var origin_input = document.getElementById('origin-input')
     var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
     origin_autocomplete.bindTo('bounds', $scope.map);
 
@@ -180,6 +181,7 @@ angular.module('starter.controllers')
 
   // Autocomplete destiny field
   function destinyAutocomplete() {
+    var destination_input = document.getElementById('destination-input');
     var destination_autocomplete = new google.maps.places.Autocomplete(destination_input);
     destination_autocomplete.bindTo('bounds', $scope.map);
 
@@ -214,7 +216,7 @@ angular.module('starter.controllers')
       function(results, status) {
          if (status == google.maps.GeocoderStatus.OK) {
            if (results[1]){
-             origin_input.value = results[1].formatted_address;
+             document.getElementById('origin-input').value = results[1].formatted_address;
            }
          }
       });
