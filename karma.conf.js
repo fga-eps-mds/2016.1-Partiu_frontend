@@ -20,7 +20,9 @@ module.exports = function(config) {
       'www/lib/angular-mocks/angular-mocks.js',
       'www/js/*.js',
       'www/js/**/*.js',
-      'test/**/*.js'
+      'test/**/*.js',
+      'www/lib/karma-read-json/karma-read-json.js',
+      {pattern: 'test/fixtures/*.json', included: false}
     ],
 
 
@@ -77,7 +79,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
