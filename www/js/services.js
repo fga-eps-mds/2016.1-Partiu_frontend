@@ -31,12 +31,28 @@ angular.module('starter.services', [])
   });
 })
 
+.factory('ScheduleAPI', function($resource) {
+  return $resource("http://localhost:3000/api/users/1/rides/1/schedules/:id", null , {
+    update: {
+      method: 'PUT'
+    }
+  });
+})
+
+.factory('DaysAPI', function($resource) {
+  return $resource("http://localhost:3000/api/users/1/rides/1/schedules/1/day_of_weeks/:id", null , {
+    update: {
+      method: 'PUT'
+    }
+  });
+})
+
 .factory('UserAPI', function($resource) {
   return $resource("http://localhost:3000/api/users/:id");
 })
 
 .factory('VehicleAPI', function($resource) {
-  return $resource('http://104.236.252.208/api/users/:user_id/vehicles/:id', null, {
+  return $resource('http://localhost:3000/api/users/1/vehicles/:id', null, {
     update: {
       method: 'PUT'
     }
@@ -47,7 +63,7 @@ angular.module('starter.services', [])
 
   var service = {};
 
-  service.register = function(ride, vehicle) {
+  service.register = function(ride, vehicle, schedule, day) {
     return $q(function(success, failure){
       if(ride.id) {
         RideAPI.update({rideID: ride.id}, ride, function() {
@@ -63,15 +79,15 @@ angular.module('starter.services', [])
         });
       } else {
         RideAPI.save(ride, function() {
-            success({
-              message: "Carona " + ride.title + " incluída com sucesso",
-              create: true
-            });
+          success({
+            message: "Carona " + ride.title + " incluída com sucesso",
+            create: true
+          });
         }, function(erro) {
-            console.log(erro.status);
-            failure({
-              message: "Não foi possível incluír a carona " + ride.title
-            });
+          console.log(erro.status);
+          failure({
+            message: "Não foi possível incluír a carona " + ride.title
+          });
         });
       }
     });

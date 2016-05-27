@@ -1,16 +1,15 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http, $stateParams, $ionicModal) {
-  $scope.rides = [];
-  $scope.vehicles = [];
+.controller('rideCtrl', function($scope, RideAPI, ScheduleAPI, DaysAPI, VehicleAPI, UserAPI, RegisterRide, $http, $stateParams, $ionicModal) {
   $scope.ride = {};
   $scope.vehicle = {};
+  $scope.schedule = {};
+  $scope.day = {};
   $scope.message = '';
   $scope.filtro = '';
 
-   $ionicModal.fromTemplateUrl('templates/modal.html', {
+  $ionicModal.fromTemplateUrl('templates/rideSchedule.html', {
     scope: $scope
-    //animation: 'slide-in-up'
   }).then(function(modal) {
     $scope.modal = modal;
   });
@@ -20,6 +19,16 @@ angular.module('starter.controllers')
   UserAPI.query().$promise.then(function(response){
     $scope.users = response;
     console.log($scope.users);
+  });
+
+  ScheduleAPI.query().$promise.then(function(response){
+    $scope.schedules = response;
+    console.log($scope.schedules);
+  });
+
+  DaysAPI.query().$promise.then(function(response){
+    $scope.days = response;
+    console.log($scope.days);
   });
 
   RideAPI.query().$promise.then(function(response){
@@ -45,7 +54,7 @@ angular.module('starter.controllers')
 
   $scope.submitRide = function() {
 
-    RegisterRide.register($scope.ride, $scope.vehicle)
+    RegisterRide.register($scope.ride, $scope.vehicle, $scope.schedule, $scope.day)
       .then(function(data_success){
         $scope.message = data_success.message;
         console.log($scope.message);

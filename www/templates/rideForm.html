@@ -1,7 +1,7 @@
 <ion-pane>
   <ion-view view-title = "Criar Carona">
     <ion-content padding>
-      <form name="form" class="col s12" novalidate>
+      <form name="form" novalidate>
         <div ng-controller="mapCtrl">
           <app-map id="mapa"></app-map>
           <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
@@ -15,30 +15,32 @@
           </div>
           <div class="item item-icon-left">
             <i class="icon ion-ios-location"></i>
-            <p class="item item-text-wrap">Distancia: <input type="text" id="km" ng-model="ride.distance"></p>
-            <p class="item item-text-wrap">Tempo: <input type="text" id="time" ng-model="ride.time"></p>
+            <p class="item item-text-wrap">Distancia: <input type="text" id="km" ng-model="ride.route_distance"></p>
+            <p class="item item-text-wrap">Tempo: <input type="text" id="time" ng-model="ride.route_time"></p>
           </div>
 
         <div class="list">
+          
+          <button class="button button-full button-positive" ng-click="modal.show()" ng-show="ride.schedule_ride">Agendar Carona</button>
+          <div>
+            <ul class="list">
+              <li class="item item-toggle">
+                Agendar Carona
+                <label class="toggle toggle-balanced">
+                  <input type="checkbox" ng-model="ride.schedule_ride">
+                  <div class="track">
+                    <div class="handle"></div>
+                  </div>
+                </label>
+              </li>
+            </ul>
+          </div>
 
           <div class="item item-icon-left">
             <i class="icon ion-ios-location"></i>
             <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="title_form" 
             placeholder="Titulo da carona" type="text" class="validate" >
           </div>
-
-          <div class="item item-icon-left item-icon-right" ng-show="ride.kind_of_ride != 3">
-            <i class="icon ion-clock"></i>
-            <input ng-model="ride.departure_time" name="departure_time" id="departure_time"
-            type="text" placeholder="Horário de partida" class="validate" required>
-          </div>
-
-          <div class="item item-icon-left item-icon-right" ng-show="ride.kind_of_ride == 2">
-            <i class="icon ion-clock"></i>
-            <input ng-model="ride.return_time" name="return_time" id="return_time"
-            type="text" placeholder="Horário da volta" class="validate" required>
-          </div>
-
 
           <div class="item item-icon-left">
             <i class="icon ion-model-s"></i>
@@ -100,54 +102,12 @@
            </li>
           </ul>
         </div>
-        <div>
-          <ul class="list">
-           <li class="item item-toggle">
-              Agendar Carona
-              <label class="toggle toggle-balanced">
-                <input type="checkbox" ng-click="modal.show()">
-                <div class="track">
-                   <div class="handle"></div>
-                </div>
-              </label>
-           </li>
-          </ul>
-        </div>
         <div class="row">
           <button class="button button-full button-positive" ng-click="submitRide()">
             Salvar
           </button>
         </div>
       </form>
-      <div>
-        <p>{{ride.origin}}</p>
-        <p>{{ride.destiny}}</p>
-        <p>{{ride.distance}}</p>
-        <p>{{ride.time}}</p>
-        <p>{{ride.title}}</p>
-        <p>{{ride.kind_of_ride}}</p>
-        <p>{{ride.departure_time}}</p>
-        <p>{{ride.return_time}}</p>
-        <p>{{vehicle.car_model}}</p>
-        <p>{{vehicle.color}}</p>
-        <p>{{ride.description}}</p>
-        <p>{{ride.total_seats}}</p>
-        <p>{{ride.is_subsistence_allowance}}</p>
-      </div>
     </ion-content>
   </ion-view>
 </ion-pane>
-
-<script id="templates/modal.html" type="text/ng-template">
-  <ion-modal-view>
-    <ion-header-bar class="bar bar-header bar-positive">
-      <h1 class="title">Agendar Carona</h1>
-        <button class="button button-clear button-primary" ng-click="modal.hide()">Cancelar</button>
-    </ion-header-bar>
-    <ion-content class="padding">
-      <div class="row">
-        <h3 class="title"><i class="icon ion-person-stalker"> Tipo de carona:</i></h3>
-      </div>
-    </ion-content>
-  </ion-modal-view>
-</script>

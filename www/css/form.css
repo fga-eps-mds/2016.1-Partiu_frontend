@@ -5,3 +5,15 @@
 .title {
   text-align: center;
 }
+
+.column {
+  -moz-box-flex: 0;
+  flex: 1 0 10%;
+  max-width: 15%;
+  text-align: center;
+}
+
+.radio-content {
+  margin-left: -12px;
+  padding-top: 8px;
+}
