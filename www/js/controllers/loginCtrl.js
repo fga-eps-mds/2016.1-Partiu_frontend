@@ -21,7 +21,7 @@ angular.module('starter.controllers')
             }
             Profile.setUser(data.displayName, data.email, data.accessToken, data.cachedUserProfile.gender, data.profileImageURL, data.id, data.cachedUserProfile.link);
             $http.post('http://104.236.252.208/api/users', Profile.getUser()).success(function(data) {
-            
+
             });
             $state.go('menu.home');
         }
