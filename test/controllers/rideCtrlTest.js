@@ -16,7 +16,7 @@ describe('rideCtrl tests', function() {
       };
     }));
 
-    it('should be defined and initializes', (function() {
+    it('should be defined and initialized', (function() {
       var controller = createController();
       expect(controller).toBeDefined();
       expect($rootScope).toBeDefined();
@@ -29,7 +29,7 @@ describe('rideCtrl tests', function() {
 
   describe('requests to backend tests', function() {
     var $httpBackend, $rootScope, createController, userArray, userA, userB, mockResource,
-    rideStub, usersJsonMock, ridesJsonMock;;
+    rideStub, vehicleStub, usersJsonMock, ridesJsonMock;;
 
 
     beforeEach(function() {
@@ -39,6 +39,11 @@ describe('rideCtrl tests', function() {
     });
 
     beforeEach(function() {
+      vehicleStub = {
+        "color": "blue",
+        "car_model": "my nice car",
+        "driver_id": "1"
+      };
       rideStub = {
         "title": "mytitle1",
         "origin": "myniceorigin",
@@ -46,7 +51,7 @@ describe('rideCtrl tests', function() {
         "total_seats": "4",
         "departure_time": "11h",
         "user_id": "1"
-      }
+      };
     });
 
     beforeEach(inject(function($injector) {
@@ -57,6 +62,10 @@ describe('rideCtrl tests', function() {
       $httpBackend.when('GET', 'templates/menu.html').respond({ });
       $httpBackend.when('GET', 'templates/home.html').respond({ });
       $httpBackend.when('GET', 'templates/rideForm.html').respond({ });
+      $httpBackend.when('GET', 'templates/searchRide.html').respond({ });
+      $httpBackend.when('GET', 'templates/login.html').respond({ });
+      $httpBackend.when('GET', 'templates/rank.html').respond({ });
+      $httpBackend.when('GET', 'templates/profile.html').respond({ });
 
       usersJsonMock = readJSON('test/fixtures/users_fixture.json');
       ridesJsonMock = readJSON('test/fixtures/rides_fixture.json');
@@ -70,6 +79,7 @@ describe('rideCtrl tests', function() {
       $httpBackend.when('GET', 'http://104.236.252.208/api/users/1/rides').respond(ridesJsonMock.rides);
       $httpBackend.when('GET', 'http://104.236.252.208/api/users/1/vehicles').respond([{'car_type': 'SEDANN'}]);
       $httpBackend.when('DELETE', 'http://104.236.252.208/api/users/1/rides/1').respond(201, '');
+      $httpBackend.when('POST', 'http://104.236.252.208/api/users/1/rides').respond(201, ridesJsonMock.rides[0]);
       $rootScope = $injector.get('$rootScope');
       var $controller = $injector.get('$controller');
 
@@ -100,6 +110,17 @@ describe('rideCtrl tests', function() {
       expect($rootScope.rides.length).toEqual(2);
       expect($rootScope.vehicles.length).toEqual(1);
     }));
+
+    it('should increment rides length in case of addition', function() {
+      var controller = createController();
+      $httpBackend.flush();
+      expect($rootScope.rides.length).toEqual(2);
+      $rootScope.ride = rideStub;
+      $rootScope.vehicle = vehicleStub;
+      $rootScope.submitRide();
+      $httpBackend.flush();
+      expect($rootScope.rides.length).toEqual(3);
+    });
 
     it('should decrement rides length in case of remove', function() {
       var controller = createController();
