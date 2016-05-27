@@ -10,7 +10,7 @@ angular.module('starter.services')
     user.gender = gender,
     user.photo_url = photoURL,
     user.facebook_id = userId,
-    user.facebook_profile = profileLink
+    user.link_profile = profileLink
   }
 
   var getUser = function() {
