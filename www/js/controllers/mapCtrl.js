@@ -1,6 +1,7 @@
 angular.module('starter.controllers')
 
-.controller('mapCtrl', function($scope, RideAPI) {
+.controller('mapCtrl', function($scope, $ionicHistory, RideAPI) {
+  $ionicHistory.clearHistory();
   var origin_place_id = null;
   var destination_place_id = null;
   var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -97,7 +98,6 @@ angular.module('starter.controllers')
       travelMode: google.maps.TravelMode.DRIVING,
       unitSystem: google.maps.UnitSystem.METRIC
     }, calculeDistance);
-
   }
 
   // 
@@ -214,7 +214,7 @@ angular.module('starter.controllers')
          "location": geolocation
       },
       function(results, status) {
-         if (status == google.maps.GeocoderStatus.OK) {
+         if (status === google.maps.GeocoderStatus.OK) {
            if (results[1]){
              document.getElementById('origin-input').value = results[1].formatted_address;
            }

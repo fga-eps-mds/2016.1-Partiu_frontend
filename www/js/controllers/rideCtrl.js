@@ -1,12 +1,14 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, RideAPI, ScheduleAPI, DaysAPI, VehicleAPI, UserAPI, RegisterRide, $http, $stateParams, $ionicModal) {
+.controller('rideCtrl', function($scope, $ionicHistory, RideAPI, ScheduleAPI, DaysAPI, VehicleAPI, UserAPI, RegisterRide, $http, $stateParams, $ionicModal) {
+  $ionicHistory.clearHistory();
   $scope.ride = {};
   $scope.vehicle = {};
   $scope.schedule = {};
   $scope.day = {};
   $scope.message = '';
   $scope.filtro = '';
+
 
   $ionicModal.fromTemplateUrl('templates/rideSchedule.html', {
     scope: $scope
@@ -66,5 +68,9 @@ angular.module('starter.controllers')
     });
 
   };
+
+  $scope.testStub = function (value) {
+    return value*5;
+  }
 
 });

@@ -1,7 +1,3 @@
----
-title: Inappbrowser
-description: Open an in-app browser window.
----
 <!--
 # license: Licensed to the Apache Software Foundation (ASF) under one
 #         or more contributor license agreements.  See the NOTICE file
@@ -20,8 +16,6 @@ description: Open an in-app browser window.
 #         specific language governing permissions and limitations
 #         under the License.
 -->
-
-[![Build Status](https://travis-ci.org/apache/cordova-plugin-inappbrowser.svg?branch=master)](https://travis-ci.org/apache/cordova-plugin-inappbrowser)
 
 # cordova-plugin-inappbrowser
 
@@ -60,7 +54,7 @@ Although `window.open` is in the global scope, InAppBrowser is not available unt
         console.log("window.open works well");
     }
 
-Report issues with this plugin on the [Apache Cordova issue tracker](https://issues.apache.org/jira/issues/?jql=project%20%3D%20CB%20AND%20status%20in%20%28Open%2C%20%22In%20Progress%22%2C%20Reopened%29%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20%22Plugin%20InAppBrowser%22%20ORDER%20BY%20priority%20DESC%2C%20summary%20ASC%2C%20updatedDate%20DESC)
+:warning: Report issues on the [Apache Cordova issue tracker](https://issues.apache.org/jira/issues/?jql=project%20%3D%20CB%20AND%20status%20in%20%28Open%2C%20%22In%20Progress%22%2C%20Reopened%29%20AND%20resolution%20%3D%20Unresolved%20AND%20component%20%3D%20%22Plugin%20InAppBrowser%22%20ORDER%20BY%20priority%20DESC%2C%20summary%20ASC%2C%20updatedDate%20DESC)
 
 
 
@@ -106,7 +100,6 @@ instance, or the system browser.
     - __clearsessioncache__: set to `yes` to have the session cookie cache cleared before the new window is opened
     - __zoom__: set to `yes` to show Android browser's zoom controls, set to `no` to hide them.  Default value is `yes`.
     - __hardwareback__: set to `yes` to use the hardware back button to navigate backwards through the `InAppBrowser`'s history. If there is no previous page, the `InAppBrowser` will close.  The default value is `yes`, so you must set it to `no` if you want the back button to simply close the InAppBrowser.
-    - __mediaPlaybackRequiresUserAction__: Set to `yes` to prevent HTML5 audio or video from autoplaying (defaults to `no`).
 
     iOS only:
 
@@ -117,7 +110,7 @@ instance, or the system browser.
     - __clearsessioncache__: set to `yes` to have the session cookie cache cleared before the new window is opened
     - __toolbar__:  set to `yes` or `no` to turn the toolbar on or off for the InAppBrowser (defaults to `yes`)
     - __enableViewportScale__:  Set to `yes` or `no` to prevent viewport scaling through a meta tag (defaults to `no`).
-    - __mediaPlaybackRequiresUserAction__: Set to `yes` to prevent HTML5 audio or video from autoplaying (defaults to `no`).
+    - __mediaPlaybackRequiresUserAction__: Set to `yes` or `no` to prevent HTML5 audio or video from autoplaying (defaults to `no`).
     - __allowInlineMediaPlayback__: Set to `yes` or `no` to allow in-line HTML5 media playback, displaying within the browser window rather than a device-specific playback interface. The HTML's `video` element must also include the `webkit-playsinline` attribute (defaults to `no`)
     - __keyboardDisplayRequiresUserAction__: Set to `yes` or `no` to open the keyboard when form elements receive focus via JavaScript's `focus()` call (defaults to `yes`).
     - __suppressesIncrementalRendering__: Set to `yes` or `no` to wait until all new view content is received before being rendered (defaults to `no`).
@@ -181,7 +174,7 @@ opened with `target='_blank'`. The rules might look like these
 
 Windows 8.0, 8.1 and Windows Phone 8.1 don't support remote urls to be opened in the Cordova WebView so remote urls are always showed in the system's web browser if opened with `target='_self'`.
 
-On Windows 10 if the URL is NOT in the white list and is opened with `target='_self'` it will be showed in the system's web browser instead of InAppBrowser popup.
+On Windows 10 if the URL is NOT in the white list and is opened with `target='_self'` it will be showed in the system's web browser instead of InAppBrowser popup. 
 
 Similar to Firefox OS IAB window visual behaviour can be overridden via `inAppBrowserWrap`/`inAppBrowserWrapFullscreen` CSS classes
 
@@ -204,7 +197,7 @@ The object returned from a call to `cordova.InAppBrowser.open`.
 - executeScript
 - insertCSS
 
-## InAppBrowser.addEventListener
+## addEventListener
 
 > Adds a listener for an event from the `InAppBrowser`.
 
@@ -220,79 +213,6 @@ The object returned from a call to `cordova.InAppBrowser.open`.
   - __exit__: event fires when the `InAppBrowser` window is closed.
 
 - __callback__: the function that executes when the event fires. The function is passed an `InAppBrowserEvent` object as a parameter.
-
-## Example
-
-```javascript
-
-var inAppBrowserRef = undefined;
-
-function showHelp(url) {
-
-    var target = "_blank";
-
-    var options = "location=yes,hidden=yes";
-
-    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
-
-    with (inAppBrowserRef) {
-
-        addEventListener('loadstart', loadStartCallBack);
-
-        addEventListener('loadstop', loadStopCallBack);
-
-        addEventListener('loaderror', loadErrorCallBack);
-    }
-
-}
-
-function loadStartCallBack() {
-
-    $('#status-message').text("loading please wait ...");
-
-}
-
-function loadStopCallBack() {
-
-    if (inAppBrowserRef != undefined) {
-
-        inAppBrowserRef.insertCSS({ code: "body{font-size: 25px;" });
-
-        $('#status-message').text("");
-
-        inAppBrowserRef.show();
-    }
-
-}
-
-function loadErrorCallBack(params) {
-
-    $('#status-message').text("");
-
-    var scriptErrorMesssage =
-       "alert('Sorry we cannot open that page. Message from the server is : "
-       + params.message + "');"
-
-    inAppBrowserRef.executeScript({ code: scriptErrorMesssage }, executeScriptCallBack);
-
-    inAppBrowserRef.close();
-
-    inAppBrowserRef = undefined;
-
-}
-
-function executeScriptCallBack(params) {
-
-    if (params[0] == null) {
-
-        $('#status-message').text(
-           "Sorry we couldn't open that page. Message from the server is : '"
-           + params.message + "'");
-    }
-
-}
-
-```
 
 ### InAppBrowserEvent Properties
 
@@ -323,7 +243,7 @@ function executeScriptCallBack(params) {
     var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
     ref.addEventListener('loadstart', function(event) { alert(event.url); });
 
-## InAppBrowser.removeEventListener
+## removeEventListener
 
 > Removes a listener for an event from the `InAppBrowser`.
 
@@ -357,7 +277,7 @@ The function is passed an `InAppBrowserEvent` object.
     ref.addEventListener('loadstart', myCallback);
     ref.removeEventListener('loadstart', myCallback);
 
-## InAppBrowser.close
+## close
 
 > Closes the `InAppBrowser` window.
 
@@ -380,7 +300,7 @@ The function is passed an `InAppBrowserEvent` object.
     var ref = cordova.InAppBrowser.open('http://apache.org', '_blank', 'location=yes');
     ref.close();
 
-## InAppBrowser.show
+## show
 
 > Displays an InAppBrowser window that was opened hidden. Calling this has no effect if the InAppBrowser was already visible.
 
@@ -402,7 +322,7 @@ The function is passed an `InAppBrowserEvent` object.
     // some time later...
     ref.show();
 
-## InAppBrowser.executeScript
+## executeScript
 
 > Injects JavaScript code into the `InAppBrowser` window
 
@@ -444,7 +364,7 @@ The function is passed an `InAppBrowserEvent` object.
 
 Due to [MSDN docs](https://msdn.microsoft.com/en-us/library/windows.ui.xaml.controls.webview.invokescriptasync.aspx) the invoked script can return only string values, otherwise the parameter, passed to __callback__ will be `[null]`.
 
-## InAppBrowser.insertCSS
+## insertCSS
 
 > Injects CSS into the `InAppBrowser` window.
 
@@ -471,161 +391,3 @@ Due to [MSDN docs](https://msdn.microsoft.com/en-us/library/windows.ui.xaml.cont
     ref.addEventListener('loadstop', function() {
         ref.insertCSS({file: "mystyles.css"});
     });
-__
-
-## <a id="sample"></a>Sample: Show help pages with an InAppBrowser
-
-You can use this plugin to show helpful documentation pages within your app. Users can view online help documents and then close them without leaving the app.
-
-Here's a few snippets that show how you do this.
-
-* [Give users a way to ask for help](#give).
-* [Load a help page](#load).
-* [Let users know that you're getting their page ready](#let).
-* [Show the help page](#show).
-* [Handle page errors](#handle).
-
-### <a id="give"></a>Give users a way to ask for help
-
-There's lots of ways to do this in your app. A drop down list is a simple way to do that.
-
-```html
-
-<select id="help-select">
-    <option value="default">Need help?</option>
-    <option value="article">Show me a helpful article</option>
-    <option value="video">Show me a helpful video</option>
-    <option value="search">Search for other topics</option>
-</select>
-
-```
-
-Gather the users choice in the ``onDeviceReady`` function of the page and then send an appropriate URL to a helper function in some shared library file. Our helper function is named ``showHelp()`` and we'll write that function next.
-
-```javascript
-
-$('#help-select').on('change', function (e) {
-
-    var url;
-
-    switch (this.value) {
-
-        case "article":
-            url = "https://cordova.apache.org/docs/en/latest/"
-                        + "reference/cordova-plugin-inappbrowser/index.html";
-            break;
-
-        case "video":
-            url = "https://youtu.be/F-GlVrTaeH0";
-            break;
-
-        case "search":
-            url = "https://www.google.com/#q=inAppBrowser+plugin";
-            break;
-    }
-
-    showHelp(url);
-
-});
-
-```
-
-### <a id="load"></a>Load a help page
-
-We'll use the ``open`` function to load the help page. We're setting the ``hidden`` property to ``yes`` so that we can show the browser only after the page content has loaded. That way, users don't see a blank browser while they wait for content to appear. When the ``loadstop`` event is raised, we'll know when the content has loaded. We'll handle that event shortly.
-
-```javascript
-
-function showHelp(url) {
-
-    var target = "_blank";
-
-    var options = "location=yes,hidden=yes";
-
-    inAppBrowserRef = cordova.InAppBrowser.open(url, target, options);
-
-    with (inAppBrowserRef) {
-
-        addEventListener('loadstart', loadStartCallBack);
-
-        addEventListener('loadstop', loadStopCallBack);
-
-        addEventListener('loaderror', loadErrorCallBack);
-    }
-
-}
-
-```
-
-### <a id="let"></a>Let users know that you're getting their page ready
-
-Because the browser doesn't immediately appear, we can use the ``loadstart`` event to show a status message, progress bar, or other indicator. This assures users that content is on the way.
-
-```javascript
-
-function loadStartCallBack() {
-
-    $('#status-message').text("loading please wait ...");
-
-}
-
-```
-
-### <a id="show"></a>Show the help page
-
-When the ``loadstopcallback`` event is raised, we know that the content has loaded and we can make the browser visible. This sort of trick can create the impression of better performance. The truth is that whether you show the browser before content loads or not, the load times are exactly the same.
-
-```javascript
-
-function loadStopCallBack() {
-
-    if (inAppBrowserRef != undefined) {
-
-        inAppBrowserRef.insertCSS({ code: "body{font-size: 25px;" });
-
-        $('#status-message').text("");
-
-        inAppBrowserRef.show();
-    }
-
-}
-
-```
-You might have noticed the call to the ``insertCSS`` function. This serves no particular purpose in our scenario. But it gives you an idea of why you might use it. In this case, we're just making sure that the font size of your pages have a certain size. You can use this function to insert any CSS style elements. You can even point to a CSS file in your project.
-
-### <a id="handle"></a>Handle page errors
-
-Sometimes a page no longer exists, a script error occurs, or a user lacks permission to view the resource. How or if you handle that situation is completely up to you and your design. You can let the browser show that message or you can present it in another way.
-
-We'll try to show that error in a message box. We can do that by injecting a script that calls the ``alert`` function. That said, this won't work in browsers on Windows devices so we'll have to look at the parameter of the ``executeScript`` callback function to see if our attempt worked. If it didn't work out for us, we'll just show the error message in a ``<div>`` on the page.
-
-```javascript
-
-function loadErrorCallBack(params) {
-
-    $('#status-message').text("");
-
-    var scriptErrorMesssage =
-       "alert('Sorry we cannot open that page. Message from the server is : "
-       + params.message + "');"
-
-    inAppBrowserRef.executeScript({ code: scriptErrorMesssage }, executeScriptCallBack);
-
-    inAppBrowserRef.close();
-
-    inAppBrowserRef = undefined;
-
-}
-
-function executeScriptCallBack(params) {
-
-    if (params[0] == null) {
-
-        $('#status-message').text(
-           "Sorry we couldn't open that page. Message from the server is : '"
-           + params.message + "'");
-    }
-
-}
-
-```

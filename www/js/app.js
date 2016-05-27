@@ -58,7 +58,6 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       }
     }
   })
-/* Page relationed with login*/
   .state("menu.login", {
       url:"/login",
       views: {
