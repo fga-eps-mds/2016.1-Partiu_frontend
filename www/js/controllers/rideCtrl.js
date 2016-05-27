@@ -11,17 +11,14 @@ angular.module('starter.controllers')
 
   UserAPI.query().$promise.then(function(response){
     $scope.users = response;
-    console.log($scope.users);
   });
 
   RideAPI.query().$promise.then(function(response){
     $scope.rides = response;
-    console.log($scope.rides);
   });
 
   VehicleAPI.query().$promise.then(function(response){
     $scope.vehicles = response;
-    console.log($scope.vehicles);
   });
 
   $scope.remove = function(ride) {
@@ -36,7 +33,6 @@ angular.module('starter.controllers')
 	};
 
   $scope.submitRide = function() {
-
     RegisterRide.register($scope.ride, $scope.vehicle)
       .then(function(data_success){
         $scope.message = data_success.message;
@@ -54,4 +50,20 @@ angular.module('starter.controllers')
     return value*5;
   }
 
+})
+
+.controller('rideShowCtrl', function($scope, $ionicHistory, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http, $stateParams) {
+  $scope.vehicles = [];
+
+  VehicleAPI.query().$promise.then(function(response){
+    $scope.vehicles = response;
+    console.log($scope.vehicles);
+  });
+
+  RideAPI.get({rideID: $stateParams.id}).$promise.then(function(response){
+    $scope.ride = response;
+  }, function(erro){
+    console.error("ID not found");
+    $scope.message = "Não foi possivel encontrar a carona " + $stateParams.id;
+  });
 });

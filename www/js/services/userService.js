@@ -3,33 +3,22 @@ angular.module('starter.services')
 .service('Profile', function() {
   var user = {};
 
-  this.setUser = function(displayName, email, token, gender, photoURL, userId, profileLink) {
-    Object.defineProperties(user, {
-      "name": {
-        value: displayName
-      },
-      "email": {
-        value: email
-      },
-      "token": {
-        value: token
-      },
-      "gender": {
-        value: gender
-      },
-      "photo": {
-        value: photoURL
-      },
-      "id": {
-        value: userId
-      },
-      "facebook_profile": {
-        value: profileLink
-      }
-    })
+  var setUser = function(displayName, email, token, gender, photoURL, userId, profileLink) {
+    user.name = displayName,
+    user.email = email,
+    user.token = token,
+    user.gender = gender,
+    user.photo_url = photoURL,
+    user.facebook_id = userId,
+    user.facebook_profile = profileLink
   }
 
-  this.getUser = function() {
+  var getUser = function() {
     return user;
+  }
+
+  return {
+    setUser: setUser,
+    getUser: getUser
   }
 })
