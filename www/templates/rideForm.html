@@ -21,11 +21,11 @@
 
         <div class="list">
           
-          <button class="button button-full button-positive" ng-click="modal.show()" ng-show="ride.schedule_ride">Agendar Carona</button>
           <div>
+            <button class="button button-full button-positive" ng-click="modal.show()" ng-show="ride.schedule_ride">Agendar Carona</button>
             <ul class="list">
               <li class="item item-toggle">
-                Agendar Carona
+                <i class="icon ion-calendar"></i> Agendar Carona
                 <label class="toggle toggle-balanced">
                   <input type="checkbox" ng-model="ride.schedule_ride">
                   <div class="track">
@@ -92,7 +92,7 @@
         <div>
           <ul class="list">
            <li class="item item-toggle">
-              Ajuda de Custo
+              <i class="icon ion-ios-people"></i> Ajuda de Custo
               <label class="toggle toggle-balanced">
                 <input type="checkbox" ng-model="ride.is_subsistence_allowance">
                 <div class="track">
