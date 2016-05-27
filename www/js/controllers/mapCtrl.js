@@ -1,6 +1,7 @@
 angular.module('starter.controllers')
 
-.controller('mapCtrl', function($scope) {
+.controller('mapCtrl', function($scope, $ionicHistory) {
+  $ionicHistory.clearHistory();
   var origin_place_id = null;
   var destination_place_id = null;
   var travel_mode = google.maps.TravelMode.DRIVING;
@@ -101,7 +102,7 @@ angular.module('starter.controllers')
        "location": location
     },
     function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
+       if (status === google.maps.GeocoderStatus.OK) {
          origin_span.innerHTML = results[1].formatted_address;
        }
     });
@@ -112,7 +113,7 @@ angular.module('starter.controllers')
        "location": location
     },
     function(results, status) {
-       if (status == google.maps.GeocoderStatus.OK) {
+       if (status === google.maps.GeocoderStatus.OK) {
          destiny_span.innerHTML = results[1].formatted_address;
        }
     });
@@ -226,7 +227,7 @@ angular.module('starter.controllers')
          "location": geolocation
       },
       function(results, status) {
-         if (status == google.maps.GeocoderStatus.OK) {
+         if (status === google.maps.GeocoderStatus.OK) {
            if (results[1]){
              origin_input.value = results[1].formatted_address;
              origin_span.innerHTML = results[1].formatted_address;

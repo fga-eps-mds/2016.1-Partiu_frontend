@@ -1,21 +1,13 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http) {
+.controller('rideCtrl', function($scope, $ionicHistory, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http) {
+  $ionicHistory.clearHistory();
   $scope.rides = [];
   $scope.vehicles = [];
   $scope.ride = {};
   $scope.vehicle = {};
   $scope.message = '';
   $scope.filtro = '';
-
-  /*if($routeParams.rideID) {
-      RideAPI.get({rideId: $routeParams.rideID}, function(ride) {
-          $scope.ride = ride;
-      }, function(erro) {
-          console.log(erro.status);
-          $scope.message = 'Não foi possível obter a carona'
-      });
-  }*/
 
   UserAPI.query().$promise.then(function(response){
     $scope.users = response;
@@ -57,5 +49,9 @@ angular.module('starter.controllers')
     });
 
   };
+
+  $scope.testStub = function (value) {
+    return value*5;
+  }
 
 });
