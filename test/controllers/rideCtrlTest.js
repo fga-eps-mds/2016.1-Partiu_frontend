@@ -66,6 +66,9 @@ describe('rideCtrl tests', function() {
       $httpBackend.when('GET', 'templates/login.html').respond({ });
       $httpBackend.when('GET', 'templates/rank.html').respond({ });
       $httpBackend.when('GET', 'templates/profile.html').respond({ });
+      $httpBackend.when('GET', 'templates/rides/show.html').respond({ });
+      $httpBackend.when('GET', 'templates/rides/new.html').respond({ });
+      $httpBackend.when('GET', 'templates/rides/index.html').respond({ });
 
       usersJsonMock = readJSON('test/fixtures/users_fixture.json');
       ridesJsonMock = readJSON('test/fixtures/rides_fixture.json');
