@@ -18,6 +18,9 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.frontend312168"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.frontend312168"
         }
     },
     "dependent_plugins": {
