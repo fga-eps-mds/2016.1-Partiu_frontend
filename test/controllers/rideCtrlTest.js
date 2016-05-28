@@ -74,12 +74,14 @@ describe('rideCtrl tests', function() {
 
       userArray = usersJsonMock.users;
 
-      $httpBackend.when('GET', 'http://104.236.252.208/api/users').respond(usersJsonMock.users);
-      $httpBackend.when('GET', 'http://104.236.252.208/api/users/1').respond(usersJsonMock.users[1]);
-      $httpBackend.when('GET', 'http://104.236.252.208/api/users/1/rides').respond(ridesJsonMock.rides);
-      $httpBackend.when('GET', 'http://104.236.252.208/api/users/1/vehicles').respond([{'car_type': 'SEDANN'}]);
-      $httpBackend.when('DELETE', 'http://104.236.252.208/api/users/1/rides/1').respond(201, '');
-      $httpBackend.when('POST', 'http://104.236.252.208/api/users/1/rides').respond(201, ridesJsonMock.rides[0]);
+      console.log("USERMOCK:", usersJsonMock.users);
+      $httpBackend.when('GET', 'http://localhost:3000/api/users').respond(usersJsonMock.users);
+      $httpBackend.when('GET', 'http://localhost:3000/api/users?id='+userA.id.toString()).respond(usersJsonMock.users[1]);
+  http://localhost:3000/api/users?id=2
+      $httpBackend.when('GET', 'http://localhost:3000/api/users/2/rides').respond(ridesJsonMock.rides);
+      $httpBackend.when('GET', 'http://localhost:3000/api/users/2/vehicles').respond([{'car_type': 'SEDANN'}]);
+      $httpBackend.when('DELETE', 'http://localhost:3000/api/users/2/rides/1').respond(201, '');
+      $httpBackend.when('POST', 'http://localhost:3000/api/users/2/rides').respond(201, ridesJsonMock.rides[0]);
       $rootScope = $injector.get('$rootScope');
       var $controller = $injector.get('$controller');
 
@@ -103,7 +105,9 @@ describe('rideCtrl tests', function() {
       $httpBackend.flush();
     }));
 
-    it('should uses its factories', inject(function($controller) {
+    it('should uses its factories', inject(function($controller, Profile) {
+      Profile.setUser("user123", "user123@gmail.com", "dhauhduhad", "mascl", "photourlboa.png", 1, "dhuauhds.google.com");
+      Profile.updateBackendId(userA.id);
       var controller = createController();
       $httpBackend.flush();
       expect($rootScope.users.length).toEqual(2);
@@ -111,7 +115,9 @@ describe('rideCtrl tests', function() {
       expect($rootScope.vehicles.length).toEqual(1);
     }));
 
-    it('should increment rides length in case of addition', function() {
+    it('should increment rides length in case of addition', inject(function(Profile) {
+      Profile.setUser("user123", "user123@gmail.com", "dhauhduhad", "mascl", "photourlboa.png", 1, "dhuauhds.google.com");
+      Profile.updateBackendId(userA.id);
       var controller = createController();
       $httpBackend.flush();
       expect($rootScope.rides.length).toEqual(2);
@@ -120,15 +126,17 @@ describe('rideCtrl tests', function() {
       $rootScope.submitRide();
       $httpBackend.flush();
       expect($rootScope.rides.length).toEqual(3);
-    });
+    }));
 
-    it('should decrement rides length in case of remove', function() {
+    it('should decrement rides length in case of remove', inject(function(Profile) {
+      Profile.setUser("user123", "user123@gmail.com", "dhauhduhad", "mascl", "photourlboa.png", 1, "dhuauhds.google.com");
+      Profile.updateBackendId(userA.id);
       var controller = createController();
       $httpBackend.flush();
       expect($rootScope.rides.length).toEqual(2);
       $rootScope.remove(ridesJsonMock.rides[0]);
       $httpBackend.flush();
       expect($rootScope.rides.length).toEqual(1);
-    });
+    }));
   });
 });
