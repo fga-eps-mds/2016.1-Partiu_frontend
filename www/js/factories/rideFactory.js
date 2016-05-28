@@ -1,7 +1,7 @@
 angular.module('starter.services')
 
 .factory('RideAPI', function($resource) {
-  return $resource("http://localhost:3000/api/users/:userId/rides", null , {
+  return $resource("http://localhost:3000/api/users/:userId/rides/:rideId", null , {
     'get':    {method:'GET'},
     'save':   {method:'POST'},
     'query':  {method:'GET', isArray:true},

@@ -9,7 +9,7 @@ angular.module('starter.controllers')
   $scope.message = '';
   $scope.filtro = '';
 
-  UserAPI.query({id: Profile.getUser().backendId}).$promise.then(function(response){
+  UserAPI.query().$promise.then(function(response){
     $scope.users = response;
   });
 
@@ -22,7 +22,7 @@ angular.module('starter.controllers')
   });
 
   $scope.remove = function(ride) {
-		RideAPI.delete({rideID: ride.id}, function(){
+		RideAPI.delete({rideId: ride.id, userId: ride.driver.user_id}, function(){
 			var rideIndex = $scope.rides.indexOf(ride);
 			$scope.rides.splice(rideIndex, 1);
 			$scope.message = "Carona " + ride.title + " foi removida com sucesso!";

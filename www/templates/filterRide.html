@@ -6,8 +6,8 @@
               <h1>Filtrar</h1>
               <input type="search" placeholder="Título" ng-model="filterRide.title">
               <input type="search" placeholder="Origem" ng-model="filterRide.origin">
-              <input type="search" placeholder="Destino" ng-model="filterRide.destiny">
-              <input type="search" placeholder="Veículo" ng-model="filterRide.vehicle.car_model"> 
+              <input type="search" placeholder="Destino" ng-model="filterRide.destination">
+              <input type="search" placeholder="Veículo" ng-model="filterRide.vehicle.car_model">
             </form>
           </div>
       </div>
@@ -22,7 +22,7 @@
               <div class="driver">Motorista: {{user.name}}</div>
               <div class="attributes">Gênero: {{user.gender}}</div>
               <div class="attributes">Origem: {{ride.origin}}</div>
-              <div class="attributes">Destino: {{ride.destiny}}</div>
+              <div class="attributes">Destino: {{ride.destination}}</div>
               <div class="attributes">Hora de ida: {{ride.departure_time}}</div>
               <div class="attributes">Hora da Volta: {{ride.return_time}}</div>
               <div class="attributes">Descrição: {{ride.description}}</div>
