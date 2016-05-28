@@ -4,10 +4,10 @@ angular.module('starter.services')
 
   var service = {};
 
-  service.register = function(ride, vehicle) {
+  service.register = function(ride, vehicle, backendId) {
     return $q(function(success, failure){
       if(ride.id) {
-        RideAPI.update({rideID: ride.id}, ride, function() {
+        RideAPI.update({rideID: ride.id, userId: backendId}, ride, function() {
           success({
             message: "Carona " + ride.title + " foi atualizada com sucesso!",
             create: false
@@ -19,7 +19,7 @@ angular.module('starter.services')
           });
         });
       } else {
-        RideAPI.save(ride, function() {
+        RideAPI.save({userId: backendId}, ride, function() {
             success({
               message: "Carona " + ride.title + " incluída com sucesso",
               create: true
