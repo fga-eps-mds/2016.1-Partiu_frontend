@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('rideCtrl', function($scope, $ionicHistory, RideAPI, ScheduleAPI, DaysAPI, VehicleAPI, UserAPI, RegisterRide, $http, $stateParams, $ionicModal) {
+.controller('rideCtrl', function($scope, $ionicHistory, RideAPI, VehicleAPI, UserAPI, RegisterRide, $http, Profile, $ionicModal) {
   $ionicHistory.clearHistory();
   $scope.ride = {};
   $scope.vehicle = {};
@@ -10,37 +10,23 @@ angular.module('starter.controllers')
   $scope.filtro = '';
 
 
+
   $ionicModal.fromTemplateUrl('templates/rideSchedule.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
   });
 
-  //console.log($stateParams.user_id)
-
-  UserAPI.query().$promise.then(function(response){
+  UserAPI.query({id: Profile.getUser().backendId}).$promise.then(function(response){
     $scope.users = response;
-    console.log($scope.users);
   });
 
-  ScheduleAPI.query().$promise.then(function(response){
-    $scope.schedules = response;
-    console.log($scope.schedules);
-  });
-
-  DaysAPI.query().$promise.then(function(response){
-    $scope.days = response;
-    console.log($scope.days);
-  });
-
-  RideAPI.query().$promise.then(function(response){
+  RideAPI.query({userId: Profile.getUser().backendId}).$promise.then(function(response){
     $scope.rides = response;
-    console.log($scope.rides);
   });
 
-  VehicleAPI.query().$promise.then(function(response){
+  VehicleAPI.query({userId: Profile.getUser().backendId}).$promise.then(function(response){
     $scope.vehicles = response;
-    console.log($scope.vehicles);
   });
 
   $scope.remove = function(ride) {
@@ -55,8 +41,7 @@ angular.module('starter.controllers')
 	};
 
   $scope.submitRide = function() {
-
-    RegisterRide.register($scope.ride, $scope.vehicle, $scope.schedule, $scope.day)
+    RegisterRide.register($scope.ride, $scope.vehicle, Profile.getUser().backendId)
       .then(function(data_success){
         $scope.message = data_success.message;
         console.log($scope.message);
@@ -68,9 +53,5 @@ angular.module('starter.controllers')
     });
 
   };
-
-  $scope.testStub = function (value) {
-    return value*5;
-  }
 
 });
