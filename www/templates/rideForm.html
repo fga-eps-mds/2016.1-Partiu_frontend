@@ -2,56 +2,55 @@
   <ion-view view-title = "Criar Carona">
     <ion-content padding>
       <form name="form" novalidate>
+        <h1 class="title">Nova carona</h1>
+
         <div ng-controller="mapCtrl">
-          <app-map id="mapa"></app-map>
-          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-          <div class="item item-icon-left">
-            <i class="icon ion-ios-location"></i>
-            <input id="origin-input" name="origin" type="text" placeholder="Origem" ng-model="ride.origin" required>
-          </div>
-          <div class="item item-icon-left">
-            <i class="icon ion-ios-location"></i>
-            <input id="destination-input" name="destiny" type="text" placeholder="Destino" ng-model="ride.destiny" required>
-          </div>
-          <div class="item item-icon-left">
-            <i class="icon ion-ios-location"></i>
-            <p class="item item-text-wrap">Distancia: <input type="text" id="km" ng-model="ride.route_distance"></p>
-            <p class="item item-text-wrap">Tempo: <input type="text" id="time" ng-model="ride.route_time"></p>
-          </div>
-
-        <div class="list">
-          
-          <div>
-            <button class="button button-full button-positive" ng-click="modal.show()" ng-show="ride.schedule_ride">Agendar Carona</button>
-            <ul class="list">
-              <li class="item item-toggle">
-                <i class="icon ion-calendar"></i> Agendar Carona
-                <label class="toggle toggle-balanced">
-                  <input type="checkbox" ng-model="ride.schedule_ride">
-                  <div class="track">
-                    <div class="handle"></div>
-                  </div>
-                </label>
-              </li>
-            </ul>
-          </div>
-
           <div class="item item-icon-left">
             <i class="icon ion-ios-location"></i>
             <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="title_form" 
             placeholder="Titulo da carona" type="text" class="validate" >
           </div>
 
-          <div class="item item-icon-left">
-            <i class="icon ion-model-s"></i>
-            <input ng-model="vehicle.car_model" name="car_model" ng-maxlength="20" ng-minlength="3"
-            required id="car_model" type="text" placeholder="Modelo do carro" class="validate" >
+          <div class="row">
+            <div class="item item-icon-left">
+              <i class="icon ion-ios-location"></i>
+              <input name="origin" id="origin" class="validate" type="text" ng-click="disableTap($event)" placeholder="" places-auto-complete ng-model="ride.origin" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+            </div>
+            <a ng-click="getCurrentLocation()" id="findMe" class="button button-icon icon ion-android-locate"></a>
           </div>
 
           <div class="item item-icon-left">
-            <i class="icon ion-model-s"></i>
-            <input ng-model="vehicle.color" name="color" ng-maxlength="20"
-            id="vehicle_color" placeholder="Cor do veiculo" type="text" class="validate" >
+            <i class="icon ion-ios-location"></i>
+            <input id="destination" class="validate" type="text" ng-click="disableTap($event)" placeholder="" places-auto-complete ng-model="ride.destination" required ng-change="$scope.calculateDistance" ng-model-options="{ debounce: 1000 }"/>
+          </div>
+
+          <ng-map>
+            <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
+            <traffic-layer></traffic-layer>
+          </ng-map>
+
+          <div class="item item-icon-left">
+            <i class="icon ion-ios-location"></i>
+            <p class="item item-text-wrap">Distancia: <input type="text" id="km" ng-model="ride.route_distance"></p>
+            <p class="item item-text-wrap">Tempo: <input type="text" id="time" ng-model="ride.route_time"></p>
+          </div>
+
+          <div class="item item-icon-left">
+            <i class="icon ion-ios-location"></i>
+            <p class="item item-text-wrap">Distancia: {{ride.distance}}</p>
+            <p class="item item-text-wrap">Duração da viagem: {{ride.duration}}</p>
+          </div>
+
+          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
+
+          <div class="item item-icon-left">
+            <i class="icon ion-clock"></i>
+            <input ng-model="ride.departure_time" name="departure_time" type="text" class="validate" required>
+          </div>
+
+          <div class="item item-icon-left" ng-hide="schedule.repeat">
+            <i class="icon ion-clock"></i>
+            <input ng-model="ride.return_time" name="return_time" id="return_time" placeholder="Data de volta" type="text" class="validate" >
           </div>
 
           <div class="item item-icon-left">
@@ -60,52 +59,51 @@
             placeholder="Descrição" ng-maxlength="300"></textarea>
           </div>
 
-        </div>
-
-        <div class="row">
-          <h5><i class="icon ion-person-stalker"> Total de vagas</i></h5>
-        </div>
-        <div class="list">
-          <ion-list id="radio">
-            <div class="row">
-              <div class="col col.50 card">
-                <i class="icon ion-man"></i>
-                <ion-radio ng-model="ride.total_seats" ng-value="1">1 vaga</ion-radio>
-              </div>
-              <div class="col col.50 card">
-                <i class="icon ion-man"></i><i class="icon ion-man"></i>
-                <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas</ion-radio>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col col.50 card">
-                <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
-                <ion-radio ng-model="ride.total_seats" ng-value="3">3 Vagas</ion-radio>
-              </div>
-              <div class="col col.50 card">
-                <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
-                <ion-radio ng-model="ride.total_seats" ng-value="4">4 Vagas</ion-radio>
-              </div>
-            </div>
-          </ion-list>
-        </div>
-        <div>
-          <ul class="list">
-           <li class="item item-toggle">
-              <i class="icon ion-ios-people"></i> Ajuda de Custo
-              <label class="toggle toggle-balanced">
-                <input type="checkbox" ng-model="ride.is_subsistence_allowance">
-                <div class="track">
-                   <div class="handle"></div>
+          <div class="row">
+            <h5><i class="icon ion-person-stalker"> Total de vagas</i></h5>
+          </div>
+          <div class="list">
+            <ion-list id="radio">
+              <div class="row">
+                <div class="col col.50 card">
+                  <i class="icon ion-man"></i>
+                  <ion-radio ng-model="ride.total_seats" ng-value="1">1 vaga</ion-radio>
                 </div>
-              </label>
-           </li>
-          </ul>
-        </div>
-        <div class="row">
-          <button class="button button-full button-positive" ng-click="submitRide()">
-            Salvar
-          </button>
+                <div class="col col.50 card">
+                  <i class="icon ion-man"></i><i class="icon ion-man"></i>
+                  <ion-radio ng-model="ride.total_seats" ng-value="2">2 Vagas</ion-radio>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col.50 card">
+                  <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
+                  <ion-radio ng-model="ride.total_seats" ng-value="3">3 Vagas</ion-radio>
+                </div>
+                <div class="col col.50 card">
+                  <i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i><i class="icon ion-man"></i>
+                  <ion-radio ng-model="ride.total_seats" ng-value="4">4 Vagas</ion-radio>
+                </div>
+              </div>
+            </ion-list>
+          </div>
+          <div>
+            <ul class="list">
+             <li class="item item-toggle">
+                <i class="icon ion-ios-people"></i> Ajuda de Custo
+                <label class="toggle toggle-balanced">
+                  <input type="checkbox" ng-model="ride.is_subsistence_allowance">
+                  <div class="track">
+                     <div class="handle"></div>
+                  </div>
+                </label>
+             </li>
+            </ul>
+          </div>
+          <div class="row">
+            <button class="button button-full button-positive" ng-click="submitRide()">
+              Salvar
+            </button>
+          </div>
         </div>
       </form>
     </ion-content>
