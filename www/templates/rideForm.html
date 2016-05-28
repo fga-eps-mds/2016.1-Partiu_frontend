@@ -5,58 +5,56 @@
         <h1 class="title">Nova carona</h1>
 
         <div ng-controller="mapCtrl">
-          <div class="item item-icon-left">
-            <i class="icon ion-ios-location"></i>
-            <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="title_form" 
-            placeholder="Titulo da carona" type="text" class="validate" >
-          </div>
-
-          <div class="row">
+          <div class="card">
             <div class="item item-icon-left">
               <i class="icon ion-ios-location"></i>
-              <input name="origin" id="origin" class="validate" type="text" ng-click="disableTap($event)" placeholder="" places-auto-complete ng-model="ride.origin" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+              <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="title_form" 
+              placeholder="Titulo da carona" type="text" class="validate" >
             </div>
-            <a ng-click="getCurrentLocation()" id="findMe" class="button button-icon icon ion-android-locate"></a>
+
+            <div class="row">
+              <div class="item item-icon-left">
+                <i class="icon ion-ios-location"></i>
+                <input name="origin" id="origin" class="validate" type="text" ng-click="disableTap($event)" placeholder="Origem" places-auto-complete ng-model="ride.origin" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+              </div>
+              <a ng-click="getCurrentLocation()" id="findMe" class="button button-icon icon ion-android-locate"></a>
+            </div>
+
+            <div class="item item-icon-left">
+              <i class="icon ion-ios-location"></i>
+              <input id="destination" class="validate" type="text" ng-click="disableTap($event)" placeholder="Destino" places-auto-complete ng-model="ride.destination" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+            </div>
+            <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
           </div>
 
-          <div class="item item-icon-left">
-            <i class="icon ion-ios-location"></i>
-            <input id="destination" class="validate" type="text" ng-click="disableTap($event)" placeholder="" places-auto-complete ng-model="ride.destination" required ng-change="$scope.calculateDistance" ng-model-options="{ debounce: 1000 }"/>
+          <div class="card">
+            <ng-map>
+              <directions draggable="false" travel-mode="DRIVING" center="-15.830060, -47.949568" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
+              <traffic-layer></traffic-layer>
+            </ng-map>
+            <div class="item item-icon-left">
+              <i class="icon ion-ios-location"></i>
+              Distancia: <span type="text" id="km" ng-model="ride.route_distance"></span><br />
+              Tempo de viagem: <span type="text" id="time" ng-model="ride.route_time"></span>
+            </div>
           </div>
 
-          <ng-map>
-            <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
-            <traffic-layer></traffic-layer>
-          </ng-map>
+          <div class="card">
+            <div class="item item-icon-left">
+              <i class="icon ion-clock"></i>
+              <input ng-model="ride.departure_time" name="departure_time" placeholder="Horario de partida" type="text" class="validate" required>
+            </div>
 
-          <div class="item item-icon-left">
-            <i class="icon ion-ios-location"></i>
-            <p class="item item-text-wrap">Distancia: <input type="text" id="km" ng-model="ride.route_distance"></p>
-            <p class="item item-text-wrap">Tempo: <input type="text" id="time" ng-model="ride.route_time"></p>
-          </div>
+            <div class="item item-icon-left" ng-hide="schedule.repeat">
+              <i class="icon ion-clock"></i>
+              <input ng-model="ride.return_time" name="return_time" id="return_time" placeholder="Horario de volta" type="text" class="validate" >
+            </div>
 
-          <div class="item item-icon-left">
-            <i class="icon ion-ios-location"></i>
-            <p class="item item-text-wrap">Distancia: {{ride.distance}}</p>
-            <p class="item item-text-wrap">Duração da viagem: {{ride.duration}}</p>
-          </div>
-
-          <button ng-click="geoLocation()" ng-model="geolocation" id="findMe" class="button button-icon icon ion-navigate">Find Me</button>
-
-          <div class="item item-icon-left">
-            <i class="icon ion-clock"></i>
-            <input ng-model="ride.departure_time" name="departure_time" type="text" class="validate" required>
-          </div>
-
-          <div class="item item-icon-left" ng-hide="schedule.repeat">
-            <i class="icon ion-clock"></i>
-            <input ng-model="ride.return_time" name="return_time" id="return_time" placeholder="Data de volta" type="text" class="validate" >
-          </div>
-
-          <div class="item item-icon-left">
-            <i class="icon ion-clipboard"></i>
-            <textarea ng-model="ride.description" name="description" id="description"
-            placeholder="Descrição" ng-maxlength="300"></textarea>
+            <div class="item item-icon-left">
+              <i class="icon ion-clipboard"></i>
+              <textarea ng-model="ride.description" name="description" id="description"
+              placeholder="Descrição" ng-maxlength="300"></textarea>
+            </div>
           </div>
 
           <div class="row">

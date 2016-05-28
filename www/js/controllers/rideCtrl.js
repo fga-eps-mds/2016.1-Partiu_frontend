@@ -9,8 +9,6 @@ angular.module('starter.controllers')
   $scope.message = '';
   $scope.filtro = '';
 
-
-
   $ionicModal.fromTemplateUrl('templates/rideSchedule.html', {
     scope: $scope
   }).then(function(modal) {
