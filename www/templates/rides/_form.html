@@ -1,73 +1,55 @@
 <div ng-controller="mapCtrl">
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">label</i>
-      <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="icon_prefix" type="text" class="validate" >
-      <label for="icon_prefix">Título</label>
+  <div class="card">
+    <div class="item item-icon-left">
+      <i class="icon ion-ios-location"></i>
+      <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="title_form" 
+      placeholder="Titulo da carona" type="text" class="validate" >
+    </div>
+
+    <div class="row">
+      <div class="item item-icon-left">
+        <i class="icon ion-ios-location"></i>
+        <input name="origin" id="origin" class="validate" type="text" ng-click="disableTap($event)" placeholder="Origem" places-auto-complete ng-model="ride.origin" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+      </div>
+    </div>
+
+    <div class="item item-icon-left">
+      <i class="icon ion-ios-location"></i>
+      <input id="destination" class="validate" type="text" ng-click="disableTap($event)" placeholder="Destino" places-auto-complete ng-model="ride.destination" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
     </div>
   </div>
 
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">place</i>
-      <input name="origin" id="origin" class="validate" type="text" ng-click="disableTap($event)" placeholder="" places-auto-complete ng-model="ride.origin" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
-      <label ng-class="originIsSetted" for="icon_prefix">Origem</label>
-    </div>
-
-    <a ng-click="getCurrentLocation()" id="findMe" class="button button-icon icon ion-android-locate"></a>
-  </div>
-
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">place</i>
-      <input id="destination" class="validate" type="text" ng-click="disableTap($event)" placeholder="" places-auto-complete ng-model="ride.destination" required ng-change="$scope.calculateDistance" ng-model-options="{ debounce: 1000 }"/>
-      <label for="icon_prefix">Destino</label>
+  <div class="card">
+    <button ng-click="getCurrentLocation()" id="findMe" class="button button-icon icon ion-android-locate"> Find Me</button>
+    <ng-map>
+      <directions draggable="false" travel-mode="DRIVING" center="-15.830060, -47.949568" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
+      <traffic-layer></traffic-layer>
+    </ng-map>
+    <div class="item item-icon-left">
+      <i class="icon ion-ios-location"></i>
+      Distancia: <span type="text" id="km" ng-model="ride.route_distance">{{ride.route_distance}}</span><br />
+      Tempo de viagem: <span type="text" id="time" ng-model="ride.route_time">{{ride.route_time}}</span>
     </div>
   </div>
 
-  <ng-map>
-    <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
-    <traffic-layer></traffic-layer>
-  </ng-map>
+  <div class="card">
+    <div class="item item-icon-left">
+      <i class="icon ion-clock"></i>
+      <input ng-model="ride.departure_time" name="departure_time" placeholder="Horario de partida" type="text" class="validate" required>
+    </div>
 
-  <div class="item item-icon-left">
-    <i class="icon ion-ios-location"></i>
-    <p class="item item-text-wrap">Distancia: {{ride.distance}}</p>
-    <p class="item item-text-wrap">Duração da viagem: {{ride.duration}}</p>
+    <div class="item item-icon-left" ng-hide="schedule.repeat">
+      <i class="icon ion-clock"></i>
+      <input ng-model="ride.return_time" name="return_time" id="return_time" placeholder="Horario de volta" type="text" class="validate" >
+    </div>
+
+    <div class="item item-icon-left">
+      <i class="icon ion-clipboard"></i>
+      <textarea ng-model="ride.description" name="description" id="description"
+      placeholder="Descrição" ng-maxlength="300"></textarea>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">schedule</i>
-      <input ng-model="ride.departure_time" name="departure_time" id="icon_prefix"
-      type="text" class="validate" required>
-      <label for="icon_prefix">Hora de partida</label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">navigation</i>
-      <input ng-model="vehicle.car_model" name="car_model" ng-maxlength="20" ng-minlength="3"
-      required id="icon_prefix" type="text" class="validate" >
-      <label for="icon_prefix">Modelo</label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">navigation</i>
-      <input ng-model="vehicle.color" name="color" ng-maxlength="20"
-      id="icon_prefix" type="text" class="validate" >
-      <label for="icon_prefix">Cor</label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="input-field col s12">
-      <i class="material-icons prefix">description</i>
-      <textarea ng-model="ride.description" name="description" id="textarea1"
-      class="materialize-textarea" ng-maxlength="300"></textarea>
-      <label for="textarea1">Descrição</label>
-    </div>
-  </div>
   <div class="row">
     <h5><i class="icon ion-person-stalker"> Total de vagas</i></h5>
   </div>
@@ -97,19 +79,19 @@
   </div>
   <div>
     <ul class="list">
-      <li class="item item-toggle">
-        Ajuda de Custo
+     <li class="item item-toggle">
+        <i class="icon ion-ios-people"></i> Ajuda de Custo
         <label class="toggle toggle-balanced">
           <input type="checkbox" ng-model="ride.is_subsistence_allowance">
           <div class="track">
-            <div class="handle"></div>
+             <div class="handle"></div>
           </div>
         </label>
-      </li>
+     </li>
     </ul>
   </div>
   <div class="row">
-    <button class="waves-effect waves-light button button-full button-positive button-outside" ng-click="submitRide()">
+    <button class="button button-full button-positive" ng-click="submitRide()">
       Salvar
     </button>
   </div>
