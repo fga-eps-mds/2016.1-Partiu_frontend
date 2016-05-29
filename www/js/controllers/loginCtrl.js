@@ -31,6 +31,10 @@ angular.module('starter.controllers')
               }
             };
 
+            $http.post('http://localhost:3000/api/users', requestData).success(function(response) {
+              window.localStorage['authToken'] = response.token;
+            });
+
             $http.get('http://localhost:3000/api/get_user_id', {params:{"facebook_id": data.id}})
               .then(function(response) {
                 Profile.updateBackendId(response.data);
