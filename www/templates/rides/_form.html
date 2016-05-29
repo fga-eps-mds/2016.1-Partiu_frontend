@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <ng-map>
+  <ng-map street-view-control="false">
     <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
     <traffic-layer></traffic-layer>
   </ng-map>
@@ -40,8 +40,8 @@
     <div class="input-field col s12">
       <i class="material-icons prefix">schedule</i>
       <input ng-model="ride.departure_time" name="departure_time" id="icon_prefix"
-      type="text" class="validate" required>
-      <label for="icon_prefix">Hora de partida</label>
+      type="datetime-local" class="validate" required>
+      <label for="icon_prefix" class="active">Hora de partida</label>
     </div>
   </div>
   <div class="row">
@@ -108,9 +108,5 @@
       </li>
     </ul>
   </div>
-  <div class="row">
-    <button class="waves-effect waves-light button button-full button-positive button-outside" ng-click="submitRide()">
-      Salvar
-    </button>
-  </div>
+  <input type="submit" value="Salvar" class="button button-block button-positive"/>
 </div>
