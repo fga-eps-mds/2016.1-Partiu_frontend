@@ -40,7 +40,7 @@
     <div class="input-field col s12">
       <i class="material-icons prefix">schedule</i>
       <input ng-model="ride.departure_time" name="departure_time" id="icon_prefix"
-      type="time" class="validate" required>
+      type="datetime-local" class="validate" required>
       <label for="icon_prefix" class="active">Hora de partida</label>
     </div>
   </div>
@@ -108,9 +108,5 @@
       </li>
     </ul>
   </div>
-  <div class="row">
-    <button class="waves-effect waves-light button button-full button-positive button-outside" ng-click="submitRide()">
-      Salvar
-    </button>
-  </div>
+  <input type="submit" value="Salvar" class="button button-block button-positive"/>
 </div>

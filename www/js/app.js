@@ -73,17 +73,17 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       views: {
         "menuContent": {
           templateUrl: "templates/rides/index.html",
-          controller: "rideCtrl"
+          controller: "indexRideCtrl"
         }
       }
   })
 
-  .state("menu.rideForm", {
+  .state("menu.newRide", {
       url: "/rides/new",
       views: {
         "menuContent": {
           templateUrl: "templates/rides/new.html",
-          controller: "rideCtrl"
+          controller: "newRideCtrl"
         }
       }
   })
@@ -93,9 +93,19 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
       views: {
         "menuContent": {
           templateUrl: "templates/rides/show.html",
-          controller: "rideShowCtrl"
+          controller: "showRideCtrl"
         }
       }
+  })
+
+  .state("menu.editRide", {
+    url: "/rides/:id/edit/",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/rides/edit.html",
+        controller: "editRideCtrl"
+      }
+    }
   })
 
   .state("menu.configuration", {
