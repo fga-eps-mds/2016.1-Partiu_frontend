@@ -15,7 +15,7 @@
         <i class="icon ion-ios-location"></i>
         Destino
         <i class="item-note">
-          {{ride.destiny}}
+          {{ride.destination}}
         </i>
       </a>
 
@@ -23,7 +23,7 @@
         <i class="icon ion-clipboard"></i>
         Descrição
         <i class="item-note">
-          {{ride.descriptions}}
+          {{ride.description}}
         </i>
       </a>
 
@@ -52,6 +52,11 @@
       </a>
 
     </div>
+
+    <ng-map>
+      <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
+      <traffic-layer></traffic-layer>
+    </ng-map>
 
   </ion-content>
 </ion-side-menus>
