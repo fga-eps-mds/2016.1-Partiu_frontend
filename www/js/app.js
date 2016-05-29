@@ -18,6 +18,10 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
   $ionicConfigProvider.tabs.style('top');
 })
 
+.config(function($httpProvider) {
+  $httpProvider.interceptors.push('authInterceptor');
+})
+
 .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
   $ionicConfigProvider.views.maxCache(20);
   $urlRouterProvider.otherwise("/menu/home");
