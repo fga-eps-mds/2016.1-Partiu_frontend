@@ -4,3 +4,4 @@
 node_modules/
 platforms/
 coverage/
+www/js/appsettings.js
