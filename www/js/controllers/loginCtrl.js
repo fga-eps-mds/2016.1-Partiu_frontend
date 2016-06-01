@@ -33,17 +33,18 @@ angular.module('starter.controllers')
 
             $http.post(AppSettings.baseApiUrl + '/api/users', requestData).success(function(response) {
               window.localStorage['authToken'] = response.token;
-            });
 
-            $http.get(AppSettings.baseApiUrl + '/api/get_user_id', {params:{"facebook_id": data.id}})
-              .then(function(response) {
-                Profile.updateBackendId(response.data);
-              }, function(error) {
-                $http.post(AppSettings.baseApiUrl + '/api/users', requestData).
-                  success(function(user) {
-                    Profile.updateBackendId(user.id);
-                  });
-              });
+              $http.get(AppSettings.baseApiUrl + '/api/get_user_id', {params:{"facebook_id": data.id}})
+                .then(function(response) {
+                  Profile.updateBackendId(response.data);
+                }, function(error) {
+                  $http.post(AppSettings.baseApiUrl + '/api/users', requestData).
+                    success(function(user) {
+                      Profile.updateBackendId(user.id);
+                    });
+                });
+
+            });
 
             $state.go('menu.home');
         }
