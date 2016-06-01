@@ -1,21 +1,33 @@
 <div ng-controller="mapCtrl">
   <div class="card">
+ 
     <div class="item item-icon-left">
       <i class="icon ion-ios-location"></i>
-      <input ng-model="ride.title" name="title" ng-maxlength="20" ng-minlength="3" required id="title_form" 
+      <input name="title" ng-model="ride.title" ng-maxlength="20" ng-minlength="3" required id="title_form" 
       placeholder="Titulo da carona" type="text" class="validate" >
+
+      <span ng-show="rideForm.title.$error.required">
+        *
+      </span>
+
     </div>
 
     <div class="row">
       <div class="item item-icon-left">
         <i class="icon ion-ios-location"></i>
-        <input name="origin" id="origin" class="validate" type="text" ng-click="disableTap($event)" placeholder="Origem" places-auto-complete ng-model="ride.origin" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+        <input name="origin" ng-model="ride.origin" id="origin" class="validate" type="text" ng-click="disableTap($event)" placeholder="Origem" places-auto-complete  required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+        <span ng-show="rideForm.origin.$error.required">
+          *
+        </span>
       </div>
     </div>
 
     <div class="item item-icon-left">
       <i class="icon ion-ios-location"></i>
-      <input id="destination" class="validate" type="text" ng-click="disableTap($event)" placeholder="Destino" places-auto-complete ng-model="ride.destination" required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+      <input name="destination" ng-model="ride.destination" id="destination" class="validate" type="text" ng-click="disableTap($event)" placeholder="Destino" places-auto-complete required ng-change="$scope.calculateDistance()" ng-model-options="{ debounce: 1000 }"/>
+      <span ng-show="rideForm.destination.$error.required">
+        *
+      </span>
     </div>
   </div>
 
@@ -32,15 +44,32 @@
     </div>
   </div>
 
+
+ 
+
+
   <div class="card">
     <div class="item item-icon-left">
+      <i class="icon ion-calendar"></i>
+      <input name="date" ng-model="ride.date" placeholder="Data da Carona" type="text" class="validate" required>
+      <span ng-show="rideForm.date.$error.required">
+        *
+      </span>
+    </div>
+    <div class="item item-icon-left">
       <i class="icon ion-clock"></i>
-      <input ng-model="ride.departure_time" name="departure_time" placeholder="Horario de partida" type="text" class="validate" required>
+      <input name="departure_time" ng-model="ride.departure_time" placeholder="Horario de partida" type="text" class="validate" required>
+      <span ng-show="rideForm.departure_time.$error.required">
+        *
+      </span>
     </div>
 
     <div class="item item-icon-left" ng-hide="schedule.repeat">
       <i class="icon ion-clock"></i>
-      <input ng-model="ride.return_time" name="return_time" id="return_time" placeholder="Horario de volta" type="text" class="validate" >
+      <input name="return_time" ng-model="ride.return_time" id="return_time" placeholder="Horario de volta" type="text" class="validate" required>
+      <span ng-show="rideForm.return_time.$error.required">
+        *
+      </span>
     </div>
 
     <div class="item item-icon-left">
@@ -53,6 +82,7 @@
   <div class="row">
     <h5><i class="icon ion-person-stalker"> Total de vagas</i></h5>
   </div>
+
   <div class="list">
     <ion-list id="radio">
       <div class="row">
@@ -90,9 +120,37 @@
      </li>
     </ul>
   </div>
+  <div class="item item-divider">
+    Campos com * são obrigatórios.
+  </div>
+
   <div class="row">
     <button class="button button-full button-positive" ng-click="submitRide()">
       Salvar
     </button>
   </div>
 </div>
+
+
+<!--
+{title: ["is too short (minimum is 3 characters)", "can't be blank"], 
+destination: ["can't be blank"],…}
+date
+  :
+  ["can't be blank"]
+departure_time
+  :
+  ["can't be blank"]
+destination
+  :
+  ["can't be blank"]
+route_distance
+  :
+  ["can't be blank"]
+route_time
+  :
+  ["can't be blank"]
+title
+  :
+  ["is too short (minimum is 3 characters)", "can't be blank"]
+-->
