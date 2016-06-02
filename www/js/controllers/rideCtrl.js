@@ -11,7 +11,6 @@ angular.module('starter.controllers')
   RideAPI.userRides.query({userId: Profile.getUser().backendId}).$promise.then(function(response) {
     $scope.rides = response;
   });
-
 })
 
 .controller('newRideCtrl', function($state, $scope, RideAPI, UserAPI, Profile) {
