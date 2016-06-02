@@ -52,9 +52,6 @@ angular.module('starter.controllers')
 
   };
 
-  $scope.testStub = function (value) {
-    return value*5;
-  }
 
 })
 
