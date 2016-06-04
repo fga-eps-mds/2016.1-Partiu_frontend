@@ -19,6 +19,17 @@ angular.module('starter.controllers')
   $scope.ride = {};
   $scope.message = '';
 
+  var user_id = Profile.getUser().backendId;
+  UserAPI.query().$promise.then(function(response) {
+    $scope.users = response;
+    for(i=1; i<=$scope.users.length; i++) {
+      if($scope.users[i-1].id == user_id){
+        $scope.user = $scope.users[i-1];
+        $scope.vehicles = $scope.user.driver.vehicles
+      }
+    }
+  });
+
   $scope.createRide = function() {
     RideAPI.userRides.save({userId: Profile.getUser().backendId}, {ride: $scope.ride, vehicle: $scope.vehicle}).$promise
     .then(function(response) {
@@ -34,10 +45,25 @@ angular.module('starter.controllers')
 
 .controller('showRideCtrl', function($scope, $ionicHistory, RideAPI, Profile, VehicleAPI, UserAPI, $http, $stateParams) {
 
+  var user_id = Profile.getUser().backendId;
+  UserAPI.query().$promise.then(function(response) {
+    $scope.users = response;
+    for(i=1; i<=$scope.users.length; i++) {
+      if($scope.users[i-1].id == user_id){
+        $scope.user = $scope.users[i-1];
+        $scope.vehicles = $scope.user.driver.vehicles
+      }
+    }
+  });
+
   $scope.loadRide = function() {
     $scope.loadRide = RideAPI.rides.get({rideId: $stateParams.id, userId: Profile.getUser().backendId}).$promise
     .then(function(response) {
       $scope.ride = response;
+      for(i=1; i<=$scope.vehicles.length; i++) {
+        if($scope.vehicles[i-1].id == $scope.ride.vehicle_id)
+          $scope.vehicle = $scope.vehicles[i-1]
+      }
     }, function(erro) {
       $scope.message = "Não foi possivel encontrar a carona " + $stateParams.id;
     });
@@ -49,6 +75,17 @@ angular.module('starter.controllers')
 .controller('editRideCtrl', function($state, $scope, $ionicHistory, RideAPI, Profile, UserAPI, $http, $stateParams) {
 
   $scope.ride = {};
+
+  var user_id = Profile.getUser().backendId;
+  UserAPI.query().$promise.then(function(response) {
+    $scope.users = response;
+    for(i=1; i<=$scope.users.length; i++) {
+      if($scope.users[i-1].id == user_id){
+        $scope.user = $scope.users[i-1];
+        $scope.vehicles = $scope.user.driver.vehicles
+      }
+    }
+  });
 
   $scope.loadRide = function() {
     RideAPI.rides.get({rideId: $stateParams.id}).$promise

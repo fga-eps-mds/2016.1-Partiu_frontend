@@ -112,6 +112,46 @@ angular.module('starter', ['ionic', 'ngResource', 'starter.controllers', 'starte
     }
   })
 
+  .state("menu.vehicles", {
+    url:"/vehicles",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/vehicles/index.html",
+        controller: "indexVehicleCtrl"
+      }
+    }
+  })
+
+  .state("menu.newVehicle", {
+    url: "/vehicles/new",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/vehicles/new.html",
+        controller: "newVehicleCtrl"
+      }
+    }
+  })
+
+  .state("menu.showVehicle", {
+      url: "/vehicles/:id/show/",
+      views: {
+        "menuContent": {
+          templateUrl: "templates/vehicles/show.html",
+          controller: "showVehicleCtrl"
+        }
+      }
+  })
+
+  .state("menu.editVehicle", {
+    url: "/vehicles/:id/edit/",
+    views: {
+      "menuContent": {
+        templateUrl: "templates/vehicles/edit.html",
+        controller: "editVehicleCtrl"
+      }
+    }
+  })
+
   .state("menu.configuration", {
     url: "/configuration",
     views: {

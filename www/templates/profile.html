@@ -4,7 +4,7 @@
       <div class="item item-text-wrap">
         <center>
           <label class="item">
-            <img style="border-radius: 50%" src="http://graph.facebook.com/{{user.id}}/picture?width=200&height=200">
+            <img class="img" src="http://graph.facebook.com/{{user.id}}/picture?width=200&height=200">
           </label>
           <br/>
           <h2>{{user.name}}</h2>
@@ -13,12 +13,18 @@
           <br/>
           <h4>{{user.gender}}</h4>
           <br/>
+          <a class="button button-block button-positive"  href="#/menu/vehicles/new">
+            Criar veiculo
+          </a>
+          <a class="button button-block button-positive"  href="#/menu/vehicles">
+            Listar veiculo
+          </a>
         </center>
       </div>
       <div class="item item-text-wrap row">
         <label class="col col-50">
           <center>
-            <button class="button button-block button-positive" ng-click="inAppOpenLink('https://www.facebook.com/{{user.id}}')">
+            <button class="button button-block button-assertive" ng-click="inAppOpenLink('https://www.facebook.com/{{user.id}}')">
               Facebook
             </button>
           </center>
