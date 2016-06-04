@@ -6,49 +6,56 @@
       <a class="item item-icon-left item-icon-right">
         <i class="icon ion-ios-location"></i>
         Origem
-        <i class="item-note">
-          {{ride.origin}}
-        </i>
+        <i class="item-note"></i>
+        <p><strong>{{ride.origin}}</strong></p>
       </a>
 
       <a class="item item-icon-left item-icon-right">
         <i class="icon ion-ios-location"></i>
         Destino
-        <i class="item-note">
-          {{ride.destination}}
-        </i>
+        <i class="item-note"></i>
+        <p><strong>{{ride.destination}}</strong></p>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-man"></i>
+        total de assentos
+        <i class="item-note"></i>
+        <p><strong>{{ride.total_seats}}</strong></p>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-calendar"></i>
+        Data
+        <i class="item-note"></i>
+        <p><strong>{{ride.date}}</strong></p>
+      </a>
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-clock  "></i>
+        Hora de Partida
+        <i class="item-note"></i>
+        <p><strong>{{ride.departure_time}}</strong></p>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-clock"></i>
+        Veiculo
+        <i class="item-note"></i>
+        <p><strong>{{vehicle.car_model}}</strong></p>
       </a>
 
       <a class="item item-icon-left item-icon-right">
         <i class="icon ion-clipboard"></i>
         Descrição
-        <i class="item-note">
-          {{ride.description}}
-        </i>
-      </a>
-
-      <a class="item item-icon-left item-icon-right">
-        <i class="icon ion-man"></i>
-        Total de Assentos
-        <i class="item-note">
-          {{ride.total_seats}}
-        </i>
-      </a>
-
-      <a class="item item-icon-left item-icon-right">
-        <i class="icon ion-clock  "></i>
-        Hora de Saída
-        <i class="item-note">
-          {{ride.departure_time}}
-        </i>
+        <i class="item-note"></i>
+        <p><strong>{{ride.description}}</strong></p>
       </a>
 
       <a class="item item-icon-left item-icon-right">
         <i class="icon ion-cash"></i>
         Ajuda de Custo
-        <i class="item-note">
-          {{ride.is_subsistence_allowance}}
-        </i>
+        <i class="item-note"></i>
+        <p><strong>{{ride.is_subsistence_allowance}}</strong></p>
       </a>
 
     <ng-map street-view-control="false">
@@ -56,10 +63,11 @@
       <traffic-layer></traffic-layer>
     </ng-map>
 
-    <button class="waves-effect waves-light button button-full button-positive button-outside" ui-sref="menu.editRide({id: ride.id})">
+    <button class="button button-full button-positive button-outside" ui-sref="menu.editRide({id: ride.id})">
       Editar
     </button>
   </div>
 
   </ion-content>
 </ion-side-menus>
+
