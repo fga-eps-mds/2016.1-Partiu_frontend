@@ -3,7 +3,7 @@
     <ion-nav-bar class="bar-positive" align-title="center">
       <ion-nav-buttons side="left">
         <button class="button button-clear button-icon light ion-navicon"
-        menu-toggle="left"></button>
+          menu-toggle="left"></button>
       </ion-nav-buttons>
       </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
@@ -17,14 +17,14 @@
 
     <ion-content>
       <ion-list>
-        <ion-item href="#/menu/home" menu-close>Home</ion-item>
-        <ion-item ng-show="isLogged()" href="#/menu/profile" menu-close>Perfil</ion-item>
-        <ion-item ng-show="isLogged()" href="#/menu/rank" menu-close>Rank</ion-item>
-        <ion-item ng-show="isLogged()" href="#/menu/rides/new" menu-close>Nova Carona</ion-item>
-        <ion-item ng-show="isLogged()" href="#/menu/rides" menu-close>Pesquisar caronas</ion-item>
-        <ion-item href="#/menu/configuration" menu-close>Configurações</ion-item>
-        <ion-item href="#/menu/about" menu-close>Sobre</ion-item>
-        <ion-item href="#/menu/exit" menu-close>Sair</ion-item>
+        <ion-item href="#/menu/home" menu-close><i class="icon ion-home"> Home</i></ion-item>
+        <ion-item ng-show="isLogged()" href="#/menu/profile" menu-close><i class="icon ion-person"> Perfil</i></ion-item>
+        <ion-item ng-show="isLogged()" href="#/menu/rank" menu-close><i class="icon ion-trophy"> Rank</i></ion-item>
+        <ion-item ng-show="isLogged()" href="#/menu/rides/new" menu-close><i class="icon ion-model-s"> Nova Carona</i></ion-item>
+        <ion-item ng-show="isLogged()" href="#/menu/rides" menu-close><i class="icon ion-search"> Pesquisar carona</i></ion-item>
+        <ion-item href="#/menu/configuration" menu-close><i class="icon ion-settings"> Configurações</i></ion-item>
+        <ion-item href="#/menu/about" menu-close><i class="icon ion-clipboard"> Sobre</i></ion-item>
+        <ion-item href="#/menu/exit" menu-close><i class="icon ion-power"> Sair</i></ion-item>
       </ion-list>
     </ion-content>
   </ion-side-menu>

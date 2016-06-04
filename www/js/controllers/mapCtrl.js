@@ -67,8 +67,8 @@ angular.module('starter.controllers')
     },
     function(response, status) {
       if (status == google.maps.DistanceMatrixStatus.OK) {
-        $scope.ride.distance = response.rows[0].elements[0].distance.text
-        $scope.ride.duration = response.rows[0].elements[0].duration.text
+        $scope.ride.route_distance = response.rows[0].elements[0].distance.text
+        $scope.ride.route_time = response.rows[0].elements[0].duration.text
       } else {
         console.error(status);
       }

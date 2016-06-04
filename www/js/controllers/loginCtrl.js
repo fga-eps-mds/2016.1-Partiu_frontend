@@ -27,23 +27,25 @@ angular.module('starter.controllers')
                 "name": data.displayName,
                 "email": data.email,
                 "facebook_id": data.id,
-                "photo_url": data.profileImageURL
+                "photo_url": data.profileImageURL,
+                "token": data.accessToken,
+                "gender": data.cachedUserProfile.gender,
+                "link_profile": data.cachedUserProfile.link
               }
             };
 
-            $http.post(AppSettings.baseApiUrl + '/api/users', requestData).success(function(response) {
+            $http.post('http://localhost:3000/api/users', requestData).success(function(response) {
               window.localStorage['authToken'] = response.token;
 
-              $http.get(AppSettings.baseApiUrl + '/api/get_user_id', {params:{"facebook_id": data.id}})
-                .then(function(response) {
-                  Profile.updateBackendId(response.data);
-                }, function(error) {
-                  $http.post(AppSettings.baseApiUrl + '/api/users', requestData).
-                    success(function(user) {
-                      Profile.updateBackendId(user.id);
-                    });
-                });
-
+            $http.get('http://localhost:3000/api/get_user_id', {params:{"facebook_id": data.id}})
+              .then(function(response) {
+                Profile.updateBackendId(response.data);
+              }, function(error) {
+                $http.post('http://localhost:3000/api/users', requestData).
+                  success(function(user) {
+                    Profile.updateBackendId(user.id);
+                  });
+              });
             });
 
             $state.go('menu.home');

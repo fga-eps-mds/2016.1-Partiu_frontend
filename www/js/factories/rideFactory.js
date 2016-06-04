@@ -2,7 +2,7 @@ angular.module('starter.services')
 
 .factory('RideAPI', function($resource) {
 
-  var userRides = $resource(AppSettings.baseApiUrl + "/api/users/:userId/rides/:rideId", null , {
+  var userRides = $resource("http://localhost:3000/api/users/:userId/rides/:rideId", null , {
     'get':    {method:'GET'},
     'save':   {method:'POST'},
     'query':  {method:'GET', isArray:true},
@@ -11,7 +11,7 @@ angular.module('starter.services')
     'update': {method:'PUT'}
   })
 
-  var rides = $resource(AppSettings.baseApiUrl + "/api/rides/:rideId", null , {
+  var rides = $resource("http://localhost:3000/api/rides/:rideId", null , {
     'get':    {method:'GET'},
     'save':   {method:'POST'},
     'query':  {method:'GET', isArray:true},
