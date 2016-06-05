@@ -18,6 +18,7 @@ Na raiz do repositório, execute:
 ```
  $ npm install
  $ npm install -g cordova ionic
+ $ npm dev
  $ ionic serve --lab
 ```
 
@@ -42,6 +43,7 @@ O resultado da cobertura de testes gerado após a execução dos testes encontra
 #### Gerando a build e instalando
 
 ```
+ $ npm prod
  $ ionic build android
  $ adb install -r platforms/android/build/outputs/apk/android-debug.apk
 ```

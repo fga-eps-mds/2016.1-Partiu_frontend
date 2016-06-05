@@ -1,4 +1,4 @@
-describe('rideCtrl tests', function() {
+describe('mapCtrl tests', function() {
   describe('instantiation and scope tests', function() {
     var $httpBackend, $rootScope, createController;
     beforeEach(function() {
@@ -19,7 +19,6 @@ describe('rideCtrl tests', function() {
       var controller = createController();
       expect(controller).toBeDefined();
       expect($rootScope).toBeDefined();
-      expect($rootScope.createIcon).toBeDefined();
     }));
   });
 });

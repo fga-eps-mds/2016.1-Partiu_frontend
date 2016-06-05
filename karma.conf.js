@@ -18,10 +18,11 @@ module.exports = function(config) {
       'www/lib/ionic/js/ionic.bundle.js',
       'www/lib/ionic/js/angular/angular-resource.min.js',
       'www/lib/angular-mocks/angular-mocks.js',
+      'www/lib/karma-read-json/karma-read-json.js',
+      'www/lib/ngmap/build/scripts/ng-map.min.js',
       'www/js/*.js',
       'www/js/**/*.js',
       'test/**/*.js',
-      'www/lib/karma-read-json/karma-read-json.js',
       {pattern: 'test/fixtures/*.json', included: false}
     ],
 
@@ -79,7 +80,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous

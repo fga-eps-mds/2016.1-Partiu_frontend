@@ -66,6 +66,9 @@ describe('rideCtrl tests', function() {
       $httpBackend.when('GET', 'templates/login.html').respond({ });
       $httpBackend.when('GET', 'templates/rank.html').respond({ });
       $httpBackend.when('GET', 'templates/profile.html').respond({ });
+      $httpBackend.when('GET', 'templates/rides/show.html').respond({ });
+      $httpBackend.when('GET', 'templates/rides/new.html').respond({ });
+      $httpBackend.when('GET', 'templates/rides/index.html').respond({ });
 
       usersJsonMock = readJSON('test/fixtures/users_fixture.json');
       ridesJsonMock = readJSON('test/fixtures/rides_fixture.json');
@@ -74,13 +77,11 @@ describe('rideCtrl tests', function() {
 
       userArray = usersJsonMock.users;
 
-      console.log("USERMOCK:", usersJsonMock.users);
-      $httpBackend.when('GET', 'http://localhost:3000/api/users').respond(usersJsonMock.users);
+      $httpBackend.when('GET', 'http://localhost:3000/api/users').respond(userArray);
       $httpBackend.when('GET', 'http://localhost:3000/api/users?id='+userA.id.toString()).respond(usersJsonMock.users[1]);
-  http://localhost:3000/api/users?id=2
       $httpBackend.when('GET', 'http://localhost:3000/api/users/2/rides').respond(ridesJsonMock.rides);
       $httpBackend.when('GET', 'http://localhost:3000/api/users/2/vehicles').respond([{'car_type': 'SEDANN'}]);
-      $httpBackend.when('DELETE', 'http://localhost:3000/api/users/2/rides/1').respond(201, '');
+      $httpBackend.when('DELETE', 'http://localhost:3000/api/users/'+userB.id+'/rides/'+ridesJsonMock.rides[0].id).respond(201, '');
       $httpBackend.when('POST', 'http://localhost:3000/api/users/2/rides').respond(201, ridesJsonMock.rides[0]);
       $rootScope = $injector.get('$rootScope');
       var $controller = $injector.get('$controller');
@@ -96,7 +97,9 @@ describe('rideCtrl tests', function() {
       $httpBackend.verifyNoOutstandingRequest();
     });
 
-    it('should uses correct routes', inject(function($controller, _$location_) {
+    it('should uses correct routes', inject(function($controller, _$location_, Profile) {
+      Profile.setUser("user123", "user123@gmail.com", "dhauhduhad", "mascl", "photourlboa.png", 1, "dhuauhds.google.com");
+      Profile.updateBackendId(userA.id);
       $location = _$location_;
       var controller = createController();
 
@@ -125,7 +128,7 @@ describe('rideCtrl tests', function() {
       $rootScope.vehicle = vehicleStub;
       $rootScope.submitRide();
       $httpBackend.flush();
-      expect($rootScope.rides.length).toEqual(3);
+      expect($rootScope.message).toEqual('Carona '+rideStub.title+' incluída com sucesso');
     }));
 
     it('should decrement rides length in case of remove', inject(function(Profile) {

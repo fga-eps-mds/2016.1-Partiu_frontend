@@ -11,7 +11,7 @@ angular.module('starter.services')
       "gender": gender,
       "photo": photoURL,
       "id": userId,
-      "facebook_profile": profileLink
+      "link_profile": profileLink
     };
   }
 

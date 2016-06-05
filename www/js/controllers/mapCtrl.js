@@ -26,6 +26,17 @@ angular.module('starter.controllers')
     });
 
     $ionicLoading.hide();
+
+  };
+
+  var onError = function(error) {
+    console.error('It was not possible to get the current location due to: ' + error);
+    $ionicLoading.hide();
+  }
+
+  $scope.getCurrentLocation = function() {
+    $ionicLoading.show({template: 'Obtendo sua posição atual...'});
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
   };
 
   var onError = function(error) {

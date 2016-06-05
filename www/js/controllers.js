@@ -1,1 +1,1 @@
-angular.module('starter.controllers', ['ionic', 'ngResource', 'ngMap'])
+angular.module('starter.controllers', ['ngMap'])
