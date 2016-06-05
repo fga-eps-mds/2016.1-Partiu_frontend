@@ -77,12 +77,12 @@ describe('rideCtrl tests', function() {
 
       userArray = usersJsonMock.users;
 
-      $httpBackend.when('GET', 'http://localhost:3000/api/users').respond(userArray);
-      $httpBackend.when('GET', 'http://localhost:3000/api/users?id='+userA.id.toString()).respond(usersJsonMock.users[1]);
-      $httpBackend.when('GET', 'http://localhost:3000/api/users/2/rides').respond(ridesJsonMock.rides);
-      $httpBackend.when('GET', 'http://localhost:3000/api/users/2/vehicles').respond([{'car_type': 'SEDANN'}]);
-      $httpBackend.when('DELETE', 'http://localhost:3000/api/users/'+userB.id+'/rides/'+ridesJsonMock.rides[0].id).respond(201, '');
-      $httpBackend.when('POST', 'http://localhost:3000/api/users/2/rides').respond(201, ridesJsonMock.rides[0]);
+      $httpBackend.when('GET', baseApiUrl + '/api/users').respond(userArray);
+      $httpBackend.when('GET', baseApiUrl + '/api/users?id='+userA.id.toString()).respond(usersJsonMock.users[1]);
+      $httpBackend.when('GET', baseApiUrl + '/api/users/2/rides').respond(ridesJsonMock.rides);
+      $httpBackend.when('GET', baseApiUrl + '/api/users/2/vehicles').respond([{'car_type': 'SEDANN'}]);
+      $httpBackend.when('DELETE', baseApiUrl + '/api/users/'+userB.id+'/rides/'+ridesJsonMock.rides[0].id).respond(201, '');
+      $httpBackend.when('POST', baseApiUrl + '/api/users/2/rides').respond(201, ridesJsonMock.rides[0]);
       $rootScope = $injector.get('$rootScope');
       var $controller = $injector.get('$controller');
 
