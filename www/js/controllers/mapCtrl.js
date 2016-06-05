@@ -26,6 +26,7 @@ angular.module('starter.controllers')
     });
 
     $ionicLoading.hide();
+
   };
 
   var onError = function(error) {
@@ -38,7 +39,15 @@ angular.module('starter.controllers')
     navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
   };
 
-  var posOptions = {timeout: 10000, enableHighAccuracy: false};
+  var onError = function(error) {
+    console.error('It was not possible to get the current location due to: ' + error);
+    $ionicLoading.hide();
+  }
+
+  $scope.getCurrentLocation = function() {
+    $ionicLoading.show({template: 'Obtendo sua posição atual...'});
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
+  };
 
   $scope.disableTap = function($event) {
     $event.target.select();
@@ -74,5 +83,4 @@ angular.module('starter.controllers')
       }
     })
   };
-
 });

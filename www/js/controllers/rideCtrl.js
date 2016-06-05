@@ -4,7 +4,6 @@ angular.module('starter.controllers')
   $scope.rides = [];
   $scope.message = '';
 
-
   UserAPI.query().$promise.then(function(response) {
     $scope.users = response;
   });
@@ -109,4 +108,5 @@ angular.module('starter.controllers')
   };
 
   $scope.loadRide();
+
 });

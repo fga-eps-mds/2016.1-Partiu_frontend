@@ -17,6 +17,7 @@ angular.module('starter.controllers')
     $state.go('menu.home');
   }
 
+
   /*Function to open in app an link*/
   $scope.inAppOpenLink = function(url) {
     if (!url) {
