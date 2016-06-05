@@ -11,7 +11,7 @@
                 <div class="attributes">Cor: {{vehicle.color}}</div>
                 <div class="attributes">descrição: {{vehicle.description}}</div>
               </ion-item>
-              <button class="button button-full button-assertive" ui-sref="menu.deleteVehicle({id: vehicle.id})">
+              <button ng-controller="deleteVehicleCtrl" class="button button-full button-assertive" ng-click="deleteVehicle({id: vehicle.id})">
                 Deletar veiculo
               </button>
             </div>

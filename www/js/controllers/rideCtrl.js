@@ -1,8 +1,9 @@
 angular.module('starter.controllers')
 
-.controller('indexRideCtrl', function($state, $scope, RideAPI, UserAPI, $http, Profile) {
+.controller('indexRideCtrl', function($scope, RideAPI, UserAPI, Profile) {
   $scope.rides = [];
   $scope.message = '';
+
 
   UserAPI.query().$promise.then(function(response) {
     $scope.users = response;
@@ -14,7 +15,7 @@ angular.module('starter.controllers')
 
 })
 
-.controller('newRideCtrl', function($state, $scope, RideAPI, UserAPI, $http, Profile) {
+.controller('newRideCtrl', function($state, $scope, RideAPI, UserAPI, Profile) {
 
   $scope.ride = {};
   $scope.message = '';
@@ -31,7 +32,7 @@ angular.module('starter.controllers')
   });
 
   $scope.createRide = function() {
-    RideAPI.userRides.save({userId: Profile.getUser().backendId}, {ride: $scope.ride, vehicle: $scope.vehicle}).$promise
+    RideAPI.userRides.save({userId: Profile.getUser().backendId}, {ride: $scope.ride}).$promise
     .then(function(response) {
       console.log("Carona " + $scope.ride.title + " incluída com sucesso");
       $state.go('menu.showRide', {"id": response.id});
@@ -43,7 +44,7 @@ angular.module('starter.controllers')
 
 })
 
-.controller('showRideCtrl', function($scope, $ionicHistory, RideAPI, Profile, VehicleAPI, UserAPI, $http, $stateParams) {
+.controller('showRideCtrl', function($scope, RideAPI, Profile, UserAPI, $stateParams) {
 
   var user_id = Profile.getUser().backendId;
   UserAPI.query().$promise.then(function(response) {
@@ -72,7 +73,7 @@ angular.module('starter.controllers')
   $scope.loadRide();
 })
 
-.controller('editRideCtrl', function($state, $scope, $ionicHistory, RideAPI, Profile, UserAPI, $http, $stateParams) {
+.controller('editRideCtrl', function($state, $scope, RideAPI, Profile, UserAPI, $stateParams) {
 
   $scope.ride = {};
 
@@ -97,8 +98,7 @@ angular.module('starter.controllers')
   }
 
   $scope.updateRide = function() {
-    console.log("asdf");
-    RideAPI.userRides.update({userId: Profile.getUser().backendId, rideId: $scope.ride.id}, {ride: $scope.ride, vehicle: $scope.vehicle}).$promise
+    RideAPI.userRides.update({userId: Profile.getUser().backendId, rideId: $scope.ride.id}, {ride: $scope.ride}).$promise
     .then(function(response) {
       console.log("Carona " + $scope.ride.title + " atualizada com sucesso");
       $state.go('menu.rides', {"id": response.id});
