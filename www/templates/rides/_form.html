@@ -31,7 +31,7 @@
   </div>
 
   <div class="card">
-    <button ng-click="getCurrentLocation()" id="findMe" class="button button-icon icon ion-android-locate"> Find Me</button>
+    <button ng-click="getCurrentLocation()" id="findMe" class="button button-icon icon ion-android-locate" type='button'> Find Me</button>
     <ng-map>
       <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
       <traffic-layer></traffic-layer>
@@ -114,7 +114,7 @@
       <div class ="nullable">
         <select ng-model="ride.vehicle_id" name="vehicle" required>
           <option value="{{vehicle.id}}" ng-repeat="vehicle in vehicles">{{vehicle.car_model}}</option>
-        </select> 
+        </select>
       </div>
     </label>
     <span id="error" ng-show="rideForm.$submitted && rideForm.vehicle.$error.maxlength">
