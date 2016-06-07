@@ -20,3 +20,11 @@
 .textCenter {
     text-align: center;
 }
+
+.item-right {
+  float: right;
+}
+.ride-button {
+  margin-top: 13px;
+}
+

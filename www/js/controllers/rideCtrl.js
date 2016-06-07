@@ -70,6 +70,17 @@ angular.module('starter.controllers')
     });
   }
 
+  $scope.enterRide = function() {
+    console.log($scope.ride.total_seats)
+    if($scope.ride.total_seats > 0) {
+      $scope.ride.total_seats -= 1;
+      console.log($scope.ride.total_seats)
+      if($scope.ride.total_seats < 0) {
+        $scope.ride.total_seats = 0;
+      }
+    }
+  }
+
   $scope.loadRide();
 })
 
