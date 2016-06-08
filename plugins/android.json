@@ -7,25 +7,25 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.frontend312168"
-        },
         "cordova-plugin-appavailability": {
-            "PACKAGE_NAME": "com.ionicframework.frontend312168"
+            "PACKAGE_NAME": "com.mdsgpp.partiuapp"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.frontend312168"
+            "PACKAGE_NAME": "com.mdsgpp.partiuapp"
         },
         "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.ionicframework.frontend312168"
+            "PACKAGE_NAME": "com.mdsgpp.partiuapp"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.mdsgpp.partiuapp"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.frontend312168"
+            "PACKAGE_NAME": "com.mdsgpp.partiuapp"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.ionicframework.frontend312168"
+            "PACKAGE_NAME": "com.mdsgpp.partiuapp"
         }
     }
 }
