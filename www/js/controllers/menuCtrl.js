@@ -8,7 +8,18 @@ angular.module('starter.controllers')
   $scope.user = Profile.getUser();
 
   /*Function to validate if the user is logged*/
+
   $scope.isLogged = function() {
+
+    //code that allows you to work without logging
+
+    /*console.log($scope.user);
+  Profile.setUser("Daniel Moura", "dms.17@hotmail.com", "data.accessToken", 
+  "Masculino", "https://scontent.xx.fbcdn.net/v/t1.0-1/p100x100/12931082_1180661875279220_1836239715232496227_n.jpg?oh=cc743a74a1312d2d6f8b145e1447be30&oe=57CBCE8E",
+   "1194782183867189",
+   "https://www.facebook.com/app_scoped_user_id/1194782183867189/");
+  Profile.updateBackendId(1);*/
+
     $scope.user = Profile.getUser();
     if($scope.user.token == undefined) {
       return false;
