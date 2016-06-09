@@ -65,20 +65,40 @@ angular.module('starter.controllers')
         if($scope.vehicles[i-1].id == $scope.ride.vehicle_id)
           $scope.vehicle = $scope.vehicles[i-1]
       }
+
     }, function(erro) {
       $scope.message = "Não foi possivel encontrar a carona " + $stateParams.id;
     });
   }
 
+
+  $scope.imgs = {
+    1: 'img/others/logo_disabled.png',
+    2: 'img/others/logo_disabled.png',
+    3: 'img/others/logo_disabled.png',
+    4: 'img/others/logo_disabled.png'
+  };
+
   $scope.enterRide = function() {
-    console.log($scope.ride.total_seats)
+    console.log($scope.ride.total_seats);
     if($scope.ride.total_seats > 0) {
+      $scope.imgs[4 - $scope.ride.total_seats] = $scope.user.photo_url
       $scope.ride.total_seats -= 1;
-      console.log($scope.ride.total_seats)
       if($scope.ride.total_seats < 0) {
         $scope.ride.total_seats = 0;
       }
     }
+    console.log($scope.ride.total_seats)
+  }
+
+  $scope.exitRide = function() {
+    console.log($scope.ride.total_seats)
+      $scope.ride.total_seats += 1;
+      $scope.imgs[4 - $scope.ride.total_seats] = 'img/others/logo_circ.png'
+      console.log($scope.ride.total_seats)
+      if($scope.ride.total_seats > 7) {
+        $scope.ride.total_seats = 7;
+      }
   }
 
   $scope.loadRide();
