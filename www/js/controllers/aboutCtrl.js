@@ -7,7 +7,4 @@ angular.module('starter.controllers')
   /*Profile function to get the user from the service*/
   $scope.user = Profile.getUser();
 
-  $scope.testStub = function (value) {
-    return value*5;
-  }
 })

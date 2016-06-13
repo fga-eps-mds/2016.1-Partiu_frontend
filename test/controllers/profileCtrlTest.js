@@ -1,6 +1,6 @@
-describe('mapCtrl tests', function() {
-  describe('instantiation and scope tests', function() {
+describe('profileCtrl tests', function(){
 
+  describe('instantiation and scope tests', function() {
     var $httpBackend, $rootScope, createController;
     beforeEach(function() {
       module('starter');
@@ -9,21 +9,21 @@ describe('mapCtrl tests', function() {
     });
 
     beforeEach(inject(function($injector) {
-
       var $controller = $injector.get('$controller');
       $rootScope = $injector.get('$rootScope');
       createController = function() {
-        return $controller('mapCtrl', {'$scope': $rootScope});
+        return $controller('profileCtrl', {'$scope': $rootScope});
       };
+      
     }));
 
-    it('should be defined and initialized', (function() {
-
+    it('should be defined and initializes', (function() {
       var controller = createController();
       expect(controller).toBeDefined();
       expect($rootScope).toBeDefined();
+      expect($rootScope.user).toBeDefined();
+      console.log($rootScope.user);
     }));
-  });
-  
-});
 
+  });
+})

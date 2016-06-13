@@ -1,4 +1,4 @@
-describe('mapCtrl tests', function() {
+describe('loginCtrl tests', function() {
   describe('instantiation and scope tests', function() {
 
     var $httpBackend, $rootScope, createController;
@@ -13,7 +13,7 @@ describe('mapCtrl tests', function() {
       var $controller = $injector.get('$controller');
       $rootScope = $injector.get('$rootScope');
       createController = function() {
-        return $controller('mapCtrl', {'$scope': $rootScope});
+        return $controller('loginCtrl', {'$scope': $rootScope});
       };
     }));
 
