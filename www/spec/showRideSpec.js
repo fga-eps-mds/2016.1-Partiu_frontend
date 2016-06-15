@@ -1,4 +1,4 @@
-describe('create rides', function() {
+describe('create rides', function() {  
   it('should show valid rides', function() {
     browser.get('http://localhost:8100');
     var fbButton = element(by.buttonText("Login com o facebook"));
@@ -17,6 +17,7 @@ describe('create rides', function() {
       browser.driver.sleep(20000);
       browser.switchTo().window(handles[0]);
     });
+    
     var openMenuButton = element(by.css('.nav-bar-block[nav-bar=active]'));
     expect(openMenuButton).toBeDefined();
     openMenuButton.click();
@@ -59,4 +60,24 @@ describe('create rides', function() {
     expect(element(by.css('#date'))).toBeDefined();
     expect(element(by.css('#departure-time'))).toBeDefined();
   });
+
+    var reopenMenuButton = element(by.css('.nav-bar-block[nav-bar=active]'));
+    expect(reopenMenuButton).toBeDefined();
+    reopenMenuButton.click();
+    reopenMenuButton = reopenMenuButton.element(by.css('.main-menu-button'));
+    reopenMenuButton.click();
+    var showRideButton = element(by.css('#ride'));
+    expect(showRideButton).toBeDefined();
+    showRideButton.click();
+
+    browser.driver.sleep(5000);
+    expect(element(by.css('#total_seats'))).toEqual('4');
+    expect(element(by.css('#name'))).toEqual('Dorothy');
+    expect(element(by.css('#destination'))).toEqual('UnB Gama - Setor Leste, Brasília - DF, Brasil');
+    expect(element(by.css('#origin'))).toEqual('Jardim do Inga, Luziânia - GO, Brasil');
+    expect(element(by.css('#departure_time'))).toEqual('08h');
+    browser.driver.sleep(10000);
+    element(by.css('#submit-ride')).click();
+
+
 });
