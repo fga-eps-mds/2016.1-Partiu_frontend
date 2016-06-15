@@ -33,9 +33,11 @@ angular.module('starter.controllers')
     RideAPI.userRides.save({userId: Profile.getUser().backendId}, {ride: $scope.ride}).$promise
     .then(function(response) {
       console.log("Carona " + $scope.ride.title + " incluída com sucesso");
+      $scope.message = "Carona " + $scope.ride.title + " incluída com sucesso";
       $state.go('menu.showRide', {"id": response.id});
     }, function(erro) {
       console.error("Não foi possível incluír a carona " + $scope.ride.title);
+      $scope.message = "Não foi possível incluír a carona " + $scope.ride.title;
       console.error(erro);
     });
   };

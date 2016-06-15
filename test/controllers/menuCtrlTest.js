@@ -29,6 +29,7 @@ describe('menuCtrl tests', function() {
       
     }));
 
+
     it('should close app',(function() {
       /*var controller = createController();
       var $controller = $injector.get('$controller');
