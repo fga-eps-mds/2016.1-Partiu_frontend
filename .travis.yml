@@ -3,13 +3,14 @@ node_js:
   - '5.9'
 addons:
   code_climate:
-    repo_token: 201011d053cc26fad34eb965714cc71e570108dd4dab116a5a21f31f88d4eabd codeclimate-test-reporter < coverage/lcov.info
+    repo_token: 201011d053cc26fad34eb965714cc71e570108dd4dab116a5a21f31f88d4eabd
 before_script:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - sleep 3 # give xvfb some time to start
 script:
   - npm test
+  - codeclimate-test-reporter < coverage/lcov.info
   - export PR=https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo `curl -s $PR | jq -r .head.ref`; fi)
   - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
