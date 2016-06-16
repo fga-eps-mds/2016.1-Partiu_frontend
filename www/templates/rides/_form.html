@@ -44,17 +44,17 @@
   </div>
   <div class="card">
     <div class="item item-icon-left">
-
       <i class="icon ion-calendar"></i>
-      <input ng-model="ride.date" id="date" name="date" placeholder="Data da carona" type="text" class="validate" required>
+      <label class="item item-input">
+        <input ng-model="ride.date" id="date" name="date" placeholder="Data da carona" type="date" class="validate" required>
+      </label>
       <span id="error" ng-show="rideForm.$submitted && rideForm.date.$error.required">
         Data obrigatoria
       </span>
     </div>
-
     <div class="item item-icon-left">
       <i class="icon ion-clock"></i>
-      <input ng-model="ride.departure_time" id="departure_time" name="departure_time" placeholder="Horario de partida" type="text" class="validate" required>
+      <input ng-model="ride.departure_time" id="departure_time" name="departure_time" placeholder="Horario de partida" type="time" class="validate" required>
       <span id="error" ng-show="rideForm.$submitted && rideForm.departure_time.$error.required">
         Horário de partida obrigatorio
       </span>
@@ -62,7 +62,7 @@
 
     <div class="item item-icon-left" ng-hide="schedule.repeat">
       <i class="icon ion-clock"></i>
-      <input ng-model="ride.return_time" id="return_time" placeholder="Horario de volta" type="text" class="validate" >
+      <input ng-model="ride.return_time" id="return_time" placeholder="Horario de volta" type="time" class="validate" >
     </div>
 
     <div class="item item-icon-left">
