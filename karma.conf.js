@@ -66,7 +66,6 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
-
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome', 'Firefox'],
@@ -80,7 +79,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true,
+    singleRun: false,
 
     // Concurrency level
     // how many browser should be started simultaneous
@@ -88,6 +87,7 @@ module.exports = function(config) {
   };
 
   if(process.env.TRAVIS) {
+    configuration.singleRun = true;
     configuration.browsers = ['Chrome_travis_ci', 'Firefox'];
   }
 
