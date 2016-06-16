@@ -28,16 +28,18 @@ describe('menuCtrl tests', function() {
     it('should be defined if the user is logged',(function() {
       
     }));
-/*
-    it('should close app',(function($injector) {
-      var controller = createController();
+
+
+
+    it('should close app',(function() {
+      /*var controller = createController();
       var $controller = $injector.get('$controller');
       $rootScope = $injector.get('$rootScope');
 
-      expect($rootScope.closeApp(false)).toBe(true);
+      expect($rootScope.closeApp(true)).toBe(true);*/
 
     }));
-  */
+  
   });
 });
 
