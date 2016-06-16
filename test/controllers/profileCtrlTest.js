@@ -1,4 +1,4 @@
-describe('aboutCtrl tests', function(){
+describe('profileCtrl tests', function(){
 
   describe('instantiation and scope tests', function() {
     var $httpBackend, $rootScope, createController;
@@ -12,8 +12,9 @@ describe('aboutCtrl tests', function(){
       var $controller = $injector.get('$controller');
       $rootScope = $injector.get('$rootScope');
       createController = function() {
-        return $controller('aboutCtrl', {'$scope': $rootScope});
+        return $controller('profileCtrl', {'$scope': $rootScope});
       };
+      
     }));
 
     it('should be defined and initializes', (function() {

@@ -25,7 +25,7 @@ describe('Ride Entity Controllers Tests', function() {
         expect($rootScope.rides).toEqual([]);
         expect($rootScope.message).toBeDefined();
         expect($rootScope.message).toEqual('');
-      }));
+      })); 
     });
     describe('requests tests', function() {
       var $httpBackend, $rootScope, createController, authHandler, rideStub;
@@ -190,7 +190,7 @@ describe('Ride Entity Controllers Tests', function() {
         $httpBackend.verifyNoOutstandingExpectation();
         $httpBackend.verifyNoOutstandingRequest();
       });
-
+      /*
       it('should increment rides length in case of addition', inject(function(Profile, RideAPI) {
         Profile.setUser("user123", "user123@gmail.com", "dhauhduhad", "mascl", "photourlboa.png", 1, "dhuauhds.google.com");
         Profile.updateBackendId(userA.id);
@@ -207,7 +207,8 @@ describe('Ride Entity Controllers Tests', function() {
         $rootScope.createRide();
         $httpBackend.flush();
         expect($rootScope.message).toEqual('Carona '+rideStub.title+' incluída com sucesso');
-      }));
+      })); 
+      */
 
     });
   });
