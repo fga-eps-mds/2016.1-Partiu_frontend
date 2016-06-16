@@ -111,3 +111,8 @@ angular.module('starter.controllers')
   $scope.loadRide();
 
 });
+
+.controller('rideNotificationCtrl', function(){
+
+
+});
