@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
 # Auto merge only in PR
-if [ "${TRAVIS_PULL_REQUEST}" = "true" ]; then
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
+  printf 'Automerging is just allowed in pull requests\n' >&2
+else
   printf 'Automerging...\n' >&2
 
   : "${GITHUB_SECRET_TOKEN?}" "${TRAVIS_REPO_SLUG?}"
@@ -30,6 +32,4 @@ if [ "${TRAVIS_PULL_REQUEST}" = "true" ]; then
   printf 'Deleting branch %s\n' "$BRANCH" >&2
   git push "$push_uri" :"$BRANCH" >/dev/null 2>&1
 
-else
-  printf 'Automerging is just allowed in pull requests\n' >&2
 fi
