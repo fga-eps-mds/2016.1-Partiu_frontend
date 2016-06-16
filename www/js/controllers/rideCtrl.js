@@ -111,16 +111,26 @@ angular.module('starter.controllers')
   $scope.loadRide();
 
   .controller('rideNotificationCtrl', function($scope, ScordovaLocalNotification){
-
-    $scope.testNotification = function() {
-        $cordovaLocalNotification.testNotification({
-
-
-        }).then(function(){
+    $scope.add = function() {
+        var alarmTime = new Date();
+        alarmTime.setMinutes(alarmTime.getMinutes() + 1);
+        $cordovaLocalNotification.add({
+            id: "1234",
+            date: alarmTime,
+            message: "Someone get in your ride",
+            title: "You have a new notification",
+            autoCancel: true,
+            sound: null
+        }).then(function () {
             console.log("The notification is working");
         });
+    };
+ 
+    $scope.isScheduled = function() {
+        $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
+            alert("Notification 1234 Scheduled: " + isScheduled);
+        });
     }
-
   });
 
 });
