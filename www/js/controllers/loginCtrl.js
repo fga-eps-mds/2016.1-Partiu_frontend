@@ -19,15 +19,42 @@ angular.module('starter.controllers')
             else if(data.cachedUserProfile.gender == 'female') {
                 data.cachedUserProfile.gender = 'Feminino';
             }
+
             Profile.setUser(data.displayName, data.email, data.accessToken, data.cachedUserProfile.gender, data.profileImageURL, data.id, data.cachedUserProfile.link);
-            $http.post('http://104.236.252.208/api/users', Profile.getUser()).success(function(data) {
-            
+
+            var requestData = {
+              "user": {
+                "name": data.displayName,
+                "email": data.email,
+                "facebook_id": data.id,
+                "photo_url": data.profileImageURL,
+                "token": data.accessToken,
+                "gender": data.cachedUserProfile.gender,
+                "link_profile": data.cachedUserProfile.link
+              }
+            };
+
+            $http.post(AppSettings.baseApiUrl + '/api/users', requestData).success(function(response) {
+              window.localStorage['authToken'] = response.token;
+
+            $http.get(AppSettings.baseApiUrl + '/api/get_user_id', {params:{"facebook_id": data.id}})
+              .then(function(response) {
+                Profile.updateBackendId(response.data);
+              }, function(error) {
+                $http.post(AppSettings.baseApiUrl + '/api/users', requestData).
+                  success(function(user) {
+                    Profile.updateBackendId(user.id);
+                  });
+              });
             });
+
             $state.go('menu.home');
         }
     }, {
         remember: "default",
         scope: "email, public_profile, user_friends, user_about_me, publish_actions"
     });
+
   };
+
 })

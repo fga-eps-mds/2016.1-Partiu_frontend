@@ -1,5 +1,11 @@
 angular.module('starter.services')
 
 .factory('UserAPI', function($resource) {
-  return $resource("http://104.236.252.208/api/users/:userID");
+  return $resource(AppSettings.baseApiUrl + "/api/users/:userId", null, {
+    'query': {method:'GET', isArray: true},
+    'get': {method:'GET'},
+    'save': {method:'POST'},
+    'remove': {method:'DELETE'},
+    'delete': {method:'DELETE'}
+  });
 })

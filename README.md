@@ -2,7 +2,8 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://choosealicense.com/licenses/mit/)
 [![Code Climate](https://codeclimate.com/github/mdsgpp2016/frontend/badges/gpa.svg)](https://codeclimate.com/github/mdsgpp2016/frontend)
-[![Build Status](https://circleci.com/gh/mdsgpp2016/frontend.svg?style=shield)](https://circleci.com/gh/mdsgpp2016/frontend)
+[![Test Coverage](https://codeclimate.com/github/mdsgpp2016/frontend/badges/coverage.svg)](https://codeclimate.com/github/mdsgpp2016/frontend/coverage)
+[![Build Status](https://travis-ci.org/mdsgpp2016/frontend.svg?branch=devel)](https://travis-ci.org/mdsgpp2016/frontend)
 
 Aplicativo multiplataforma que permite pessoas com amigos em comum combinarem caronas.
 
@@ -18,6 +19,7 @@ Na raiz do repositório, execute:
 ```
  $ npm install
  $ npm install -g cordova ionic
+ $ npm dev
  $ ionic serve --lab
 ```
 
@@ -42,6 +44,7 @@ O resultado da cobertura de testes gerado após a execução dos testes encontra
 #### Gerando a build e instalando
 
 ```
+ $ npm prod
  $ ionic build android
  $ adb install -r platforms/android/build/outputs/apk/android-debug.apk
 ```

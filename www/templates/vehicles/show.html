@@ -1,0 +1,40 @@
+<ion-view view-title="Veículo">
+  <ion-content class="padding">
+    <div class="list">
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-model-s"></i>
+        Modelo do carro
+        <i class="item-note"></i>
+        <p><strong>{{vehicle.car_model}}</strong></p>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-paintbucket"></i>
+        Cor do carro
+        <i class="item-note"></i>
+        <p><strong>{{vehicle.color}}</strong></p>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-clipboard"></i>
+        Descrição
+        <i class="item-note"></i>
+        <p><strong>{{vehicle.description}}</strong></p>
+      </a>
+
+      <div class="row">
+        <div class="col col-50">
+          <button class="button button-full button-positive" ui-sref="menu.editVehicle({id: vehicle.id})">
+            Editar
+          </button>
+        </div>
+        <div class="col col-50">
+          <button class="button button-full button-positive" ui-sref="menu.vehicles">
+            Voltar
+          </button>
+        </div>
+      </div>
+  </div>
+
+  </ion-content>
+</ion-side-menus>

@@ -1,0 +1,23 @@
+<ion-pane>
+  <ion-view view-title="Veiculo">
+    <ion-content class="padding">
+      <ion-list  ng-repeat="user in users">
+        <div class="list card" ng-repeat="vehicle in user.driver.vehicles">
+          <a ng-href="#/menu/vehicles/{{vehicle.id}}/show/"></a>
+            <div class="item item-divider"><strong>Veículo<strong></div>
+              <ion-item class="item-thumbnail-left">
+                <img class="img" ng-src ="../../img/cars/vehicle.png" alt="Cover Image" width="50px;" height="50px;">
+                <div class="driver">{{vehicle.car_model}}</div>
+                <div class="attributes">Cor: {{vehicle.color}}</div>
+                <div class="attributes">descrição: {{vehicle.description}}</div>
+              </ion-item>
+              <button ng-controller="deleteVehicleCtrl" class="button button-full button-assertive" ng-click="deleteVehicle({id: vehicle.id})">
+                Deletar veiculo
+              </button>
+            </div>
+        </div>
+      </ion-list>
+      <a href="#/menu/profile" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+    </ion-content>
+  </ion-view>
+</ion-pane>

@@ -10,13 +10,13 @@ angular.module('starter.controllers')
   /*Function to log out with the Facebook on the app*/
   $scope.fbLogout = function() {
     $scope.user = Profile.setUser(null);
-    console.log($scope.user);
     $ionicHistory.clearHistory();
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
     $state.go('menu.home');
   }
+
 
   /*Function to open in app an link*/
   $scope.inAppOpenLink = function(url) {
@@ -26,7 +26,6 @@ angular.module('starter.controllers')
 
     $scope.getAvailabilityScheme(url, function(url) {
       document.addEventListener("deviceready", onDeviceReady, false);
-      console.log(url);
       function onDeviceReady() {
         window.open = cordova.InAppBrowser.open(url, '_system', 'location=yes');
       }
