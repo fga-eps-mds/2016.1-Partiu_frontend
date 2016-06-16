@@ -1,27 +1,35 @@
 #!/bin/bash -e
 
-: "${GITHUB_SECRET_TOKEN?}" "${TRAVIS_REPO_SLUG?}"
+# Auto merge only in PR
+if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
+  printf 'Automerging is just allowed in pull requests\n' >&2
+else
+  printf 'Automerging...\n' >&2
 
-# Since Travis does a partial checkout, we need to get the whole thing
-repo_temp=$(mktemp -d)
-git clone "https://github.com/$TRAVIS_REPO_SLUG" "$repo_temp"
+  : "${GITHUB_SECRET_TOKEN?}" "${TRAVIS_REPO_SLUG?}"
 
-# shellcheck disable=SC2164
-cd "$repo_temp"
+  # Since Travis does a partial checkout, we need to get the whole thing
+  repo_temp=$(mktemp -d)
+  git clone "https://github.com/$TRAVIS_REPO_SLUG" "$repo_temp"
 
-printf 'Checking out %s\n' "$TRAVIS_BRANCH" >&2
-git checkout "$TRAVIS_BRANCH"
+  # shellcheck disable=SC2164
+  cd "$repo_temp"
 
-git config user.name "Travis CI"
-git config user.email travis@ci.com
+  printf 'Checking out %s\n' "$TRAVIS_BRANCH" >&2
+  git checkout "$TRAVIS_BRANCH"
 
-printf 'Merging %s\n' "$BRANCH" >&2
-git merge --no-ff --no-edit origin/"$BRANCH"
+  git config user.name "Travis CI"
+  git config user.email travis@ci.com
 
-push_uri="https://$GITHUB_SECRET_TOKEN@github.com/$TRAVIS_REPO_SLUG"
+  printf 'Merging %s\n' "$BRANCH" >&2
+  git merge --no-ff --no-edit origin/"$BRANCH"
 
-printf 'Pushing to %s\n' "$TRAVIS_BRANCH" >&2
-git push "$push_uri" "$TRAVIS_BRANCH" >/dev/null 2>&1
+  push_uri="https://$GITHUB_SECRET_TOKEN@github.com/$TRAVIS_REPO_SLUG"
 
-printf 'Deleting branch %s\n' "$BRANCH" >&2
-git push "$push_uri" :"$BRANCH" >/dev/null 2>&1
+  printf 'Pushing to %s\n' "$TRAVIS_BRANCH" >&2
+  git push "$push_uri" "$TRAVIS_BRANCH" >/dev/null 2>&1
+
+  printf 'Deleting branch %s\n' "$BRANCH" >&2
+  git push "$push_uri" :"$BRANCH" >/dev/null 2>&1
+
+fi
