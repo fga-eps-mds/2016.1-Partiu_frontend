@@ -110,7 +110,7 @@ angular.module('starter.controllers')
 
   $scope.loadRide();
 
-  .controller('rideNotification', function($scope, ScordovaLocalNotification){
+  .controller('rideNotificationCtrl', function($scope, ScordovaLocalNotification){
 
     $scope.testNotification = function() {
         $cordovaLocalNotification.testNotification({
