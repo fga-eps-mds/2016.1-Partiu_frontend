@@ -14,8 +14,8 @@ describe('create rides', function() {
       var loginSubmitButton = browser.driver.findElement(by.id('u_0_2'));
       loginSubmitButton.click();
       // sleep to wait for facebook and firebase response
-      browser.driver.sleep(5000);
-      browser.switchTo().window(handles[0]);
+      browser.driver.sleep(20000);
+      browser.switchTo().window(handles[0]); 
     });
     var openMenuButton = element(by.css('.nav-bar-block[nav-bar=active]'));
     expect(openMenuButton).toBeDefined();
@@ -47,9 +47,9 @@ describe('create rides', function() {
     expect(element(by.css('#total-seats-4'))).toBeDefined();
     element(by.css('#total-seats-4')).click();
     expect(element(by.css('#submit-ride'))).toBeDefined();
-    browser.driver.sleep(5000);
+    browser.driver.sleep(10000);
     element(by.css('#submit-ride')).click();
-    /*
+
     // sleep to check the whole result
     browser.driver.sleep(5000);
 
@@ -57,6 +57,6 @@ describe('create rides', function() {
     expect(element(by.css('#origin'))).toBeDefined();
     expect(element(by.css('#total-seats'))).toBeDefined();
     expect(element(by.css('#date'))).toBeDefined();
-    expect(element(by.css('#departure-time'))).toBeDefined();*/
+    expect(element(by.css('#departure-time'))).toBeDefined();
   });
 });

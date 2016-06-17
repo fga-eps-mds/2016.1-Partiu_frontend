@@ -59,7 +59,6 @@ describe('create rides', function() {
     expect(element(by.css('#total-seats'))).toBeDefined();
     expect(element(by.css('#date'))).toBeDefined();
     expect(element(by.css('#departure-time'))).toBeDefined();
-  });
 
     var reopenMenuButton = element(by.css('.nav-bar-block[nav-bar=active]'));
     expect(reopenMenuButton).toBeDefined();
@@ -79,5 +78,5 @@ describe('create rides', function() {
     browser.driver.sleep(10000);
     element(by.css('#submit-ride')).click();
 
-
+    });
 });
