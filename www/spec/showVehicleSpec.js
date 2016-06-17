@@ -23,60 +23,32 @@ describe('create rides', function() {
     openMenuButton.click();
     openMenuButton = openMenuButton.element(by.css('.main-menu-button'));
     openMenuButton.click();
-    var newRideButton = element(by.css('#new-ride'));
+    var newRideButton = element(by.css('#profile'));
     expect(newRideButton).toBeDefined();
     newRideButton.click();
+    var selectVehicleButton = element(by.css('#new-vehicle'));
+    expect(selectVehicleButton).toBeDefined();
+    newRideButton.click();
 
-    browser.driver.sleep(5000);
-    expect(element(by.css('#title'))).toBeDefined();
-    element(by.css('#title')).sendKeys('RIDE TITLE 00X');
-    expect(element(by.css('#origin'))).toBeDefined();
-    element(by.css('#origin')).sendKeys('Jardim do Inga, Luziânia - GO, Brasil');
-    expect(element(by.css('#destination'))).toBeDefined();
-    element(by.css('#destination')).sendKeys('UnB Gama - Setor Leste, Brasília - DF, Brasil');
-    browser.driver.sleep(5000);
-    browser.executeScript("arguments[0].scrollIntoView();", element(by.css('#date[name=date]')).getWebElement());
-    expect(element(by.css('#date[name=date]'))).toBeDefined();
-    element(by.css('#date[name=date]')).sendKeys('2016-08-08');
-    expect(element(by.css('#departure_time'))).toBeDefined();
-    element(by.css('#departure_time')).sendKeys('08h');
-    expect(element(by.css('#return_time'))).toBeDefined();
-    element(by.css('#return_time')).sendKeys('16h');
-    browser.executeScript("arguments[0].scrollIntoView();", element(by.css('#description')).getWebElement());
+    browser.driver.sleep(5000); 
+    expect(element(by.css('#car_model'))).toBeDefined();
+    element(by.css('#car_model')).sendKeys('Hilux toda invocada');
+    expect(element(by.css('#color'))).toBeDefined();
+    element(by.css('#color')).sendKeys('Prata');
     expect(element(by.css('#description'))).toBeDefined();
-    element(by.css('#description')).sendKeys('THE BEST RIDE THAT EVER OCCURRED');
-    expect(element(by.css('#total-seats-4'))).toBeDefined();
-    element(by.css('#total-seats-4')).click();
-    expect(element(by.css('#submit-ride'))).toBeDefined();
-    browser.driver.sleep(10000);
+    element(by.css('#description')).sendKeys('Para dar cavalinho de pau pelo Gama');
+    browser.driver.sleep(5000);
     element(by.css('#submit-ride')).click();
 
     // sleep to check the whole result
     browser.driver.sleep(5000);
 
-    expect(element(by.css('#destination'))).toBeDefined();
-    expect(element(by.css('#origin'))).toBeDefined();
-    expect(element(by.css('#total-seats'))).toBeDefined();
+    expect(element(by.css('#car_model'))).toBeDefined();
+    expect(element(by.css('#color'))).toBeDefined();
+    expect(element(by.css('#description'))).toBeDefined();
     expect(element(by.css('#date'))).toBeDefined();
     expect(element(by.css('#departure-time'))).toBeDefined();
 
-    var reopenMenuButton = element(by.css('.nav-bar-block[nav-bar=active]'));
-    expect(reopenMenuButton).toBeDefined();
-    reopenMenuButton.click();
-    reopenMenuButton = reopenMenuButton.element(by.css('.main-menu-button'));
-    reopenMenuButton.click();
-    var showRideButton = element(by.css('#ride'));
-    expect(showRideButton).toBeDefined();
-    showRideButton.click();
-
-    browser.driver.sleep(5000);
-    expect(element(by.css('#total_seats'))).toEqual('4');
-    expect(element(by.css('#name'))).toEqual('Dorothy');
-    expect(element(by.css('#destination'))).toEqual('UnB Gama - Setor Leste, Brasília - DF, Brasil');
-    expect(element(by.css('#origin'))).toEqual('Jardim do Inga, Luziânia - GO, Brasil');
-    expect(element(by.css('#departure_time'))).toEqual('08h');
-    browser.driver.sleep(10000);
-    element(by.css('#submit-ride')).click();
 
     });
 });
