@@ -3,8 +3,8 @@ exports.config = {
   specs: [
     //'facebookLoginSpec.js',
     //'createRideSpec.js'
-    //'showRideSpec.js'
-    'showVehicleSpec.js'
+    'searchRideSpec.js'
+    //'showVehicleSpec.js'
   ],
   jasmineNodeOpts: {
     showColors: true,
