@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "bower": "^1.3.3",
+    "codeclimate-test-reporter": "^0.3.3",
     "gulp-preprocess": "^2.0.0",
     "gulp-util": "^2.2.14",
     "jasmine-core": "^2.4.1",
@@ -20,6 +21,7 @@
     "karma-coverage": "^1.0.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
+    "protractor": "^3.3.0",
     "shelljs": "^0.3.0"
   },
   "cordovaPlugins": [
