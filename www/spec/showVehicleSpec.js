@@ -28,12 +28,9 @@ describe('create rides', function() {
     newRideButton.click();
     browser.driver.sleep(5000);
 
-    var selectVehicleButton = element(by.css('#new-vehicle'));
+    var selectVehicleButton = element(by.css('a'));
     expect(selectVehicleButton).toBeDefined();
-    newRideButton.click();
-    //var selectVehicleButton = element(by.buttonText("Criar veiculo"));
-    //expect(selectVehicleButton).toBeDefined();
-    //selectVehicleButton.click();
+    selectVehicleButton.click();
 
     browser.driver.sleep(5000); 
     expect(element(by.css('#car_model'))).toBeDefined();
@@ -43,7 +40,9 @@ describe('create rides', function() {
     expect(element(by.css('#description'))).toBeDefined();
     element(by.css('#description')).sendKeys('Para dar cavalinho de pau pelo Gama');
     browser.driver.sleep(5000);
-    element(by.css('#submit-ride')).click();
+    var selectSave = element(by.css('input'));
+    expect(selectSave).toBeDefined();
+    selectSave.click();
 
     // sleep to check the whole result
     browser.driver.sleep(5000);
@@ -51,9 +50,6 @@ describe('create rides', function() {
     expect(element(by.css('#car_model'))).toBeDefined();
     expect(element(by.css('#color'))).toBeDefined();
     expect(element(by.css('#description'))).toBeDefined();
-    expect(element(by.css('#date'))).toBeDefined();
-    expect(element(by.css('#departure-time'))).toBeDefined();
-
 
     });
 });
