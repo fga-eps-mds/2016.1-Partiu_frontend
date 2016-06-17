@@ -15,7 +15,7 @@ describe('create rides', function() {
       loginSubmitButton.click();
       // sleep to wait for facebook and firebase response
       browser.driver.sleep(20000);
-      browser.switchTo().window(handles[0]);
+      browser.switchTo().window(handles[0]); 
     });
     var openMenuButton = element(by.css('.nav-bar-block[nav-bar=active]'));
     expect(openMenuButton).toBeDefined();
