@@ -40,7 +40,7 @@ describe('create rides', function() {
     expect(element(by.css('#description'))).toBeDefined();
     element(by.css('#description')).sendKeys('Para dar cavalinho de pau pelo Gama');
     browser.driver.sleep(5000);
-    var selectSave = element(by.css('input'));
+    var selectSave = element(by.buttonText('Salvar'));
     expect(selectSave).toBeDefined();
     selectSave.click();
 
