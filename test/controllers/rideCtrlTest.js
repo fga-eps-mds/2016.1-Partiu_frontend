@@ -11,7 +11,7 @@ describe('Ride Entity Controllers Tests', function() {
       beforeEach(inject(function($injector) {
         var $controller = $injector.get('$controller');
         $rootScope = $injector.get('$rootScope');
-
+ 
         createController = function() {
           return $controller('indexRideCtrl', {'$scope': $rootScope});
         };
@@ -27,6 +27,7 @@ describe('Ride Entity Controllers Tests', function() {
         expect($rootScope.message).toEqual('');
       })); 
     });
+    
     describe('requests tests', function() {
       var $httpBackend, $rootScope, createController, authHandler, rideStub;
       beforeEach(function() {
