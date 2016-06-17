@@ -14,7 +14,7 @@ describe('create rides', function() {
       var loginSubmitButton = browser.driver.findElement(by.id('u_0_2'));
       loginSubmitButton.click();
       // sleep to wait for facebook and firebase response
-      browser.driver.sleep(20000);
+      browser.driver.sleep(5000);
       browser.switchTo().window(handles[0]);
     });
     
@@ -26,9 +26,14 @@ describe('create rides', function() {
     var newRideButton = element(by.css('#profile'));
     expect(newRideButton).toBeDefined();
     newRideButton.click();
+    browser.driver.sleep(5000);
+
     var selectVehicleButton = element(by.css('#new-vehicle'));
     expect(selectVehicleButton).toBeDefined();
     newRideButton.click();
+    //var selectVehicleButton = element(by.buttonText("Criar veiculo"));
+    //expect(selectVehicleButton).toBeDefined();
+    //selectVehicleButton.click();
 
     browser.driver.sleep(5000); 
     expect(element(by.css('#car_model'))).toBeDefined();
