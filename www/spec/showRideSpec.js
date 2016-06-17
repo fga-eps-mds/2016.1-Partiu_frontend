@@ -1,5 +1,5 @@
 describe('create rides', function() {
-  it('should search valid rides', function() {
+  it('should show details from a valid rides', function() {
     browser.get('http://localhost:8100');
     var fbButton = element(by.buttonText("Login com o facebook"));
     fbButton.click();
@@ -28,8 +28,27 @@ describe('create rides', function() {
 
     browser.driver.sleep(5000);
 
+    //<a ng-href="#/menu/rides/{{ride.id}}/show/">
+      //<button class="button button-positive button-small">Visualizar Carona</button>
+        //</a>
+
+    var selectVehicleButton = element(by.css('.button.button.button-positive.button-small'));
+    expect(selectVehicleButton).toBeDefined();
+    selectVehicleButton.click();
+
+    browser.driver.sleep(5000);
 
 
-    
+    expect(element(by.css('#origin'))).toBeDefined();
+    expect(element(by.css('#destination'))).toBeDefined();
+    expect(element(by.css('#total-seats'))).toBeDefined();
+    expect(element(by.css('#date'))).toBeDefined();
+    expect(element(by.css('#departure-time'))).toBeDefined();
+    expect(element(by.css('#return-time'))).toBeDefined();
+    expect(element(by.css('#description'))).toBeDefined();
+
+
+
+
   });
 });
