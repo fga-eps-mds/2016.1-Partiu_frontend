@@ -44,7 +44,7 @@ angular.module('starter.controllers')
 
 })
 
-.controller('showRideCtrl', function($scope, RideAPI, Profile, UserAPI, $stateParams, $state) {
+.controller('showRideCtrl', function($scope, RideAPI, Profile, UserAPI, $stateParams, $state, $http) {
   $scope.imgs = [
     'img/others/enabled1.png',
     'img/others/enabled2.png',
@@ -93,6 +93,11 @@ angular.module('starter.controllers')
 
         $scope.enterRide = function() {
           if($scope.ride.total_seats > 0 && $scope.current_user.id != $scope.ride.driver.id) {
+            console.log("inserindo usuario ", $scope.current_user.id);
+            console.log("na carona ", $scope.ride.title);
+            $http.post(AppSettings.baseApiUrl + '/api/insert_passenger', {"ride_id": $scope.ride.id, "passenger_id": $scope.current_user.passenger.id}).success(function(response) {
+              console.log(response);
+            });
             $scope.ride.passengers.push($scope.current_user.passenger)
             console.log($scope.ride.passengers)
             $scope.ride.total_seats -= 1
