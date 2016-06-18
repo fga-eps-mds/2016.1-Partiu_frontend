@@ -1,16 +1,17 @@
+<ion-pane>
 <ion-view view-title="Carona">
   <ion-tabs class="bar-stable tabs-icon-left tabs-striped">
     <ion-tab title="Pesquisar" icon-on="ion-ios-list" icon-off="ion-ios-list-outline">
       <ion-view>
-        <ion-content class="padding">
-          <form>
-            <h2 class="title">Pesquisar</h2>
+      <ion-content class="padding">
+        <div>
+          <form>          
+            <h2 class="title">Pesquisar</h2> 
             <input ng-model="filterRide.destiny" placeholder="Pesquisar por Destino" type="search" >
           </form>
           <ion-list  ng-repeat="user in users">
             <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
-
-                <div class="item item-divider"><strong>{{ride.title}}<strong></div>
+                <div class="item item-divider"><strong>{{ride.title}}</strong></div>
                   <div class="item item-body">
                     <ion-item class="item-thumbnail-left">
                      
@@ -29,11 +30,14 @@
                       
                     </ion-item>
                   </div>
-              </div>
-            </ion-list>
+                </div>
+            </div>
+          </ion-list>
+            <!--
             <a href="#/menu/home" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
-          </ion-content>
-        </ion-view>
-      </ion-tab>
-    </ion-tabs>
-  </ion-view>
+            -->   
+        </div>  
+      </ion-content>
+    </ion-tab>
+  </ion-tabs>
+</ion-view>
