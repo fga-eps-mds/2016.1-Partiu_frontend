@@ -15,9 +15,13 @@
     <p style="text-align: center;" ng-hide="isLogged()" ng-controller="menuCtrl">Você deve logar para usar a aplicação</p>
     </label>
     <h5 style="text-align: center" ng-show="isLogged()" ng-controller="menuCtrl">Bem vindo, {{user.name}}!</h5>
-    <div ng-if="isLogged()"ng-controller="rideNotificationCtrl">
-     <button class="button" ng-click="true">Add notification</button>
-     <button class="button" ng-click="true">Is Scheduled</button>
+    <div class="container row" ng-if="isLogged()" ng-controller="rideNotificationCtrl">
+     <div class="col">
+      <button class="button button-dark" ng-click="add()">Add notification</button>
+     </div>
+     <div class="col">
+      <button class="button button-dark" ng-click="isScheduled()">Is Scheduled</button>
+     </div>
     </div>
   </ion-content>
 </ion-view>
