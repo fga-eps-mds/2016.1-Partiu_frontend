@@ -1,28 +1,45 @@
 <ion-view view-title="{{ride.title}}">
   <ion-content class="padding">
+    <div class="card">
+      <div class="item item-text-wrap">
+        <div class="row">
+          <a ng-href="https://www.facebook.com/{{user_driver.facebook_id}}" class="item-thumbnail-left driver_avatar" target="_blank">
+            <img class="img" ng-src ="{{user_driver.photo_url}}" alt="Cover Image" width="50px;" height="50px;">
+          </a>
+          <div class="col" ng-repeat="img in imgs">
+            <a class="item item-avatar passenger_avatar" href="#">
+              <img src="{{img}}">
+            </a>
+          </div>
+        </div>
+         <div class="list">
+           <p class="item item-icon-left">
+             <i class="icon ion-person-stalker"></i>
+             <strong>Total de vagas:</strong>
+             <span class="badge badge-assertive">{{ride.total_seats}}</span>
+           </p>
 
-    <div class="list">
+           <p class="item item-icon-left">
+             <i class="icon ion-ios-location"></i>
+             <strong>Origem:</strong><br />
+             {{ride.origin}}
+           </p>
 
-      <a class="item item-icon-left item-icon-right">
-        <i class="icon ion-ios-location"></i>
-        Origem
-        <i class="item-note"></i>
-        <p><strong>{{ride.origin}}</strong></p>
-      </a>
+           <p class="item item-icon-left item-icon-right">
+             <i class="icon ion-ios-location"></i>
+             <strong>Destino:</strong><br />
+             {{ride.destination}}
+             <span class="item-note">
+               {{ride.route_distance}} - {{ride.route_time}}
+             </span>
+           </p>
 
-      <a class="item item-icon-left item-icon-right">
-        <i class="icon ion-ios-location"></i>
-        Destino
-        <i class="item-note"></i>
-        <p><strong>{{ride.destination}}</strong></p>
-      </a>
+           <p class="item item-icon-left">
+             <i class="icon ion-calendar"></i>
+             <strong>Data da carona:</strong><br />
+             {{ride.date}}
+           </p>
 
-      <a class="item item-icon-left item-icon-right">
-        <i class="icon ion-man"></i>
-        total de assentos
-        <i class="item-note"></i>
-        <p><strong>{{ride.total_seats}}</strong></p>
-      </a>
 
       <a class="item item-icon-left item-icon-right">
         <i class="icon ion-calendar"></i>
@@ -30,6 +47,7 @@
         <i class="item-note"></i>
         <p><strong>{{ride.date}}</strong></p>
       </a>
+
       <a class="item item-icon-left item-icon-right">
         <i class="icon ion-clock"></i>
         Hora de Partida
@@ -50,31 +68,44 @@
         <i class="item-note"></i>
         <p><strong>{{vehicle.car_model}}</strong></p>
       </a>
+           <p class="item item-icon-left">
+             <i class="icon ion-clipboard"></i>
+             <strong>Descrição:</strong><br />
+             {{ride.description}}
+           </p>
 
-      <a class="item item-icon-left item-icon-right">
-        <i class="icon ion-clipboard"></i>
-        Descrição
-        <i class="item-note"></i>
-        <p><strong>{{ride.description}}</strong></p>
-      </a>
+           <p class="item item-icon-left" ng-show="ride.is_subsistence_allowance">
+             <i class="icon ion-thumbsup"></i>
+             <strong>Ajuda de custo:</strong>
+             {{ride.is_subsistence_allowance}}
+           </p>
 
-      <a class="item item-icon-left item-icon-right">
-        <i class="icon ion-cash"></i>
-        Ajuda de Custo
-        <i class="item-note"></i>
-        <p><strong>{{ride.is_subsistence_allowance}}</strong></p>
-      </a>
+           <ng-map street-view-control="false">
+             <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
+             <traffic-layer></traffic-layer>
+           </ng-map>
 
-    <ng-map street-view-control="false">
-      <directions draggable="false" travel-mode="DRIVING" origin="{{ride.origin}}" destination="{{ride.destination}}"></directions>
-      <traffic-layer></traffic-layer>
-    </ng-map>
-
-    <button class="button button-full button-positive button-outside" ui-sref="menu.editRide({id: ride.id})">
-      Editar
-    </button>
-  </div>
-
+        </div>
+      </div>
+      <div class="row">
+        <button class="button button-full button-positive button-outside" ng-show="showEditRide" ui-sref="menu.editRide({id: ride.id})">
+          Editar
+        </button>
+      </div>
+      <div class="row">
+        <button class="button button-full button-positive button-outside" ng-show="showEnterButton" ng-click="enterRide()">
+          Entrar na carona
+        </button>
+      </div>
+      <div class="row">
+        <button class="button button-full button-positive button-outside" ng-show="showExitButton" ng-click="exitRide()">
+          Sair na carona
+        </button>
+      </div>
+      <div class="row">
+        <button class="button button-block button-assertive" ui-sref="menu.rides">
+          Voltar
+        </button>
+      </div>
   </ion-content>
-</ion-side-menus>
-
+</ion-view>

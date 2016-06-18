@@ -1,5 +1,5 @@
 .attributes {
-	font-size: 10px; 
+	font-size: 10px;
 	font-weight: 300;
 }
 
@@ -9,11 +9,23 @@
 }
 
 .total_seats {
-	font-size: 10px; 
+	font-size: 10px;
 	font-weight: 300;
-	text-align: right;
 }
 
 .img {
 	border-radius: 50%;
+}
+
+.driver_avatar {
+  padding-right: 0px;
+  padding-left: 100px;
+  margin-top: -20px;
+  margin-left: -20px;
+}
+
+.passenger_avatar {
+  padding: 23px;
+  top: -10px;
+  left: -10px;
 }
