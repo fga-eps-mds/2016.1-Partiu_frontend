@@ -27,7 +27,7 @@ angular.module('starter.controllers')
         $scope.vehicles = $scope.user.driver.vehicles
       }
     }
-  });
+  })
 
   $scope.createRide = function() {
     RideAPI.userRides.save({userId: Profile.getUser().backendId}, {ride: $scope.ride}).$promise
@@ -95,7 +95,7 @@ angular.module('starter.controllers')
     }, function(erro) {
       $scope.message = "Não foi possivel encontrar a carona " + $stateParams.id;
     });
-  }
+  };
 
   $scope.updateRide = function() {
     RideAPI.userRides.update({userId: Profile.getUser().backendId, rideId: $scope.ride.id}, {ride: $scope.ride}).$promise
@@ -110,9 +110,27 @@ angular.module('starter.controllers')
 
   $scope.loadRide();
 
-});
+})
 
-.controller('rideNotificationCtrl', function(){
-
-
-});
+.controller('rideNotificationCtrl', function($scope, $cordovaLocalNotification) {
+  $scope.add = function() {
+    var alarmTime = new Date();
+    alarmTime.setMinutes(alarmTime.getMinutes() + 1);
+    $cordovaLocalNotification.add({
+      id: "1234",
+      date: alarmTime,
+      message: "This is a message",
+      title: "This is a title",
+      autoCancel: true,
+      sound: null
+    }).then(function () {
+        console.log("The notification has been set");
+    });
+  };
+ 
+  $scope.isScheduled = function() {
+    $cordovaLocalNotification.isScheduled("1234").then(function(isScheduled) {
+      alert("Notification 1234 Scheduled: " + isScheduled);
+    });
+  }
+})
