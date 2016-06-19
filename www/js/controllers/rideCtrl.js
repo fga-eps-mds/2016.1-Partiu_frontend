@@ -32,13 +32,13 @@ angular.module('starter.controllers')
   $scope.createRide = function() {
     RideAPI.userRides.save({userId: Profile.getUser().backendId}, {ride: $scope.ride}).$promise
     .then(function(response) {
-      console.log("Carona " + $scope.ride.title + " incluída com sucesso");
+      //console.log("Carona " + $scope.ride.title + " incluída com sucesso");
       $scope.message = "Carona " + $scope.ride.title + " incluída com sucesso";
       $state.go('menu.showRide', {"id": response.id});
     }, function(erro) {
-      console.error("Não foi possível incluir a carona " + $scope.ride.title);
+      //console.error("Não foi possível incluir a carona " + $scope.ride.title);
       $scope.message = "Não foi possível incluir a carona " + $scope.ride.title;
-      console.error(erro);
+      //console.error(erro);
     });
   };
 
@@ -65,7 +65,7 @@ angular.module('starter.controllers')
 
           UserAPI.query().$promise.then(function(response) {
             $scope.users = response;
-            console.log("users:", $scope.users);
+            //console.log("users:", $scope.users);
             for(i=0; i<$scope.users.length; i++) {
               if($scope.users[i].id == user_id) {
                 $scope.current_user = $scope.users[i]
@@ -99,10 +99,10 @@ angular.module('starter.controllers')
 
               $scope.enterRide = function() {
                 if($scope.ride.total_seats > 0 && $scope.current_user.id != $scope.ride.driver.id) {
-                  console.log("inserindo usuario ", $scope.current_user.id);
-                  console.log("na carona ", $scope.ride.title);
+                  //console.log("inserindo usuario ", $scope.current_user.id);
+                  //console.log("na carona ", $scope.ride.title);
                   $http.post(AppSettings.baseApiUrl + '/api/insert_passenger', {"ride_id": $scope.ride.id, "passenger_id": $scope.current_user.passenger.id}).success(function(response) {
-                    console.log(response);
+                    //console.log(response);
                   });
                   $scope.ride.passengers.push($scope.current_user.passenger);
                   $scope.ride.total_seats -= 1
@@ -110,7 +110,7 @@ angular.module('starter.controllers')
               }
 
             $scope.exitRide = function() {
-              console.log("TOTAL SEATS:", $scope.ride.total_seats);
+              //console.log("TOTAL SEATS:", $scope.ride.total_seats);
               if($scope.ride.total_seats < 4) {
                 for(i=0; i<$scope.ride.passengers; i++) {
                   if($scope.ride.passengers[i] == $scope.current_user.passenger.id)
@@ -118,7 +118,7 @@ angular.module('starter.controllers')
                 }
                 $scope.ride.total_seats += 1;
                 RideAPI.userRides.update({userId: $scope.user_driver.id, rideId: $scope.ride.id}, {ride: $scope.ride}).$promise.then(function(response) {
-                    console.log("Passageiro incluido com sucesso");
+                    //console.log("Passageiro incluido com sucesso");
                     $state.go('menu.rides');
                   });
               }
@@ -160,11 +160,11 @@ angular.module('starter.controllers')
   $scope.updateRide = function() {
     RideAPI.userRides.update({userId: Profile.getUser().backendId, rideId: $scope.ride.id}, {ride: $scope.ride}).$promise
     .then(function(response) {
-      console.log("Carona " + $scope.ride.title + " atualizada com sucesso");
+      //console.log("Carona " + $scope.ride.title + " atualizada com sucesso");
       $state.go('menu.rides', {"id": response.id});
     }, function(erro) {
-      console.error("Não foi possível atualizar a carona " + $scope.ride.title);
-      console.error(erro);
+      //console.error("Não foi possível atualizar a carona " + $scope.ride.title);
+      //console.error(erro);
     });
   };
 

@@ -22,7 +22,7 @@ describe('profileCtrl tests', function(){
       expect(controller).toBeDefined();
       expect($rootScope).toBeDefined();
       expect($rootScope.user).toBeDefined();
-      console.log($rootScope.user);
+      //console.log($rootScope.user);
     }));
 
   });

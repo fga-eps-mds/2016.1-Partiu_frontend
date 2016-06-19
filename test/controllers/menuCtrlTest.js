@@ -24,12 +24,39 @@ describe('menuCtrl tests', function() {
     }));
 
 
+    it('should know if is Logged', inject(function($state) {
+      
+      spyOn($state, 'go'); 
+      var controller = createController();
+      $rootScope.isLogged();
+
+
+
+      if($rootScope.user.token == undefined){
+        it("for smart browsers", function (){
+          expect($rootScope.isLogged()).toBe(false);
+          expect($state.go).not.toHaveBeenCalledWith('menu.home');
+        });
+      }else{
+        it("for not so smart browsers", function(){
+          expect($rootScope.isLogged()).toBe(true);
+          expect($state.go).not.toHaveBeenCalledWith('menu.home');
+        });
+      }
+
+      expect($state.go).not.toHaveBeenCalledWith('menu.home');
+   
+
+
+    }));
+
 
     it('should know if has been canceled Redirect', inject(function($state) {
-      spyOn($state, 'go');
+      spyOn($state, 'go'); 
       var controller = createController();
       $rootScope.cancelRedirect();
       expect($state.go).toHaveBeenCalledWith('menu.home');
+
     }));
 
 

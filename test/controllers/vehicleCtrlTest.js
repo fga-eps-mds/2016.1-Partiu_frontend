@@ -491,7 +491,7 @@ describe('Vehicle Entity Controllers Tests', function() {
       }));
 
       it('should not destroy invalid vehicle', inject(function(Profile, $stateParams) {
-        console.log("MOCKADO:", ridesJsonMock.rides);
+        //console.log("MOCKADO:", ridesJsonMock.rides);
         $httpBackend.when('GET', 'http://localhost:3000/api/users/2/rides').respond(200, ridesJsonMock.rides);
         $httpBackend.when('DELETE', 'http://localhost:3000/api/users/2/vehicles/1').respond(404, {'error':'vehicle does not exist'});
         Profile.setUser("user123", "user123@gmail.com", "dhauhduhad", "mascl", "photourlboa.png", 1, "dhuauhds.google.com");
