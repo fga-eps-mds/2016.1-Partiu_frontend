@@ -23,31 +23,21 @@ describe('menuCtrl tests', function() {
       expect($rootScope).toBeDefined();
     }));
 
-
     it('should know if is Logged', inject(function($state) {
-      
       spyOn($state, 'go'); 
       var controller = createController();
       $rootScope.isLogged();
-
-
-
+      console.log('TOKEN: ' + $rootScope.user.token);
       if($rootScope.user.token == undefined){
-        it("for smart browsers", function (){
           expect($rootScope.isLogged()).toBe(false);
-          expect($state.go).not.toHaveBeenCalledWith('menu.home');
-        });
-      }else{
-        it("for not so smart browsers", function(){
+          expect($state.go).not.toHaveBeenCalledWith('menu.home');    
+      }
+      $rootScope.user.token == '000';
+      if($rootScope.user.token != undefined){
           expect($rootScope.isLogged()).toBe(true);
           expect($state.go).not.toHaveBeenCalledWith('menu.home');
-        });
       }
-
       expect($state.go).not.toHaveBeenCalledWith('menu.home');
-   
-
-
     }));
 
 
