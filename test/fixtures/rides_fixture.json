@@ -5,14 +5,13 @@
       "title": "nice carona",
       "origin": "cruzeiro",
       "destiny": "to uzeiro",
-      "total_seats": "4",
+      "total_seats": "1",
       "description": "really nice discirptinso",
       "driver": {
         "id": "1",
         "user_id": "1"
       },
-      "passengers_name": [],
-      "passengers_photo": []
+      "passengers": [2]
     },
     {
       "id": "2",
@@ -25,22 +24,7 @@
         "id": "1",
         "user_id": "1"
       },
-      "passengers_name": [],
-      "passengers_photo": []
-    },
-    {
-      "id": "2",
-      "title": "nice carona2",
-      "origin": "cruzeiro2",
-      "destiny": "to uzeiro2",
-      "total_seats": "4",
-      "description": "really nice discirptinso2",
-      "driver": {
-        "id": "1",
-        "user_id": "1"
-      },
-      "passengers_name": [],
-      "passengers_photo": []
+      "passengers": [1]
     }
   ]
 }
