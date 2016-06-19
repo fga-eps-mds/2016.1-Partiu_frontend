@@ -21,6 +21,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.mdsgpp.partiuapp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.mdsgpp.partiuapp"
         }
     },
     "dependent_plugins": {
