@@ -42,7 +42,7 @@ angular.module('starter.controllers')
     }, function(erro) {
       $scope.message = "Não foi possivel encontrar o veículo " + $stateParams.id;
     });
-  }
+  };
 
   $scope.loadVehicle();
 })
@@ -55,8 +55,6 @@ angular.module('starter.controllers')
     VehicleAPI.get({vehicleId: $stateParams.id, userId: Profile.getUser().backendId}).$promise
     .then(function(response) {
       $scope.vehicle = response;
-    }, function(erro) {
-      $scope.message = "Não foi possivel encontrar o veículo " + $stateParams.id;
     });
   }
 
@@ -89,10 +87,7 @@ angular.module('starter.controllers')
           $scope.ride.vehicle_id = null
           RideAPI.userRides.update({userId: Profile.getUser().backendId, rideId: $scope.ride.id}, {ride: $scope.ride}).$promise
           .then(function(response) {
-            console.log("Carona " + $scope.ride.title + " atualizada com sucesso");
-          }, function(erro) {
-            console.error("Não foi possível atualizar a carona " + $scope.ride.title);
-            console.error(erro);
+            console.log("Carona " + $scope.ride.title + " deletada com sucesso");
           });
         }
       }
