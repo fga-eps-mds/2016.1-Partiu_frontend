@@ -11,13 +11,15 @@
                 <div class="attributes">Cor: {{vehicle.color}}</div>
                 <div class="attributes">descrição: {{vehicle.description}}</div>
               </ion-item>
-              <button ng-controller="deleteVehicleCtrl" class="button button-full button-assertive" ng-click="deleteVehicle({id: vehicle.id})">
-                Deletar veiculo
-              </button>
+              <div class="item">
+                <button ng-controller="deleteVehicleCtrl" class="button button-block button-assertive icon icon-left ion-android-delete" ng-click="deleteVehicle({id: vehicle.id})">
+                  <strong>Deletar veiculo</strong>
+                </button>
+              </div>
             </div>
         </div>
       </ion-list>
-      <a href="#/menu/profile" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
+      <a href="#/menu/profile" class="button button-block button-positive icon icon-left ion-android-arrow-back">Voltar</a>
     </ion-content>
   </ion-view>
 </ion-pane>

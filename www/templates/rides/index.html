@@ -1,11 +1,13 @@
-<ion-view view-title="Carona">
+<ion-view view-title="Pesquisar Carona">
   <ion-tabs class="bar-stable tabs-icon-left tabs-striped">
     <ion-tab title="Pesquisar" icon-on="ion-ios-list" icon-off="ion-ios-list-outline">
       <ion-view>
         <ion-content class="padding">
-          <form>
-            <h2 class="title">Pesquisar</h2>
-            <input ng-model="filterRide.destination" placeholder="Pesquisar por Destino" type="search" >
+          <form class="card">
+            <div class="item item-icon-left">
+              <i class="icon ion-android-search"></i>
+              <input ng-model="filterRide.destination" placeholder="Pesquisar por Destino" type="search" >
+            </div>
           </form>
           <ion-list  ng-repeat="user in users">
             <div class="list card" ng-repeat="ride in user.driver.rides  | filter: filterRide : strict">
@@ -25,14 +27,13 @@
                       </a>
 
                       <a ng-href="#/menu/rides/{{ride.id}}/show/">
-                        <button class="button button-positive button-small ride-button">Visualizar Carona</button>
+                        <button class="button button-positive button-small ride-button"><strong><center>Visualizar Carona</strong></center></button>
                       </a>
 
                     </ion-item>
                   </div>
               </div>
             </ion-list>
-            <a href="#/menu/home" class="button button-block button-positive icon icon-center ion-home">Voltar</a>
           </ion-content>
         </ion-view>
       </ion-tab>
