@@ -25,39 +25,19 @@ describe('menuCtrl tests', function() {
 
 
 
-    it('should know if has been canceled Redirect',(function() {
+    it('should know if has been canceled Redirect', inject(function($state) {
+      spyOn($state, 'go');
       var controller = createController();
-
-      expect(controller).toBeDefined();
-      expect($rootScope).toBeDefined();
-      expect($rootScope.cancelRedirect).toBeDefined();
-
-      spyOn($rootScope,'cancelRedirect');
       $rootScope.cancelRedirect();
-      
-      expect($rootScope.cancelRedirect).toHaveBeenCalled();
-
-
+      expect($state.go).toHaveBeenCalledWith('menu.home');
     }));
 
 
-    it('should close app',(function() {
+    it('should close app', inject(function($state) {
+      spyOn($state, 'go');
       var controller = createController();
-
-      expect(controller).toBeDefined();
-      expect($rootScope).toBeDefined();
-      expect($rootScope.closeApp).toBeDefined();   
-
-      spyOn($rootScope,'closeApp');
       $rootScope.closeApp();
-      expect($rootScope.closeApp).toHaveBeenCalled( );
-      expect($rootScope.closeApp).toHaveBeenCalledWith( );
-
-      spyOn(ionic.Platform,'exitApp');
-      ionic.Platform.exitApp();
-      expect(ionic.Platform.exitApp).toHaveBeenCalled();
-      expect(ionic.Platform.exitApp).toHaveBeenCalledWith();
-      
+      expect($state.go).not.toHaveBeenCalledWith('menu.home');
     }));
 
 
