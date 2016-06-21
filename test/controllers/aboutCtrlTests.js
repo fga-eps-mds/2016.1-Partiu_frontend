@@ -24,5 +24,17 @@ describe('aboutCtrl tests', function(){
       console.log($rootScope.user);
     }));
 
+    it('should open a link', inject(function($state) {
+      spyOn($state, 'go');
+      var controller = createController();
+      $rootScope.inAppOpenLink();
+      expect($state.go).not.toHaveBeenCalledWith('menu.home');
+      /*
+      spyOn($rootScope ,'getAvailabilityScheme');
+      $rootScope.getAvailabilityScheme();
+      expect($rootScope.getAvailabilityScheme).toHaveBeenCalledWith();
+      */
+    }));
+
   });
-})
+}) 
