@@ -26,15 +26,22 @@ describe ('profileCtrl tests', function(){
           //console.log($rootScope.user);
         });
 
-        it('should logout with the facebook correctly', function() {
-
+        it('should logout with the facebook correctly', inject(function($state) {
+            spyOn($state, 'go');
+            var controller = createController();
+            $rootScope.fbLogout();
+            expect($state.go).toHaveBeenCalledWith('menu.home');
           
-        });
+        }));
 
-        it('should open a link', function() {
-
+        it('should open a link', inject(function($state) {
+            spyOn($state, 'go');
+            var controller = createController();
+            $rootScope.inAppOpenLink();
+            expect($state.go).not.toHaveBeenCalledWith('menu.home');
           
-        });
+        }));
+
 
         it('should conect with iOS plataform', function() {
 
