@@ -18,7 +18,7 @@ angular.module('starter.controllers')
   }
 
 
-  /*Function to open in app an link*/
+  /*Function to open in app a link*/
   $scope.inAppOpenLink = function(url) {
     if (!url) {
       return
