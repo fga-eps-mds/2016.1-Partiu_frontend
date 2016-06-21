@@ -24,10 +24,22 @@ describe('loginCtrl tests', function() {
       expect($rootScope).toBeDefined();
     }));
 
-    it ('shoul ', (function() {
+    it('should not login', function() {
+
+          
+    });
+
+    it('should assign male', function() {
+
+          
+    });
+
+    it('should assign female', function() {
+
+          
+    });
 
 
-    }));
   });
   
 });
