@@ -1,6 +1,6 @@
-angular.module('starter.controllers')
+ angular.module('starter.controllers')
 
-.controller('indexRideCtrl', function($scope, RideAPI, UserAPI, Profile) {
+.controller('indexRideCtrl', function($scope, RideAPI, UserAPI, Profile) { 
   $scope.rides = [];
   $scope.message = '';
 

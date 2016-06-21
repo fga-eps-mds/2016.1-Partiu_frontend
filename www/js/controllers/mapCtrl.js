@@ -3,7 +3,7 @@ angular.module('starter.controllers')
 .controller('mapCtrl', function($scope, $ionicLoading) {
 
   var posOptions = {
-    timeout: 10000,
+    timeout: 10000, 
     enableHighAccuracy: false
   };
 
@@ -21,7 +21,7 @@ angular.module('starter.controllers')
           console.info('No results found');
         }
       } else {
-        console.error('Geocoder failed due to: ' + status);
+        console.error('Geocoder failed due to: ' + status); 
       }
     });
 

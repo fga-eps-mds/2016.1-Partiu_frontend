@@ -1,10 +1,10 @@
-describe('menuCtrl tests', function() {
+describe('menuCtrl tests', function() { 
   describe('instantiation and scope tests', function() {
     var $httpBackend, $rootScope, createController;
     beforeEach(function() {
       module('starter');
       module('starter.controllers');
-      module('starter.services');
+      module('starter.services'); 
       
     });
 
