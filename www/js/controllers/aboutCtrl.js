@@ -6,18 +6,16 @@ angular.module('starter.controllers')
 
   /*Profile function to get the user from the service*/
   $scope.user = Profile.getUser();
+  $scope.openInExternalBrowserHome = function()
+  {
+    // Open in external browser
+    window.open('http://104.236.252.208','_system','location=yes');
+  };
 
-  $scope.inAppOpenLink = function(url) {
-    if (!url) {
-      return
-    }
-
-    $scope.getAvailabilityScheme(url, function(url) {
-      document.addEventListener("deviceready", onDeviceReady, false);
-      function onDeviceReady() {
-        window.open = cordova.InAppBrowser.open(url, '_system', 'location=yes');
-      }
-    });
-  }
+  $scope.openInExternalBrowserRepo = function()
+  {
+    // Open in external browser
+    window.open('https://github.com/fga-gpp-mds','_system','location=yes');
+  };
 
 })
