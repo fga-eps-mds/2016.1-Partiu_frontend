@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-
+ 
 .controller('profileCtrl', function($scope, $state, $stateParams, $ionicHistory, Profile) {
   /*Dealings of the Ionic to clear navigation history*/
   $ionicHistory.clearHistory();

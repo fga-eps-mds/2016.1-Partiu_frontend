@@ -2,7 +2,7 @@ angular.module('starter.controllers')
 
 .controller('indexVehicleCtrl', function($scope, VehicleAPI, UserAPI, Profile) {
   $scope.vehicles = [];
-  $scope.message = '';
+  $scope.message = ''; 
 
   UserAPI.query().$promise.then(function(response) {
     $scope.users = response;
