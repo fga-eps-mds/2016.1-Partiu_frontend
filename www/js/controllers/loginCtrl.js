@@ -1,4 +1,4 @@
-angular.module('starter.controllers')
+angular.module('starter.controllers') 
 
 .controller('loginCtrl', function($scope, $ionicModal, $state, $ionicHistory, Profile, $http) {
   /*Dealings of the Ionic to clear navigation history*/

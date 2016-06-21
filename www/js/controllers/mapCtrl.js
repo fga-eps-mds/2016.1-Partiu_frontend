@@ -3,7 +3,7 @@ angular.module('starter.controllers')
 .controller('mapCtrl', function($scope, $ionicLoading) {
 
   var posOptions = {
-    timeout: 10000,
+    timeout: 10000, 
     enableHighAccuracy: false
   };
 
@@ -21,22 +21,12 @@ angular.module('starter.controllers')
           console.info('No results found');
         }
       } else {
-        console.error('Geocoder failed due to: ' + status);
+        console.error('Geocoder failed due to: ' + status); 
       }
     });
 
     $ionicLoading.hide();
 
-  };
-
-  var onError = function(error) {
-    console.error('It was not possible to get the current location due to: ' + error);
-    $ionicLoading.hide();
-  }
-
-  $scope.getCurrentLocation = function() {
-    $ionicLoading.show({template: 'Obtendo sua posição atual...'});
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
   };
 
   var onError = function(error) {

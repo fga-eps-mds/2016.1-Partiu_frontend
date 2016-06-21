@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-
+ 
 .controller('profileCtrl', function($scope, $state, $stateParams, $ionicHistory, Profile) {
   /*Dealings of the Ionic to clear navigation history*/
   $ionicHistory.clearHistory();
@@ -18,7 +18,7 @@ angular.module('starter.controllers')
   }
 
 
-  /*Function to open in app an link*/
+  /*Function to open in app a link*/
   $scope.inAppOpenLink = function(url) {
     if (!url) {
       return

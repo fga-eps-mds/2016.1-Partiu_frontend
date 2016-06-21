@@ -1,4 +1,4 @@
-describe('loginCtrl tests', function() {
+describe('loginCtrl tests', function() { 
   describe('instantiation and scope tests', function() {
 
     var $httpBackend, $rootScope, createController;
@@ -23,6 +23,23 @@ describe('loginCtrl tests', function() {
       expect(controller).toBeDefined();
       expect($rootScope).toBeDefined();
     }));
+
+    it('should not login', function() {
+
+          
+    });
+
+    it('should assign male', function() {
+
+          
+    });
+
+    it('should assign female', function() {
+
+          
+    });
+
+
   });
   
 });

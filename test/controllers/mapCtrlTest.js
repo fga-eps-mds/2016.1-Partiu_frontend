@@ -1,6 +1,6 @@
 describe('mapCtrl tests', function() {
   describe('instantiation and scope tests', function() {
-    var $httpBackend, $rootScope, createController;
+    var $rootScope, createController;
     beforeEach(function() {
       module('starter');
       module('starter.controllers');
@@ -20,6 +20,27 @@ describe('mapCtrl tests', function() {
       expect(controller).toBeDefined();
       expect($rootScope).toBeDefined();
     }));
+
+    it('should tell if has a Error', (function() {
+
+    }));
+
+    it('should get the current location', inject(function($state) {
+      spyOn($state, 'go');
+      var controller = createController();
+      $rootScope.getCurrentLocation();
+      expect($state.go).not.toHaveBeenCalledWith('menu.home');
+    }));
+
+    it('should disable tap', inject(function() {
+
+    }));
+
+    it('should calculate distance', inject(function() {
+    
+    }));
+
+    
+
   });
 });
-
