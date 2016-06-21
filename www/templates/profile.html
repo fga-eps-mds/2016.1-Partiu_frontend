@@ -13,26 +13,26 @@
           <br/>
           <h4>{{user.gender}}</h4>
           <br/>
-          <a class="button button-block button-positive"  href="#/menu/vehicles/new">
-            Criar veiculo
+          <a class="button button-block button-balanced icon icon-left ion-android-add-circle"  href="#/menu/vehicles/new">
+            <strong>Criar veiculo</strong>
           </a>
-          <a class="button button-block button-positive"  href="#/menu/vehicles">
-            Listar veiculo
+          <a class="button button-block button-dark icon icon-left ion-android-list"  href="#/menu/vehicles">
+            <strong>Listar veiculo</strong>
           </a>
         </center>
       </div>
       <div class="item item-text-wrap row">
         <label class="col col-50">
           <center>
-            <button class="button button-block button-assertive" ng-click="inAppOpenLink('https://www.facebook.com/{{user.id}}')">
-              Facebook
+            <button class="button button-block button-positive icon icon-left ion-social-facebook" ng-click="inAppOpenLink('https://www.facebook.com/{{user.id}}')">
+              <strong>Facebook</strong>
             </button>
           </center>
         </label>
         <label class="col col-50">
           <center>
-            <button class="button button-block button-assertive" ng-click="fbLogout()">
-              Logout
+            <button class="button button-block button-assertive icon icon-left ion-android-exit" ng-click="fbLogout()">
+              <strong>Logout</strong>
             </button>
           </center>
         </label>
