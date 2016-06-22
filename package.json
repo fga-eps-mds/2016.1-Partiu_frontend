@@ -36,6 +36,7 @@
     "android"
   ],
   "scripts": {
-    "test": "./node_modules/karma/bin/karma start karma.conf.js"
+    "test": "./node_modules/karma/bin/karma start karma.conf.js",
+    "func-test": "./node_modules/protractor/bin/protractor www.spec/conf.js"
   }
 }
