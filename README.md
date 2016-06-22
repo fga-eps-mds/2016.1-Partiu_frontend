@@ -25,15 +25,15 @@ ionic serve --lab
 
 ## Executando os Testes
 
-```
- $ npm test
+```bash
+npm test
 ```
 
 O resultado da cobertura de testes gerado após a execução dos testes encontra-se em: coverage/lcov-report/index.html
 
 ### Testes Funcionais
 
-É necessário ter o [Partiu - Backend](https://github.com/fga-gpp-mds/2016.1-Partiu_backend) rodando para que os testes funcionais sejam executados
+É necessário ter o [Partiu - Backend](https://github.com/fga-gpp-mds/2016.1-Partiu_backend) rodando para que os testes funcionais possam ser executados.
 
 ```bash
 gulp dev
