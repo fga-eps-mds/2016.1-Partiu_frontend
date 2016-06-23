@@ -45,7 +45,7 @@ describe ('profileCtrl tests', function(){
           $rootScope.inAppOpenLink("127.0.0.1");
         }));
 
-        it('should, at device ready, get availability', inject(function ($ionicPlatform) {
+        it('should, at device ready, get availability', inject(function ($ionicPlatform,$cordovaAppAvailability, $cordovaDevice) {
           $ionicPlatform.ready(); 
           createController();
           $rootScope.getAvailabilityScheme("facebook.com/", true);
