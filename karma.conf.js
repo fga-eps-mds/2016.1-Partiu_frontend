@@ -20,6 +20,7 @@ module.exports = function(config) {
       'www/lib/angular-mocks/angular-mocks.js',
       'www/lib/karma-read-json/karma-read-json.js',
       'www/lib/ngmap/build/scripts/ng-map.min.js',
+      'www/lib/firebase/firebase.js',
       'www/js/*.js',
       'www/js/**/*.js',
       'test/**/*.js',
