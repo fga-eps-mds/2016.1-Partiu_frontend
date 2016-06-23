@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend/badges/gpa.svg)](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend)
 [![Test Coverage](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend/badges/coverage.svg)](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend/coverage)
 [![Build Status](https://travis-ci.org/fga-gpp-mds/2016.1-Partiu_frontend.svg?branch=devel)](https://travis-ci.org/fga-gpp-mds/2016.1-Partiu_frontend)
+<a href="https://play.google.com/apps/testing/com.mdsgpp.partiuapp"><img src="http://i.imgur.com/RpSf9nt.png" height="20" ></a>
 
 Aplicativo multiplataforma que permite pessoas com amigos em comum combinarem caronas.
 
