@@ -24,7 +24,6 @@ angular.module('starter.controllers')
     VehicleAPI.save({userId: Profile.getUser().backendId}, {vehicle: $scope.vehicle}).$promise
     .then(function(response) {
       //console.log("Veículo " + $scope.vehicle.car_model + " incluída com sucesso");
-      $scope.vehicle = {};
       $state.go('menu.showVehicle', {"id": response.id});
     }, function(erro) {
       //console.error("Não foi possível incluír o veículo " + $scope.vehicle.car_model);
