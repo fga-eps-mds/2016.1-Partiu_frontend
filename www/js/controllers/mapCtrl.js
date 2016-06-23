@@ -52,7 +52,9 @@ angular.module('starter.controllers')
     calculateDistance();
   });
 
-  var calculateDistance = function () {
+ 
+
+  $scope.calculateDistance = function () {
 
     if(!$scope.ride.origin || !$scope.ride.destination) return;
 

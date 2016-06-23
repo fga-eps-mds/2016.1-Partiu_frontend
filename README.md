@@ -1,9 +1,9 @@
 # Partiu
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](http://choosealicense.com/licenses/mit/)
-[![Code Climate](https://codeclimate.com/github/mdsgpp2016/frontend/badges/gpa.svg)](https://codeclimate.com/github/mdsgpp2016/frontend)
-[![Test Coverage](https://codeclimate.com/github/mdsgpp2016/frontend/badges/coverage.svg)](https://codeclimate.com/github/mdsgpp2016/frontend/coverage)
-[![Build Status](https://travis-ci.org/mdsgpp2016/frontend.svg?branch=devel)](https://travis-ci.org/mdsgpp2016/frontend)
+[![Code Climate](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend/badges/gpa.svg)](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend)
+[![Test Coverage](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend/badges/coverage.svg)](https://codeclimate.com/github/fga-gpp-mds/2016.1-Partiu_frontend/coverage)
+[![Build Status](https://travis-ci.org/fga-gpp-mds/2016.1-Partiu_frontend.svg?branch=devel)](https://travis-ci.org/fga-gpp-mds/2016.1-Partiu_frontend)
 
 Aplicativo multiplataforma que permite pessoas com amigos em comum combinarem caronas.
 
@@ -16,20 +16,32 @@ Aplicativo multiplataforma que permite pessoas com amigos em comum combinarem ca
 
 Na raiz do repositório, execute:
 
-```
- $ npm install
- $ npm install -g cordova ionic
- $ npm dev
- $ ionic serve --lab
+```bash
+npm install
+npm install -g cordova ionic
+gulp dev
+ionic serve --lab
 ```
 
 ## Executando os Testes
 
-```
+```bash
 npm test
 ```
 
 O resultado da cobertura de testes gerado após a execução dos testes encontra-se em: coverage/lcov-report/index.html
+
+### Testes Funcionais
+
+É necessário ter o [Partiu - Backend](https://github.com/fga-gpp-mds/2016.1-Partiu_backend) rodando para que os testes funcionais possam ser executados.
+
+```bash
+gulp dev
+npm install -g protractor
+webdriver-manager update --standalone
+webdriver-manager start
+npm run func-test
+```
 
 ### Build de desenvolvimento Android
 
@@ -43,8 +55,8 @@ O resultado da cobertura de testes gerado após a execução dos testes encontra
 
 #### Gerando a build e instalando
 
-```
- $ npm prod
- $ ionic build android
- $ adb install -r platforms/android/build/outputs/apk/android-debug.apk
+```bash
+gulp prod
+ionic build android
+adb install -r platforms/android/build/outputs/apk/android-debug.apk
 ```

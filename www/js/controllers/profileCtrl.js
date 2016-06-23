@@ -19,19 +19,6 @@ angular.module('starter.controllers')
 
 
   /*Function to open in app a link*/
-  $scope.inAppOpenLink = function(url) {
-    if (!url) {
-      return
-    }
-
-    $scope.getAvailabilityScheme(url, function(url) {
-      document.addEventListener("deviceready", onDeviceReady, false);
-      function onDeviceReady() {
-        window.open = cordova.InAppBrowser.open(url, '_system', 'location=yes');
-      }
-    });
-  }
-
   $scope.getAvailabilityScheme = function(url, callback) {
     var scheme;
     var schemeUrl;
@@ -55,5 +42,18 @@ angular.module('starter.controllers')
           callback(url);
         }
     );
+  }
+  
+  $scope.inAppOpenLink = function(url) {
+    if (!url) {
+      return
+    }
+
+    $scope.getAvailabilityScheme(url, function(url) {
+      document.addEventListener("deviceready", onDeviceReady, false);
+      function onDeviceReady() {
+        window.open = cordova.InAppBrowser.open(url, '_system', 'location=yes');
+      }
+    });
   }
 })

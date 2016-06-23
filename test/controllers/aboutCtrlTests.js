@@ -24,19 +24,25 @@ describe('aboutCtrl tests', function(){
       console.log($rootScope.user);
     }));
 
-    it('should open a external browser home', inject(function($state) {
-      spyOn($state, 'go');
-      var controller = createController();
+    it('should correctly open home link in a window', function () {
+      createController();
+      spyOn(window, 'open').and.callFake (function () {
+        return true;
+      });
       $rootScope.openInExternalBrowserHome();
-      expect($state.go).not.toHaveBeenCalledWith('menu.home');
-    }));
+      expect(window.open).toHaveBeenCalled();
+      expect(window.open).toHaveBeenCalledWith('http://104.236.252.208','_system','location=yes');
+    });
 
-    it('should open a external browser home', inject(function($state) {
-      spyOn($state, 'go');
-      var controller = createController();
+    it('should correctly open repository link in a window', function () {
+      createController();
+      spyOn(window, 'open').and.callFake (function () {
+        return true;
+      });
       $rootScope.openInExternalBrowserRepo();
-      expect($state.go).not.toHaveBeenCalledWith('menu.home');
-    }));
-    
+      expect(window.open).toHaveBeenCalled();
+      expect(window.open).toHaveBeenCalledWith('https://github.com/fga-gpp-mds','_system','location=yes');
+    });
+
   });
 }) 
