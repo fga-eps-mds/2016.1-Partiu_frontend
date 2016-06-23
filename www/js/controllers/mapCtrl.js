@@ -1,13 +1,14 @@
 angular.module('starter.controllers')
 
 .controller('mapCtrl', function($scope, $ionicLoading) {
+  $scope.onError = null;
 
   var posOptions = {
-    timeout: 10000, 
+    timeout: 10000,
     enableHighAccuracy: false
   };
 
-  var onSuccess = function(position) {
+  $scope.onSuccess = function(position) {
     var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var geocoder = new google.maps.Geocoder;
 
@@ -21,22 +22,21 @@ angular.module('starter.controllers')
           console.info('No results found');
         }
       } else {
-        console.error('Geocoder failed due to: ' + status); 
+        console.error('Geocoder failed due to: ' + status);
       }
     });
 
     $ionicLoading.hide();
-
   };
 
-  var onError = function(error) {
+  $scope.onError = function(error) {
     console.error('It was not possible to get the current location due to: ' + error);
     $ionicLoading.hide();
-  }
+  };
 
   $scope.getCurrentLocation = function() {
     $ionicLoading.show({template: 'Obtendo sua posição atual...'});
-    navigator.geolocation.getCurrentPosition(onSuccess, onError, posOptions);
+    navigator.geolocation.getCurrentPosition($scope.onSuccess, $scope.onError, posOptions);
   };
 
   $scope.disableTap = function($event) {
@@ -61,10 +61,8 @@ angular.module('starter.controllers')
     },
     function(response, status) {
       if (status == google.maps.DistanceMatrixStatus.OK) {
-        $scope.ride.route_distance = response.rows[0].elements[0].distance.text
-        $scope.ride.route_time = response.rows[0].elements[0].duration.text
-      } else {
-        console.error(status);
+        $scope.ride.route_distance = response.rows[0].elements[0].distance.text;
+        $scope.ride.route_time = response.rows[0].elements[0].duration.text;
       }
     })
   };

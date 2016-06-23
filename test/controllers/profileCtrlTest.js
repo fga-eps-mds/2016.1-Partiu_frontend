@@ -15,7 +15,6 @@ describe ('profileCtrl tests', function(){
           createController = function() {
             return $controller('profileCtrl', {'$scope': $rootScope});
           };
-      
         }));
 
         it('should be defined and initializes', function() {
@@ -27,32 +26,23 @@ describe ('profileCtrl tests', function(){
         });
 
         it('should logout with the facebook correctly', inject(function($state) {
-            spyOn($state, 'go');
-            var controller = createController();
-            $rootScope.fbLogout();
-            expect($state.go).toHaveBeenCalledWith('menu.home');
-          
+          spyOn($state, 'go');
+          var controller = createController();
+          $rootScope.fbLogout();
+          expect($state.go).toHaveBeenCalledWith('menu.home');
         }));
 
-        it('should open a link', inject(function($state) {
-            spyOn($state, 'go');
-            var controller = createController();
-            $rootScope.inAppOpenLink();
-            expect($state.go).not.toHaveBeenCalledWith('menu.home');
-          
+        it('should open callback link', inject(function($state) {
+          spyOn($state, 'go');
+          var controller = createController();
+          $rootScope.inAppOpenLink();
+          expect($state.go).not.toHaveBeenCalledWith('menu.home');
         }));
 
-
-        it('should conect with iOS plataform', function() {
-
-          
+        it('should have a correct scheme callback', function() {
+          createController();
+          $rootScope.schemeCallback("localhost:3000");
         });
-
-        it('should conect with Android plataform', function() {
-
-          
-        });
-
   });
 
 });

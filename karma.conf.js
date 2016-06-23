@@ -24,6 +24,7 @@ module.exports = function(config) {
       'www/js/*.js',
       'www/js/**/*.js',
       'test/**/*.js',
+      'https://maps.googleapis.com/maps/api/js?key=AIzaSyBGknmuLFXy-yBSHS1uaEIoIYLDX5Yc_Yo&language=pt-br&libraries=places',
       {pattern: 'test/fixtures/*.json', included: false}
     ],
 
