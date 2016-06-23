@@ -48,14 +48,7 @@ angular.module('starter.controllers')
     });
   };
 
-  $scope.$watchGroup(['ride.origin', 'ride.destination'], function() {
-    calculateDistance();
-  });
-
- 
-
   $scope.calculateDistance = function () {
-
     if(!$scope.ride.origin || !$scope.ride.destination) return;
 
     var distanceService = new google.maps.DistanceMatrixService();
@@ -75,4 +68,9 @@ angular.module('starter.controllers')
       }
     })
   };
+
+  $scope.$watchGroup(['ride.origin', 'ride.destination'], function() {
+    $scope.calculateDistance();
+  });
+
 });
