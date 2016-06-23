@@ -24,5 +24,24 @@ describe('aboutCtrl tests', function(){
       console.log($rootScope.user);
     }));
 
+    it('should correctly open home link in a window', function () {
+      createController();
+      spyOn(window, 'open').and.callFake (function () {
+        return true;
+      });
+      $rootScope.openInExternalBrowserHome();
+      expect(window.open).toHaveBeenCalled();
+      expect(window.open).toHaveBeenCalledWith('http://104.236.252.208','_system','location=yes');
+    });
+
+    it('should correctly open repository link in a window', function () {
+      createController();
+      spyOn(window, 'open').and.callFake (function () {
+        return true;
+      });
+      $rootScope.openInExternalBrowserRepo();
+      expect(window.open).toHaveBeenCalled();
+      expect(window.open).toHaveBeenCalledWith('https://github.com/fga-gpp-mds','_system','location=yes');
+    });
   });
 })
