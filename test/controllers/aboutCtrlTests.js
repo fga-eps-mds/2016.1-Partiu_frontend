@@ -43,5 +43,6 @@ describe('aboutCtrl tests', function(){
       expect(window.open).toHaveBeenCalled();
       expect(window.open).toHaveBeenCalledWith('https://github.com/fga-gpp-mds','_system','location=yes');
     });
+
   });
-})
+}) 
