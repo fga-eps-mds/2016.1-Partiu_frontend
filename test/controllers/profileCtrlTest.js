@@ -23,7 +23,6 @@ describe ('profileCtrl tests', function(){
           expect(controller).toBeDefined();
           expect($rootScope).toBeDefined();
           expect($rootScope.user).toBeDefined();
-          //console.log($rootScope.user);
         });
 
         it('should logout with the facebook correctly', inject(function($state) {
@@ -31,7 +30,6 @@ describe ('profileCtrl tests', function(){
             var controller = createController();
             $rootScope.fbLogout();
             expect($state.go).toHaveBeenCalledWith('menu.home');
-          
         }));
 
         it('should open a link', inject(function($state) {
@@ -39,20 +37,19 @@ describe ('profileCtrl tests', function(){
             var controller = createController();
             $rootScope.inAppOpenLink();
             expect($state.go).not.toHaveBeenCalledWith('menu.home');
-          
         }));
 
+        /*it('should, at device ready, open in app a link', inject(function ($ionicPlatform) {
+          $ionicPlatform.ready(); 
+          createController();
+          $rootScope.inAppOpenLink("127.0.0.1");
+        }));
 
-        it('should conect with iOS plataform', function() {
-
-          
-        });
-
-        it('should conect with Android plataform', function() {
-
-          
-        });
-
+        it('should, at device ready, get availability', inject(function ($ionicPlatform) {
+          $ionicPlatform.ready(); 
+          createController();
+          $rootScope.getAvailabilityScheme("facebook.com/", true);
+        }));*/
   });
 
 });
