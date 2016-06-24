@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - '5.9'
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
+script:
+  - npm test
+  - codeclimate-test-reporter < coverage/lcov.info
+  - export PR=https://api.github.com/repos/$TRAVIS_REPO_SLUG/pulls/$TRAVIS_PULL_REQUEST
+  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo `curl -s $PR | jq -r .head.ref`; fi)
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
+after_success:
+  - scripts/travis-automerge.sh
+env:
+  global:
+    secure: nRXUd7jY/FRORclPedpQCbPHXYO47xMlrIosdhGfEQ+bJzWXsEVIAWYjsrEpsgPgNCMYKwEXyNR3UQgA+uz2bEMQPsI1xvWfrtcWbV7LjhmL55flrfwrKE+1eAHgPEH/i+13W+47+Toms0wOq9yvOVBDmmvC389x1spUw40ROXN4tBIaD7oKR+mrxutY3TwXJFoVE5r/5u/xxlLTFzDaeKhTq5/iqaUxWxorNwEHJpTPtivTdinAl0zfUim0pbmf6SRhjafYAAmHIYThff/FFCAl4kAtDiUCsR5/Y99WMqUQuJZ5BWqyz9fZ5xKKhjQvtjW7HY+FnVfBB3C+5mR8vIedt7m9FlBswh5qFxLihjixLD2U6jxd9VLnUYetZhZpWk9c9FUjrBPHd5/HUq17Xt9KvoOP3fbcujB28RD1jUbeS/SUXBuHKBtqQQ8tVRTYGC39rOtj4qsHT/NdYovdYP2IqyVwNbPPgQQdzJQahi8FTkWUYhQrfl3Y7uVOwIpNHn9TD1lWFsUYB5xQMM4yIkeK6sMpVddu2+3RamF41nGM26kTNEL0ufg3v5+DfnzkOtD9F8wRl993rLQ2f8bd/N7CUqBGjq6pChgIX4+V9fp6nJo3MqJm1M3dUL7y/4ZPw0/FosXswtMncdahuqjv4AznjkWQU2rHIOjyg4T3KJI=

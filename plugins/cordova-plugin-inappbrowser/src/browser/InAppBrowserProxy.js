@@ -19,7 +19,10 @@
  *
 */
 
-var modulemapper = require('cordova/modulemapper');
+var cordova = require('cordova'),
+    channel = require('cordova/channel'),
+    modulemapper = require('cordova/modulemapper'),
+    urlutil = require('cordova/urlutil');
 
 var browserWrap,
     popup,
@@ -66,7 +69,8 @@ var IAB = {
     open: function (win, lose, args) {
         var strUrl = args[0],
             target = args[1],
-            features = args[2];
+            features = args[2],
+            url;
 
         if (target === "_self" || !target) {
             window.location = strUrl;
@@ -189,9 +193,7 @@ var IAB = {
         if (browserWrap && popup) {
             try {
                 popup.contentWindow.eval(code);
-                if (hasCallback) {
-                    win([]);
-                }
+                hasCallback && win([]);
             } catch(e) {
                 console.error('Error occured while trying to injectScriptCode: ' + JSON.stringify(e));
             }
@@ -201,25 +203,19 @@ var IAB = {
     injectScriptFile: function (win, fail, args) {
         var msg = 'Browser cordova-plugin-inappbrowser injectScriptFile is not yet implemented';
         console.warn(msg);
-        if (fail) {
-            fail(msg);
-        }
+        fail && fail(msg);
     }, 
 
     injectStyleCode: function (win, fail, args) {
         var msg = 'Browser cordova-plugin-inappbrowser injectStyleCode is not yet implemented';
         console.warn(msg);
-        if (fail) {
-            fail(msg);
-        }
+        fail && fail(msg);
     },
 
     injectStyleFile: function (win, fail, args) {
         var msg = 'Browser cordova-plugin-inappbrowser injectStyleFile is not yet implemented';
         console.warn(msg);
-        if (fail) {
-            fail(msg);
-        }
+        fail && fail(msg);
     }
 };
 

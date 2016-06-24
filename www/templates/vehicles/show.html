@@ -1,0 +1,40 @@
+<ion-view view-title="Veículo">
+  <ion-content class="padding">
+    <div class="list">
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-android-car"></i>
+        Modelo do carro
+        <i class="item-note"></i>
+        <p><strong>{{vehicle.car_model}}</strong></p>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-android-color-palette"></i>
+        Cor do carro
+        <i class="item-note"></i>
+        <p><strong>{{vehicle.color}}</strong></p>
+      </a>
+
+      <a class="item item-icon-left item-icon-right">
+        <i class="icon ion-compose"></i>
+        Descrição
+        <i class="item-note"></i>
+        <p><strong>{{vehicle.description}}</strong></p>
+      </a>
+
+      <div class="row">
+        <div class="col col-50">
+          <button class="button button-block button-balanced icon icon-left ion-android-create" ui-sref="menu.editVehicle({id: vehicle.id})">
+            <strong>Editar</strong>
+          </button>
+        </div>
+        <div class="col col-50">
+          <button class="button button-block button-assertive icon icon-left ion-android-arrow-back" ui-sref="menu.vehicles">
+            <strong>Voltar</strong>
+          </button>
+        </div>
+      </div>
+  </div>
+
+  </ion-content>
+</ion-side-menus>

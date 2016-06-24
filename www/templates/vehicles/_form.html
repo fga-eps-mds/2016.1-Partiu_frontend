@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="item item-icon-left">
+    <i class="icon ion-android-car"></i>
+
+    <input ng-model="vehicle.car_model" name="car_model" id="car_model" placeholder="Veículo" type="text" class="validate" required>
+    <span id="error" ng-show="vehicleForm.$submitted && vehicleForm.car_model.$error.required">
+      Veículo obrigatorio
+    </span>
+  </div>
+
+
+  <div class="item item-icon-left">
+    <i class="icon ion-android-color-palette"></i>
+    <input ng-model="vehicle.color" name="color" id="color" placeholder="Cor do veículo" type="text" class="validate" required>
+    <span id="error" ng-show="vehicleForm.$submitted && vehicleForm.color.$error.required">
+      Cor do veículo obrigatorio
+    </span>
+  </div>
+
+  <div class="item item-icon-left">
+    <i class="icon ion-compose"></i>
+    <textarea ng-model="vehicle.description" name="description" id="description"
+      placeholder="Descrição" ng-maxlength="100"></textarea>
+    <span id="error" ng-show="vehicleForm.$submitted && vehicleForm.description.$error.maxlength">
+      Descrição do veiculo com no máximo 100 caracteres
+    </span>
+  </div>
+</div>
+<div class="row">
+  <div class="col col-50">
+    <input type="submit" value="Salvar" style="font-weight:bold;" class="button button-block button-positive icon icon-left ion-android-checkbox-outline">
+  </div>
+  <div class="col col-50">
+    <button class="button button-block button-assertive icon icon-left ion-android-arrow-back" ui-sref="menu.profile">
+      <strong>Voltar</strong>
+    </button>
+  </div>
+</div>
