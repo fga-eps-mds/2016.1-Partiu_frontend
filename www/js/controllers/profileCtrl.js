@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
- 
+
 .controller('profileCtrl', function($scope, $state, $stateParams, $ionicHistory, Profile) {
   /*Dealings of the Ionic to clear navigation history*/
   $ionicHistory.clearHistory();
@@ -24,36 +24,34 @@ angular.module('starter.controllers')
     var schemeUrl;
 
     if (url.indexOf('facebook.com/')) {
-      if(device.platform === 'iOS') {
+      if(device && device.platform === 'iOS') {
         scheme = 'fb://';
-      }
-      else if(device.platform === 'Android') {
+      } else if(device && device.platform === 'Android') {
         scheme = 'com.facebook.katana';
       }
       schemeUrl = 'fb://facewebmodal/f?href=' + url;
     }
 
-    appAvailability.check(
-        scheme,
-        function() {
-          callback(schemeUrl);
-        },
-        function() {
-          callback(url);
-        }
+    appAvailability.check(scheme, function() {
+        callback(schemeUrl);
+      }, function() {
+        callback(url);
+      }
     );
   }
-  
+
+  $scope.schemeCallback = function(url) {
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady() {
+      window.open = cordova.InAppBrowser.open(url, '_system', 'location=yes');
+    }
+  };
+
   $scope.inAppOpenLink = function(url) {
     if (!url) {
       return
     }
 
-    $scope.getAvailabilityScheme(url, function(url) {
-      document.addEventListener("deviceready", onDeviceReady, false);
-      function onDeviceReady() {
-        window.open = cordova.InAppBrowser.open(url, '_system', 'location=yes');
-      }
-    });
-  }
+    $scope.getAvailabilityScheme(url, $scope.schemeCallback(url));
+  };
 })
